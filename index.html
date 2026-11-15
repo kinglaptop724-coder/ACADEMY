@@ -324,13 +324,13 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #lgs.fr{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
 #lgs.fl.fr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 26px,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,transparent,#000 26px,#000 calc(100% - 26px),transparent)}
 #lgs .lgt{flex:none;scroll-snap-align:center;display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:92px;padding:8px 14px 9px;border-radius:14px;border:1px solid var(--bd);background:var(--in);color:var(--tx);font:inherit;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,transform .1s}
-#lgs .lgt:hover{border-color:var(--ac)}#lgs .lgt:active{transform:scale(.97)}
-#lgs .lgn{font-size:15px;font-weight:600;line-height:1.25}
+#lgs .lgt:hover{border-color:var(--c1,var(--ac))}#lgs .lgt:active{transform:scale(.97)}
+#lgs .lgn{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:600;line-height:1.25}#lgs .lgd{width:9px;height:9px;border-radius:50%;background:var(--c1,var(--ac));flex:none}
 #lgs .lgc{font-size:11.5px;color:var(--mu);line-height:1.3;white-space:nowrap}
 #lgs .lgb{display:block;width:100%;height:3px;margin-top:6px;border-radius:3px;background:var(--bd);overflow:hidden}
-#lgs .lgb u{display:block;height:100%;border-radius:3px;background:var(--ac);text-decoration:none}
+#lgs .lgb u{display:block;height:100%;border-radius:3px;background:var(--c1,var(--ac));text-decoration:none}
 #lgs .lgt.full .lgb u{background:#d9a520}
-#lgs .lgt.on{background:linear-gradient(135deg,#a8122a,#6e0c1a);border-color:#d9a520;color:#fff;box-shadow:0 4px 14px rgba(120,15,30,.32)}
+#lgs .lgt.on{background:linear-gradient(135deg,var(--c1),var(--c2));border-color:var(--c2);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.28)}#lgs .lgt.on .lgd{background:#fff}
 #lgs .lgt.on .lgc{color:#ffe9a0}#lgs .lgt.on .lgb{background:rgba(255,255,255,.22)}#lgs .lgt.on .lgb u{background:#ffd84d}
 #ixm{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,8,10,.78)}
 #ixm.on{display:flex}
@@ -592,8 +592,8 @@ all.forEach(function(x,i){x.rk=i+1});
 var cnt={},lt={};all.forEach(function(x){if(okT(x.team)){cnt[x.team]=(cnt[x.team]||0)+1;lt[tLg(x.team)]=(lt[tLg(x.team)]||0)+1}});
 var ls=Object.keys(lt).map(Number).sort(function(a,b){return a-b}),me=all.filter(function(x){return x.id==id})[0];
 if(ls.indexOf(LG)<0)LG=(me&&okT(me.team)&&ls.indexOf(tLg(me.team))>=0)?tLg(me.team):(ls.length?ls[ls.length-1]:0);
-var lgs=$('#lgs');if(lgs){var sl0=lgs.scrollLeft,act=null;lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button'),n=lt[i],pc=Math.min(100,Math.round(n/LEAGUE_CAP*100));bt.type='button';bt.className='lgt'+(LG===i?' on':'')+(n>=LEAGUE_CAP?' full':'');bt.setAttribute('aria-pressed',LG===i?'true':'false');
-bt.innerHTML='<span class="lgn">ลีก '+(i+1)+'</span><span class="lgc">'+n+'/'+LEAGUE_CAP+' คน</span><i class="lgb"><u style="width:'+pc+'%"></u></i>';
+var lgs=$('#lgs');if(lgs){var sl0=lgs.scrollLeft,act=null,LGC=[['#d62839','#6e0c1a'],['#2f6fe0','#12338a'],['#1fa85a','#0b5a2e'],['#8a4fe0','#3d1a8a'],['#f08a1c','#9a4505'],['#1fb5ad','#0a5f5b'],['#e8528f','#8a1a4a'],['#c9971c','#6b4a05'],['#2fa8e8','#0d5a8a'],['#5b6b7e','#2a3441']];lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button'),n=lt[i],pc=Math.min(100,Math.round(n/LEAGUE_CAP*100));bt.type='button';bt.className='lgt'+(LG===i?' on':'')+(n>=LEAGUE_CAP?' full':'');bt.setAttribute('aria-pressed',LG===i?'true':'false');var cc=LGC[i%LGC.length];bt.style.cssText='--c1:'+cc[0]+';--c2:'+cc[1];
+bt.innerHTML='<span class="lgn"><i class="lgd"></i>ลีก '+(i+1)+'</span><span class="lgc">'+n+'/'+LEAGUE_CAP+' คน</span><i class="lgb"><u style="width:'+pc+'%"></u></i>';
 bt.onclick=function(){LG=i;TF=-1;drawTeams()};lgs.appendChild(bt);if(LG===i)act=bt});
 lgs.scrollLeft=sl0;
 if(!lgs._w){lgs._w=1;lgs.addEventListener('scroll',lgFade,{passive:true});window.addEventListener('resize',lgFade);
