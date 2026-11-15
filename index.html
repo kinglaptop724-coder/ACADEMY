@@ -113,7 +113,6 @@ input:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}input:disable
 <div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
 <div class="chips sm" id="lgs" style="margin:12px 0"></div>
-<div class="sheet" id="tg" style="margin-bottom:14px;max-height:none"></div>
 <div id="shl" style="font-size:13px;color:var(--mu);margin:2px 2px 8px"></div>
 <div class="sheet" id="sh"></div></div>
 </section>
@@ -312,7 +311,7 @@ Array.prototype.forEach.call(tg.querySelectorAll('tr.pk'),function(r){r.onclick=
 var q=(($('#q')||{}).value||'').trim().toLowerCase();
 var R=all.filter(function(x){if(TF>=0){if(x.team!==TF)return false}else if(!q&&!(okT(x.team)&&tLg(x.team)==LG))return false;if(!q)return true;var tn=okT(x.team)?tName(x.team).toLowerCase():'';return x.name.toLowerCase().indexOf(q)>=0||tn.indexOf(q)>=0});
 function tm(x){return okT(x.team)?'<span style="color:'+tCol(x.team)+';font-weight:600">● '+tName(x.team)+'</span>':'-'}
-var sl=$('#shl');if(sl)sl.textContent=q?'ผลการค้นหา':(TF>=0?'ผู้เล่น · '+tName(TF)+' (แตะแถวทีมซ้ำเพื่อดูทั้งลีก)':'ผู้เล่นทั้งลีก · แตะแถวทีมด้านบนเพื่อกรองรายชื่อ');
+var sl=$('#shl');if(sl)sl.textContent=q?'ผลการค้นหา':(TF>=0?'ผู้เล่น · '+tName(TF)+' (แตะแถวทีมซ้ำเพื่อดูทั้งลีก)':'ผู้เล่นทั้งลีก · แตะชื่อผู้เล่นเพื่อดูการ์ด');
 el.innerHTML=R.length?'<table><tr><th>อันดับ</th><th>ชื่อ</th><th>ทีม</th><th>ตำแหน่ง</th><th>รวม</th>'+LB.map(function(l){return '<th>'+l+'</th>'}).join('')+'</tr>'+R.map(function(x){return '<tr class="vw'+(x.id==id?' me':'')+'" data-id="'+esc(x.id)+'"><td>'+(M[x.rk-1]||x.rk)+'</td><td>'+esc(x.name)+' 🔍</td><td>'+tm(x)+'</td><td>'+esc(x.pos)+'</td><td>'+x.ovr+'</td>'+x.st.map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>':'<div style="padding:14px;font-size:13px;color:var(--mu);text-align:center">'+(all.length?'ไม่พบผู้เล่นที่ค้นหา':'ยังไม่มีข้อมูล กด “บันทึก” เพื่อเข้าสู่ตารางอันดับ')+'</div>'}
 $('#sh').onclick=function(e){var tr=e.target.closest&&e.target.closest('tr.vw');if(tr)viewCard(tr.dataset.id)};
 var vcCache={};
