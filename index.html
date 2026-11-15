@@ -194,16 +194,16 @@ else if(!ex){ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(rx,ry,rw,rh-60);ctx.se
 var dk=ctx.createLinearGradient(0,380,0,H);dk.addColorStop(0,'rgba(0,0,0,0)');dk.addColorStop(.35,'rgba(0,0,0,.45)');dk.addColorStop(1,'rgba(0,0,0,.7)');ctx.fillStyle=dk;ctx.fillRect(0,380,W,H-380);
 ctx.restore();
 ctx.save();path(.93);ctx.strokeStyle='rgba(255,226,122,.55)';ctx.lineWidth=1.2;ctx.stroke();ctx.restore();
-gt(OV(p),64,100,80,'700 82px "Barlow Condensed",Kanit');
-gt((p.pos||'').toUpperCase(),64,136,30,'600 30px "Barlow Condensed",Kanit');
-ln(30,98,148);
-var fx=39,fy=160;[['#a51931',0],['#f4f5f8',1],['#2d2a4a',2],['#f4f5f8',4],['#a51931',5]].forEach(function(s){ctx.fillStyle=s[0];ctx.fillRect(fx,fy+s[1]*4.4,50,s[1]==2?8.8:4.4)});
-ln(30,98,194);dl2(39,202,50);
+var ov3=String(OV(p)).length>2,osz=ov3?68:82;gt(OV(p),64,114,ov3?68:80,'700 '+osz+'px "Barlow Condensed",Kanit');
+gt((p.pos||'').toUpperCase(),64,150,30,'600 30px "Barlow Condensed",Kanit');
+ln(30,98,162);
+var fx=39,fy=174;[['#a51931',0],['#f4f5f8',1],['#2d2a4a',2],['#f4f5f8',4],['#a51931',5]].forEach(function(s){ctx.fillStyle=s[0];ctx.fillRect(fx,fy+s[1]*4.4,50,s[1]==2?8.8:4.4)});
+ln(30,98,208);dl2(39,216,50);
 var nm=((p.name||'').trim().replace(/\s+/g,' ')||'').toUpperCase(),sz=44,nf;ctx.save();if('letterSpacing' in ctx)ctx.letterSpacing='2px';
 do{nf='700 '+sz+'px "Barlow Condensed",Kanit';ctx.font=nf;if(ctx.measureText(nm).width<=270||sz<=10)break;sz-=1}while(1);
 gt(nm,180,415,sz,nf);ctx.restore();
 ln(40,320,428);
-for(var i=0;i<6;i++){var cx=50+52*i;ctx.save();ctx.textAlign='center';ctx.font='500 14px Kanit';ctx.fillStyle='rgba(255,233,160,.9)';ctx.fillText(LB[i],cx,454);ctx.font='700 34px "Barlow Condensed",Kanit';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4*S;ctx.shadowOffsetY=2*S;ctx.fillText(SV(p,i),cx,490);ctx.restore()}
+for(var i=0;i<6;i++){var cx=64+46.4*i;ctx.save();ctx.textAlign='center';ctx.font='500 14px Kanit';ctx.fillStyle='rgba(255,233,160,.9)';ctx.fillText(LB[i],cx,454);ctx.font='700 32px "Barlow Condensed",Kanit';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4*S;ctx.shadowOffsetY=2*S;ctx.fillText(SV(p,i),cx,490);ctx.restore()}
 dl2(165,508,30);
 }
 function recalc(p){if(!p.rev)return;p.auto=true;p.ovr=Math.max(1,Math.round(p.st.reduce(function(a,b){return a+b},0)/6))}
