@@ -163,6 +163,11 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .bkhint{position:absolute;left:0;right:0;bottom:1em;font-size:.72em;color:#ffe9a0;opacity:.85}
 .bkt.rl{clip-path:none;-webkit-clip-path:none;background:none;overflow:visible}.bkt.rl .bki{display:none}
 .bkrimg{position:absolute;left:-6.667%;top:-5.862%;width:113.333%;height:111.724%;max-width:none;pointer-events:none;opacity:0;transition:opacity .35s;-webkit-user-drag:none}.bkt.rl .bkrimg{opacity:1}
+#pt{grid-template-columns:repeat(5,1fr);gap:8px}
+.pb{border:2px solid transparent;border-radius:10px;padding:3px 3px 5px;background:var(--in);cursor:pointer;font:inherit;color:var(--tx);display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.pb canvas{width:100%;height:auto;aspect-ratio:120/132;border-radius:7px;display:block}
+.pb span{font-size:11px;line-height:1.15;text-align:center}
+.pb.on{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}
 #bks{position:relative}
 .bki::after{content:"";position:absolute;left:50%;top:42%;width:2.2em;height:2.2em;margin:-1.1em 0 0 -1.1em;border-radius:50%;border:.22em solid rgba(255,226,122,.3);border-top-color:#ffd54a;opacity:0;animation:bksp .8s linear infinite}
 .bkt.ld .bki::after{opacity:1}@keyframes bksp{to{transform:rotate(360deg)}}
@@ -187,7 +192,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
 <label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>เลือกรูปแล้วระบบจะถามว่าจะลบพื้นหลังไหม จากนั้นลากครอปส่วนที่ต้องการ</small></span></label>
 <div id="adj"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><button class="ghost" id="crb">⬚ ครอปรูป</button><button class="ghost" id="bgb" style="display:none">✂ ลบพื้นหลัง</button><button class="ghost" id="bgr" style="display:none">↺ ใช้รูปต้นฉบับ</button><button class="ghost danger" id="rm" style="margin:0 0 0 auto">ลบรูปนี้</button></div></div></div>
-<div class="card"><div class="ch"><span class="n">3</span>สีการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div></div>
+<div class="card"><div class="ch"><span class="n">3</span>สีและลวดลายการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div><div class="lb" style="margin:16px 0 8px;font-size:14px;font-weight:600">ลวดลายพื้นหลังการ์ด</div><div class="th" id="pt"></div></div>
 <div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
 <button class="bkbtn" id="bko" type="button" style="margin-bottom:12px"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>ดูสมุดสะสมการ์ดนักเตะ (พลิกหน้าได้)</button>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
@@ -213,7 +218,7 @@ var P=[[0,46],[38,22],[132,22],[152,8],[164,0],[196,0],[208,8],[228,22],[322,22]
 var TH={red:{b:['#e0253b', '#9c0f23', '#4d0614', '#26030a'],g:['#fff6c2','#ffd54a','#c98d0a']},navy:{b:['#2f55d8', '#17308a', '#0b1647', '#050a22'],g:['#fff6c2','#ffd54a','#c98d0a']},black:{b:['#4a4a4a', '#262626', '#121212', '#050505'],g:['#fff6c2','#ffd54a','#c98d0a']},green:{b:['#2fb36a', '#14793f', '#094022', '#03200f'],g:['#fff6c2','#ffd54a','#c98d0a']},purple:{b:['#8a4fe0', '#5a25a8', '#2c1060', '#14062e'],g:['#fff6c2','#ffd54a','#c98d0a']},orange:{b:['#f08a1c', '#b8530a', '#5c2605', '#2a1002'],g:['#fff6c2','#ffd54a','#c98d0a']},pink:{b:['#f0568f', '#b01e5c', '#5a0c30', '#2a0415'],g:['#fff6c2','#ffd54a','#c98d0a']},teal:{b:['#1fb5ad', '#0f7a78', '#07403f', '#031f20'],g:['#fff6c2','#ffd54a','#c98d0a']},brown:{b:['#a8693a', '#6e3d1c', '#3a1d0b', '#1c0d04'],g:['#fff6c2','#ffd54a','#c98d0a']},sky:{b:['#2fa8e8', '#136aa3', '#0a3556', '#04182a'],g:['#fff6c2','#ffd54a','#c98d0a']},wine:{b:['#8c1d40', '#541029', '#2a0815', '#12040a'],g:['#fff6c2','#ffd54a','#c98d0a']},yellow:{b:['#f2c21b', '#b88a00', '#5c4300', '#2b1f00'],g:['#fff6c2','#ffd54a','#c98d0a']},silver:{b:['#9aa3ad', '#5f6872', '#2f353d', '#14171b'],g:['#fff6c2','#ffd54a','#c98d0a']},lime:{b:['#8cc82a', '#52861a', '#2a4a0b', '#122305'],g:['#fff6c2','#ffd54a','#c98d0a']},indigo:{b:['#5b4be0', '#3425a8', '#180f5e', '#090535'],g:['#fff6c2','#ffd54a','#c98d0a']},magenta:{b:['#d63bd0', '#962090', '#4c0b49', '#230322'],g:['#fff6c2','#ffd54a','#c98d0a']},coral:{b:['#ff7a5c', '#c24427', '#64200e', '#2e0d05'],g:['#fff6c2','#ffd54a','#c98d0a']},olive:{b:['#9a9a2e', '#686815', '#35350a', '#181804'],g:['#fff6c2','#ffd54a','#c98d0a']},mint:{b:['#4fd8a8', '#1f9a74', '#0e4f3b', '#06261c'],g:['#fff6c2','#ffd54a','#c98d0a']},slate:{b:['#5f7a99', '#3b536e', '#1c2b3b', '#0b121a'],g:['#fff6c2','#ffd54a','#c98d0a']}};
 var LB=['เร็ว','เลี้ยง','ยิง','รับ','จ่าย','แกร่ง'],KEY='fc_roster_v1',T=TH.red,roster=[],ci=0,imgs={};
 function rs(){return [0,0,0,0,0,0].map(function(){return 60+Math.floor(Math.random()*36)})}
-function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos:'CM',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',auto:true,photo:'',zoom:100,ox:0,oy:0}}
+function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos:'CM',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',pat:'flame',auto:true,photo:'',zoom:100,ox:0,oy:0}}
 try{localStorage.removeItem(KEY)}catch(e){}roster=[];/* เริ่มว่างทุกครั้ง: ล้างข้อมูลที่เคยค้างในเครื่อง ไม่โหลดกลับมา */
 if(!roster.length)roster=[mk()];
 function cur(){return roster[ci]}
@@ -233,9 +238,35 @@ function startSpin(){if(window.fxShine)fxShine();spin=1;clearInterval(spinT);spi
 function stopSpin(){spin=0;clearInterval(spinT);spinT=null}
 function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
 function hasA(im){if(im.__a!=null)return im.__a;var c=document.createElement('canvas');c.width=c.height=24;var x=c.getContext('2d');x.drawImage(im,0,0,24,24);var d=x.getImageData(0,0,24,24).data,r=false;for(var i=3;i<d.length;i+=4)if(d[i]<245){r=true;break}return im.__a=r}
+
+/* ---------- ลวดลายพื้นหลังการ์ด (เลือกได้) ---------- */
+var PATS=[['flame','เปลวไฟ'],['plain','เรียบ'],['stripes','ลายเฉียง'],['hex','รังผึ้ง'],['diamond','ข้าวหลามตัด'],['stars','ดาวระยิบ'],['bolt','สายฟ้า'],['waves','คลื่น'],['rings','วงแหวน'],['pitch','สนามบอล']],PTT='';
+function patName(id){for(var i=0;i<PATS.length;i++)if(PATS[i][0]===id)return PATS[i][1];return PATS[0][1]}
+function patDraw(c,id,g){g=g||1;var L='255,214,110',D='0,0,0',i,j,k,x,y;
+function rg(a){return 'rgba('+L+','+Math.min(1,a*g)+')'}function dk(a){return 'rgba('+D+','+Math.min(1,a*g)+')'}
+c.save();
+if(id==='plain'){}
+else if(id==='stripes'){for(k=0,x=-300;x<420;x+=46,k++){c.fillStyle=k%2?dk(.09):rg(.11);c.beginPath();c.moveTo(x,0);c.lineTo(x+23,0);c.lineTo(x+23-200,580);c.lineTo(x-200,580);c.closePath();c.fill()}}
+else if(id==='hex'){var r=24,dx=r*1.7321,dy=r*1.5,rr=r-1.6;for(j=-1;j<=Math.ceil(600/dy);j++)for(i=-1;i<=Math.ceil(380/dx);i++){x=i*dx+(j&1?dx/2:0);y=j*dy;c.beginPath();for(k=0;k<6;k++){var an=Math.PI/180*(60*k-30);k?c.lineTo(x+rr*Math.cos(an),y+rr*Math.sin(an)):c.moveTo(x+rr*Math.cos(an),y+rr*Math.sin(an))}c.closePath();c.lineWidth=1.2;c.strokeStyle=rg(.17);c.stroke();if(((i*7+j*13)%6+6)%6===0){c.fillStyle=rg(.1);c.fill()}else if(((i*5+j*11)%7+7)%7===0){c.fillStyle=dk(.09);c.fill()}}}
+else if(id==='diamond'){var s2=40;c.lineWidth=1.2;c.strokeStyle=rg(.16);for(k=-20;k<26;k++){c.beginPath();c.moveTo(k*s2,0);c.lineTo(k*s2+640,640);c.moveTo(k*s2,0);c.lineTo(k*s2-640,640);c.stroke()}
+for(i=-14;i<=26;i++)for(j=-26;j<=14;j++){x=(i+j+1)*s2/2;y=(i-j)*s2/2;if(x<-20||x>380||y<-20||y>600)continue;var f=((i*3+j*5)%7+7)%7===0?rg(.1):(((i*2+j*7)%9+9)%9===0?dk(.1):'');if(!f)continue;c.fillStyle=f;c.beginPath();c.moveTo(x,y-s2/2);c.lineTo(x+s2/2,y);c.lineTo(x,y+s2/2);c.lineTo(x-s2/2,y);c.closePath();c.fill()}}
+else if(id==='stars'){[[48,70,18],[300,60,12],[322,170,21],[36,190,10],[112,112,7],[252,122,8],[60,300,23],[310,282,14],[192,50,9],[132,330,10],[282,362,8],[30,402,13],[332,424,10],[92,58,5],[205,255,6]].forEach(function(t){var X=t[0],Y=t[1],R=t[2];c.fillStyle=rg(.5);c.beginPath();c.moveTo(X,Y-R);c.quadraticCurveTo(X,Y,X+R,Y);c.quadraticCurveTo(X,Y,X,Y+R);c.quadraticCurveTo(X,Y,X-R,Y);c.quadraticCurveTo(X,Y,X,Y-R);c.fill()});
+[[160,150],[220,210],[80,250],[200,300],[340,110],[20,120],[260,40],[150,400],[310,350]].forEach(function(t){c.beginPath();c.arc(t[0],t[1],2.4,0,7);c.fillStyle=rg(.4);c.fill()})}
+else if(id==='bolt'){[[60,100,1.7,.34,L],[300,60,1.1,.3,L],[328,290,1.9,.24,D],[40,320,1.4,.26,D],[250,230,1,.2,L],[150,330,1.2,.22,L],[210,40,.8,.2,D]].forEach(function(t){var P2=[[0,0],[-14,38],[-2,38],[-12,80],[18,28],[4,28],[14,0]];c.fillStyle='rgba('+t[4]+','+Math.min(1,t[3]*g)+')';c.beginPath();P2.forEach(function(q,n){n?c.lineTo(t[0]+q[0]*t[2],t[1]+q[1]*t[2]):c.moveTo(t[0]+q[0]*t[2],t[1]+q[1]*t[2])});c.closePath();c.fill()})}
+else if(id==='waves'){c.lineWidth=2.8;for(k=0,j=30;j<600;j+=30,k++){c.beginPath();for(x=0;x<=360;x+=6){y=j+7*Math.sin(x/26+j/17);x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=k%2?rg(.27):dk(.17);c.stroke()}}
+else if(id==='rings'){for(k=0,j=30;j<580;j+=34,k++){c.beginPath();c.arc(180,190,j,0,7);c.lineWidth=k%2?1.6:3.4;c.strokeStyle=rg(.26);c.stroke()}}
+else if(id==='pitch'){for(k=0,y=0;y<580;y+=58,k++){if(k%2){c.fillStyle=rg(.09);c.fillRect(0,y,360,58)}}
+c.strokeStyle=rg(.36);c.lineWidth=2.6;c.beginPath();c.moveTo(0,300);c.lineTo(360,300);c.stroke();c.beginPath();c.arc(180,300,62,0,7);c.stroke();c.beginPath();c.arc(180,300,3.5,0,7);c.fillStyle=rg(.3);c.fill();
+c.strokeRect(60,-20,240,120);c.strokeRect(115,-20,130,45);c.strokeRect(60,500,240,120);c.strokeRect(115,555,130,45);c.beginPath();c.arc(180,78,52,.6,Math.PI-.6);c.stroke();c.beginPath();c.arc(180,522,52,Math.PI+.6,2*Math.PI-.6);c.stroke()}
+else{function fl(x,y,k,r,col,al){c.save();c.translate(x,y);c.rotate(r);c.scale(k,k);c.beginPath();c.moveTo(0,0);c.bezierCurveTo(-34,-26,-22,-64,8,-100);c.bezierCurveTo(6,-58,42,-46,36,-16);c.bezierCurveTo(34,6,14,14,0,0);c.closePath();c.fillStyle='rgba('+col+','+Math.min(1,al*g)+')';c.fill();c.restore()}
+fl(40,330,2.6,-.15,L,.38);fl(20,250,1.6,.25,D,.28);fl(100,300,1.8,.1,L,.3);fl(70,170,1.2,-.3,D,.22);
+fl(330,340,2.5,.18,L,.2);fl(345,240,1.5,-.2,D,.16);fl(270,310,1.7,-.1,L,.16);fl(300,150,1.1,.3,L,.14);fl(230,90,.9,-.1,D,.1);fl(140,70,1,.2,L,.14);
+[[120,120,5],[290,95,4],[60,300,5],[310,260,6],[200,60,3],[90,230,3],[250,200,4]].forEach(function(d){c.beginPath();c.arc(d[0],d[1],d[2],0,7);c.fillStyle=rg(.35);c.fill()})}
+c.restore()}
+function patThumbs(){document.querySelectorAll('#pt .pb canvas').forEach(function(cn){var c=cn.getContext('2d'),k=cn.width/360,h=cn.height/k;c.setTransform(k,0,0,k,0,0);c.clearRect(0,0,360,h);var g=c.createRadialGradient(.72*W,.22*H,0,.72*W,.22*H,H);[0,.4,.8,1].forEach(function(s,i){g.addColorStop(s,T.b[i])});c.fillStyle=g;c.fillRect(0,0,360,h);c.save();c.beginPath();c.rect(0,0,360,h);c.clip();patDraw(c,cn.parentNode.dataset.p,1.7);c.restore()})}
 function render(ex){
-var p=cur();T=TH[p.theme]||TH.red;var dd=$('#dl');if(dd){dd.disabled=!p.rev;dd.title=p.rev?'':'ต้องกดบันทึกการ์ดก่อน'}var tn=$('#thn');if(tn){var q=TN.filter(function(x){return x[0]==p.theme})[0]||TN[0];tn.textContent='สีที่เลือก: '+q[1]}
-ctx.setTransform(S,0,0,S,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.translate(MX,MY);
+var p=cur();T=TH[p.theme]||TH.red;var dd=$('#dl');if(dd){dd.disabled=!p.rev;dd.title=p.rev?'':'ต้องกดบันทึกการ์ดก่อน'}var tn=$('#thn');if(tn){var q=TN.filter(function(x){return x[0]==p.theme})[0]||TN[0];tn.textContent='สีที่เลือก: '+q[1]+' · ลวดลาย: '+patName(p.pat||'flame')}if(PTT!==p.theme){PTT=p.theme;patThumbs()}
+ctx.setTransform(S,0,0,S,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.translate(MX,MY);ctx.textAlign='left';ctx.textBaseline='alphabetic';if('letterSpacing' in ctx)ctx.letterSpacing='0px';
 ctx.save();ctx.strokeStyle='#ffd54a';ctx.lineWidth=1.2;[[1.1,.3],[1.05,.55]].forEach(function(o){path(o[0]);ctx.globalAlpha=o[1];ctx.stroke()});ctx.restore();
 ctx.save();ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=24*S;ctx.shadowOffsetY=12*S;path(1);var g=ctx.createLinearGradient(0,0,W,H);[[0,'#fff1a8'],[.35,'#d9a520'],[.6,'#8a5a00'],[1,'#ffe27a']].forEach(function(a){g.addColorStop(a[0],a[1])});ctx.fillStyle=g;ctx.fill();ctx.restore();
 path(.965);g=ctx.createRadialGradient(.72*W,.22*H,0,.72*W,.22*H,H);[0,.4,.8,1].forEach(function(s,i){g.addColorStop(s,T.b[i])});ctx.fillStyle=g;ctx.fill();
@@ -243,12 +274,8 @@ ctx.save();path(.965);ctx.clip();
 [[150,40,.1],[262,16,.06],[40,24,.05]].forEach(function(b){ctx.fillStyle='rgba(255,235,150,'+b[2]+')';ctx.beginPath();ctx.moveTo(b[0],0);ctx.lineTo(b[0]+b[1],0);ctx.lineTo(b[0]+b[1]-230,H);ctx.lineTo(b[0]-230,H);ctx.fill()});
 dl2(55,150,250,.07);
 (function(){
-function fl(x,y,k,r,c,al){ctx.save();ctx.translate(x,y);ctx.rotate(r);ctx.scale(k,k);ctx.beginPath();ctx.moveTo(0,0);ctx.bezierCurveTo(-34,-26,-22,-64,8,-100);ctx.bezierCurveTo(6,-58,42,-46,36,-16);ctx.bezierCurveTo(34,6,14,14,0,0);ctx.closePath();ctx.fillStyle='rgba('+c+','+al+')';ctx.fill();ctx.restore()}
 var gl=ctx.createRadialGradient(180,170,0,180,170,300);gl.addColorStop(0,'rgba(255,224,130,.38)');gl.addColorStop(.55,'rgba(255,190,80,.12)');gl.addColorStop(1,'rgba(255,190,80,0)');ctx.fillStyle=gl;ctx.fillRect(0,0,W,H);
-var L='255,214,110',D='0,0,0';
-fl(40,330,2.6,-.15,L,.38);fl(20,250,1.6,.25,D,.28);fl(100,300,1.8,.1,L,.3);fl(70,170,1.2,-.3,D,.22);
-fl(330,340,2.5,.18,L,.2);fl(345,240,1.5,-.2,D,.16);fl(270,310,1.7,-.1,L,.16);fl(300,150,1.1,.3,L,.14);fl(230,90,.9,-.1,D,.1);fl(140,70,1,.2,L,.14);
-[[120,120,5],[290,95,4],[60,300,5],[310,260,6],[200,60,3],[90,230,3],[250,200,4]].forEach(function(d){ctx.beginPath();ctx.arc(d[0],d[1],d[2],0,7);ctx.fillStyle='rgba(255,214,110,.35)';ctx.fill()});
+patDraw(ctx,p.pat||'flame');
 var hz=ctx.createLinearGradient(0,300,0,420);hz.addColorStop(0,'rgba(255,200,90,0)');hz.addColorStop(.5,'rgba(255,200,90,.28)');hz.addColorStop(1,'rgba(255,200,90,0)');ctx.fillStyle=hz;ctx.fillRect(0,300,W,120);
 var cb=ctx.createLinearGradient(0,0,0,270);cb.addColorStop(0,'rgba(0,0,0,.22)');cb.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=cb;ctx.beginPath();ctx.moveTo(26,40);ctx.lineTo(104,40);ctx.lineTo(104,230);ctx.lineTo(65,270);ctx.lineTo(26,230);ctx.closePath();ctx.fill();
 })();
@@ -271,7 +298,7 @@ var nm=((p.name||'').trim().replace(/\s+/g,' ')||'ชื่อของท่า
 do{nf='700 '+sz+'px "Barlow Condensed",Kanit';ctx.font=nf;if(ctx.measureText(nm).width<=270||sz<=10)break;sz-=1}while(1);
 gt(nm,180,415,sz,nf);ctx.restore();
 ln(40,320,428);
-for(var i=0;i<6;i++){var cx=64+46.4*i;ctx.save();ctx.textAlign='center';ctx.font='500 14px Kanit';ctx.fillStyle='rgba(255,233,160,.9)';ctx.fillText(LB[i],cx,454);ctx.font='700 32px "Barlow Condensed",Kanit';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4*S;ctx.shadowOffsetY=2*S;ctx.fillText(SV(p,i),cx,490);ctx.restore()}
+for(var i=0;i<6;i++){var cx=64+46.4*i;ctx.save();ctx.textAlign='center';ctx.textBaseline='alphabetic';if('letterSpacing' in ctx)ctx.letterSpacing='0px';ctx.font='500 14px Kanit';ctx.fillStyle='rgba(255,233,160,.9)';ctx.fillText(LB[i],cx,454);ctx.font='700 32px "Barlow Condensed",Kanit';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4*S;ctx.shadowOffsetY=2*S;ctx.fillText(SV(p,i),cx,490);ctx.restore()}
 dl2(165,508,30);
 }
 function recalc(p){if(!p.rev)return;p.auto=true;p.ovr=Math.max(1,Math.round(p.st.reduce(function(a,b){return a+b},0)/6))}
@@ -283,9 +310,11 @@ function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;syncOvr();
 
 document.querySelectorAll('#pos .pt').forEach(function(b){b.className='pt'+(b.dataset.c==(p.pos||'').toUpperCase()?' on':'')});
 document.querySelectorAll('#th .tb').forEach(function(b){b.className='tb'+(b.dataset.t==p.theme?' on':'')});
+document.querySelectorAll('#pt .pb').forEach(function(b){b.className='pb'+(b.dataset.p==(p.pat||'flame')?' on':'')});
 var h=!!p.photo;$('#adj').style.display=h?'block':'none';$('#phc').style.display=h?'':'none';var nn=0;Array.prototype.forEach.call(document.querySelectorAll('.card .ch .n'),function(e){if(e.closest('.card').style.display!=='none')e.textContent=++nn});var t=$('#thm');t.style.display=h?'block':'none';if(h)t.src=p.photo;$('#dt').textContent=h?'เปลี่ยนรูป':'เลือกรูป หรือลากรูปมาวาง';bgUi(p);if(h){$('#pherr').style.display='none';$('#cw').style.outline=''}fillList();drawTeams()}
 POS.forEach(function(v){var b=document.createElement('button');b.className='pt';b.dataset.c=v[0];b.innerHTML='<b>'+v[1]+'</b><small>'+v[0]+'</small>';b.onclick=function(){cur().pos=v[0];document.querySelectorAll('#pos .pt').forEach(function(x){x.className='pt'+(x==b?' on':'')});upd()};$('#pos').appendChild(b)});
 TN.forEach(function(t){var b=document.createElement('button');b.className='tb';b.dataset.t=t[0];b.title=t[1];b.setAttribute('aria-label',t[1]);b.innerHTML='<i style="background:linear-gradient(135deg,'+t[2]+')"></i>'+t[1];b.onclick=function(){cur().theme=t[0];document.querySelectorAll('#th .tb').forEach(function(x){x.className='tb'+(x==b?' on':'')});upd()};$('#th').appendChild(b)});
+PATS.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='pb';b.dataset.p=t[0];b.title=t[1];b.setAttribute('aria-label','ลวดลาย'+t[1]);b.innerHTML='<canvas width="120" height="132"></canvas><span>'+t[1]+'</span>';b.onclick=function(){cur().pat=t[0];document.querySelectorAll('#pt .pb').forEach(function(x){x.className='pb'+(x==b?' on':'')});upd()};$('#pt').appendChild(b)});patThumbs();
 
 $('#name').oninput=function(){cur().name=this.value;upd()};
 
@@ -537,7 +566,7 @@ p.st=r.st;p.ovr=r.ovr;p.rev=true;p.team=r.team;LG=-1;TF=-1;p.saved=r.t||Date.now
 stopSpin();save();render();fillList();svStep(0,'ok');
 stp=1;svStep(1,'act');await Promise.race([autoDl(),wait(8000)]);svStep(1,'ok');
 var tn=tName(r.team),warn='';
-if(gas){stp=2;svStep(2,'act');render(true);var png=cv.toDataURL('image/png');render(false);
+if(gas){stp=2;svStep(2,'act');try{if(document.fonts&&document.fonts.load)await Promise.all([document.fonts.load('500 14px Kanit','เร็วเลี้ยงยิงรับจ่ายแกร่ง'),document.fonts.load('700 44px Kanit',p.name||'ก'),document.fonts.load('700 32px "Barlow Condensed"','0123456789')])}catch(_){}render(true);var png=cv.toDataURL('image/png');render(false);
 try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');warn='บันทึกข้อมูลแล้ว แต่เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ'}
 refresh()}else drawTeams();
 toast(gas?'บันทึกแล้ว · '+tn:'บันทึกในเครื่องแล้ว · '+tn);
