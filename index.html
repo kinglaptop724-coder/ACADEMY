@@ -503,14 +503,15 @@ function drawMatches(){var c=$('#mc');if(!c)return;var m=MATCH,L=(m&&m.matches)?
 function renum(){var nn=0;Array.prototype.forEach.call(document.querySelectorAll('.card .ch .n'),function(e){if(e.closest('.card').style.display!=='none')e.textContent=++nn})}
 if(!L.length){c.style.display='none';renum();return}
 var mt=okT(cur().team)?cur().team:-2;
-function nm(n){return 'ทีม '+LET.charAt(n%LEAGUE_TEAMS)}
+var cp={};rows().forEach(function(x){if(!okT(x.team))return;var c=cp[x.team];if(!c||x.ovr>c.ovr||(x.ovr===c.ovr&&(x.t||0)<(c.t||0)))cp[x.team]=x});
+function nm(n){var l=LET.charAt(n%LEAGUE_TEAMS);return cp[n]?esc(cp[n].name)+' <small style=\"opacity:.6;font-weight:400\">'+l+'</small>':'ทีม '+l}
 function dot(n){return '<span style="color:'+tCol(n)+'">●</span> '}
 var h='';L.forEach(function(x){
 if(x.r==='พักรอบ'){h+='<div class="mt by'+(x.h===mt?' me':'')+'"><span class="tm">'+dot(x.h)+nm(x.h)+' พักรอบนี้ (ไม่มีคู่แข่ง)</span></div>';return}
 var hw=x.hs>x.as,aw=x.as>x.hs;
 h+='<div class="mt'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+(hw?'<span class="up">+1</span>':'')+nm(x.h)+' '+dot(x.h)+'</span><span class="sc">'+x.hs+' - '+x.as+'</span><span class="tm'+(aw?' w':'')+'">'+dot(x.a)+nm(x.a)+(aw?'<span class="up">+1</span>':'')+'</span></div>'});
 $('#ml').innerHTML=h;$('#mrn').textContent=m.round;
-var nx=new Date(m.next);$('#mnx').textContent='ทีมที่ชนะได้ค่าพลังทุกด้าน +1 (เสมอไม่เพิ่ม) แล้วจัดอันดับใหม่ · '+(m.next>Date.now()?'แข่งรอบต่อไป '+nx.toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'แข่งรอบใหม่เร็ว ๆ นี้');
+var nx=new Date(m.next);$('#mnx').textContent='ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ทีมที่ชนะได้ค่าพลังทุกด้าน +1 (เสมอไม่เพิ่ม) แล้วจัดอันดับใหม่ · '+(m.next>Date.now()?'แข่งรอบต่อไป '+nx.toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'แข่งรอบใหม่เร็ว ๆ นี้');
 c.style.display='';renum()}
 var vcCache={},vcTok=0;
 function viewCard(id){var x=rows().filter(function(r){return r.id==id})[0];if(!x)return;
