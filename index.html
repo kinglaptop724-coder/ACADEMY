@@ -770,9 +770,9 @@ if(!x){g.fillStyle='rgba(255,255,255,.6)';g.fill();cp(cx,cy,.93);g.fillStyle='rg
 else{var f=fit(s[0],pc(x)),e=Math.round(x.ovr*f),gg=g.createLinearGradient(cx-cw/2,top,cx+cw/2,top+ch);[[0,'#fff1a8'],[.4,'#d9a520'],[.65,'#8a5a00'],[1,'#ffe27a']].forEach(function(a){gg.addColorStop(a[0],a[1])});g.fillStyle=gg;g.fill();
 cp(cx,cy,.93);var rg=g.createRadialGradient(cx+cw*.22,top+ch*.22,0,cx+cw*.22,top+ch*.22,ch);[0,.4,.8,1].forEach(function(o,n){rg.addColorStop(o,t[n])});g.fillStyle=rg;g.fill();
 g.save();cp(cx,cy,.93);g.clip();var dg=g.createLinearGradient(0,top+ch*.52,0,top+ch);dg.addColorStop(0,'rgba(0,0,0,0)');dg.addColorStop(1,'rgba(0,0,0,.6)');g.fillStyle=dg;g.fillRect(cx-cw,top+ch*.52,cw*2,ch*.5);g.restore();
-g.textAlign='center';var lx=cx-cw/2+cw*.23;g.fillStyle='#ffd54a';g.font='700 '+Math.round(cw*.2)+'px "Barlow Condensed"';g.fillText(String(e),lx,top+ch*.09+cw*.17);
-g.fillStyle='#fff6c2';g.font='600 '+Math.round(cw*.1)+'px "Barlow Condensed"';g.fillText(pc(x),lx,top+ch*.32+cw*.1);
-var n2=String(x.name).toUpperCase(),z=Math.round(cw*.13);do{g.font='600 '+z+'px Kanit';z--}while(g.measureText(n2).width>cw*.82&&z>9);g.fillStyle='#ffe9a0';g.fillText(n2,cx,top+ch*.76);
+g.textAlign='center';var lx=cx-cw/2+cw*.23,os=Math.round(cw*.485),ps=Math.round(cw*.218);g.fillStyle='#ffd54a';g.font='700 '+os+'px "Barlow Condensed"';g.fillText(String(e),lx,top+ch*.08+os*.8);
+g.fillStyle='#fff6c2';g.font='600 '+ps+'px "Barlow Condensed"';g.fillText(pc(x),lx,top+ch*.40+ps*.85);
+var n2=String(x.name).toUpperCase(),z=Math.round(cw*.2);do{g.font='600 '+z+'px Kanit';z--}while(g.measureText(n2).width>cw*.88&&z>9);g.fillStyle='#ffe9a0';g.fillText(n2,cx,top+ch*.79-z*.15);
 if(f<1){g.fillStyle='#0a2a1a';g.strokeStyle='#ffd54a';g.lineWidth=3;g.beginPath();g.arc(cx+cw/2-4,top+10,17,0,7);g.fill();g.stroke();g.fillStyle='#ffd54a';g.font='700 22px Kanit';g.fillText('!',cx+cw/2-4,top+18)}}
 var rw=84,rh=34,rx=cx-rw/2,ry=cy+ch/2+10;g.fillStyle='#0a2a1a';g.strokeStyle='#ffd54a';g.lineWidth=2.5;g.beginPath();if(g.roundRect)g.roundRect(rx,ry,rw,rh,17);else g.rect(rx,ry,rw,rh);g.fill();g.stroke();
 g.fillStyle='#ffe9a0';g.font='500 22px Kanit';g.textAlign='center';g.fillText(s[0],cx,ry+25)});
