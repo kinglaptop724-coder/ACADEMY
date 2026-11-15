@@ -255,20 +255,55 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <meta name="theme-color" content="#0b4f8a">
 <style>
 #adm{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(20,8,10,.78)}
-#adm .bgb{position:relative;display:block;max-width:560px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:auto;text-align:left}
-#adm h3{margin:0 40px 10px 0;font-size:17px}
-#adm .ax{position:absolute;top:10px;right:10px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(0,0,0,.08);color:var(--tx);font-size:17px;cursor:pointer}
-#adm input,#adm select{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--in);color:var(--tx);font:inherit;font-size:15px}
-#adm label{display:block;font-size:12px;color:var(--mu);margin:8px 0 3px}
-#adm .ab{padding:11px 14px;border:0;border-radius:11px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer}
-#adm .ab.alt{background:none;border:1.5px solid var(--ac);color:var(--ac)}
+#adm .bgb{position:relative;display:flex;flex-direction:column;padding:0;width:100%;max-width:560px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:hidden;text-align:left;border-radius:20px;border:1.5px solid #d9a520}
+#adc{display:flex;flex-direction:column;min-height:0;flex:1}
+#adm svg{display:block;flex:none}
+#adm .ax{position:absolute;top:11px;right:12px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+#adm .ax:hover{background:rgba(255,255,255,.28)}
+#adm .ah{flex:none;display:flex;align-items:center;gap:10px;padding:14px 58px 14px 16px;min-height:60px;box-sizing:border-box;background:linear-gradient(120deg,#6e0c1a,#a8122a 60%,#7a0f1c);color:#fff}
+#adm .ah>svg{color:#ffd84d}
+#adm .ah h3{margin:0;padding:0;font-size:17px;font-weight:600;flex:1;min-width:0;line-height:1.3}
+#adm .cn{flex:none;font-size:12px;background:rgba(255,255,255,.16);border-radius:999px;padding:3px 11px;color:#ffe9a0}
+#adm .bk{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#ffd84d;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+#adm .bk:hover{background:rgba(255,255,255,.28)}
+#adm .tl{flex:none;display:grid;grid-template-columns:1fr 128px;gap:8px;padding:12px 14px;background:var(--pn);border-bottom:1px solid var(--bd)}
+#adm .sx{position:relative}#adm .sx svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mu);pointer-events:none}#adm .sx input{padding-left:38px}
+#adm input,#adm select{width:100%;box-sizing:border-box;height:42px;padding:0 12px;border:1px solid var(--bd);border-radius:11px;background:var(--in);color:var(--tx);font:inherit;font-size:15px}
+#adm input:focus,#adm select:focus{outline:2px solid var(--ac);outline-offset:-1px;border-color:transparent}
+#adm label{display:block;font-size:12px;color:var(--mu);margin:10px 0 4px}
+#adm .abd{flex:1;min-height:0;overflow:auto;padding:12px 14px;background:var(--pn)}
+#adm .ar{display:flex;align-items:center;gap:10px;padding:10px;margin-bottom:8px;border:1px solid var(--bd);border-radius:14px;background:var(--in)}
+#adm .rk{flex:none;width:24px;text-align:center;font-size:13px;font-weight:600;color:var(--mu)}
+#adm .ar .i{flex:1;min-width:0}
+#adm .nm{display:block;font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#adm .ar small{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:4px;font-size:12px;color:var(--mu)}
+#adm .pp{background:var(--ac2);color:var(--ac);font-weight:600;border-radius:6px;padding:1px 7px;font-size:11px;letter-spacing:.4px}
+#adm .tc{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}#adm .tc i{width:8px;height:8px;border-radius:50%;display:inline-block}
+#adm .ov{flex:none;width:46px;text-align:center;border-radius:11px;background:var(--ac);color:#fff;padding:5px 0 4px;line-height:1.1}
+#adm .ov b{display:block;font-size:17px;font-weight:700}#adm .ov em{font-style:normal;font-size:9px;opacity:.85}
+#adm .ib{flex:none;width:36px;height:36px;border-radius:10px;border:1px solid var(--bd);background:var(--pn);color:var(--ac);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+#adm .ib:hover{background:var(--ac2)}#adm .ib:active{transform:scale(.94)}
+#adm .ib.dl{color:var(--mu)}#adm .ib.dl:hover{color:#d62839;background:rgba(214,40,57,.1);border-color:rgba(214,40,57,.35)}
+#adm .af{flex:none;padding:10px 14px;background:var(--pn);border-top:1px solid var(--bd)}
+#adm .ae{color:#d62839;font-size:13px;min-height:0;margin:0 0 6px}#adm .ae:empty{display:none}
+#adm .fr{display:flex;gap:8px;align-items:center}
+#adm .ab{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;height:42px;padding:0 14px;border:0;border-radius:11px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer}
+#adm .ab.alt{background:none;border:1.5px solid var(--bd);color:var(--tx)}#adm .ab.alt:hover{background:var(--in)}
 #adm .ab[disabled]{opacity:.55}
-#adm .ae{color:#d62839;font-size:13px;min-height:18px;margin-top:8px}
-#adm .ar{display:flex;align-items:center;gap:8px;padding:9px 4px;border-bottom:1px solid var(--bd)}
-#adm .ar .i{flex:1;min-width:0}#adm .ar b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#adm .ar small{color:var(--mu);font-size:12px}
-#adm .ar button{flex:none;width:38px;height:38px;border:1px solid var(--bd);border-radius:10px;background:var(--in);color:var(--tx);font-size:16px;cursor:pointer}
+#adm .nn{flex:1;font-size:12px;color:var(--mu)}
+#adm .ab.sm{flex:none;height:38px;font-size:13px;padding:0 12px}
+#adm .sc{background:var(--in);border:1px solid var(--bd);border-radius:14px;padding:4px 12px 12px;margin-bottom:10px}
+#adm .sc h4{margin:10px 0 0;font-size:13px;font-weight:600;color:var(--ac);display:flex;align-items:center;justify-content:space-between}
 #adm .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}#adm .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+#adm .ovp{background:var(--ac);color:#fff;border-radius:999px;padding:2px 12px;font-size:12px;font-weight:600}
+#adm .stt{background:var(--pn);border:1px solid var(--bd);border-radius:12px;padding:8px 8px 8px;text-align:center}
+#adm .stt label{margin:0 0 4px;font-size:12px}
+#adm .stt input{text-align:center;font-size:20px;font-weight:600;height:40px;padding:0;background:var(--in)}
+#adm .lg{padding:26px 18px 10px;text-align:center}
+#adm .lc{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:var(--ac2);color:var(--ac);display:flex;align-items:center;justify-content:center}
+#adm .lg p{margin:0 0 14px;color:var(--mu);font-size:14px}
+#adm .em{padding:28px 10px;text-align:center;color:var(--mu);font-size:14px}
+@media(max-width:400px){#adm .rk{display:none}#adm .tl{grid-template-columns:1fr 112px}}
 #admb{margin-left:auto;flex:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,216,77,.55);border-radius:50%;background:rgba(255,255,255,.12);color:#ffd84d;cursor:pointer;padding:0;position:relative;z-index:1}#admb:hover{background:rgba(255,255,255,.22)}#admb:active{transform:scale(.94)}
 </style>
 </head><body><div id="sp"><div class="sb"><b style="left:16px;top:14px">✦</b><b style="right:18px;top:40px;animation-delay:.5s">✦</b><b style="left:30px;top:96px;animation-delay:1s">✦</b><div class="pitch"><div class="ball"><svg viewBox="0 0 100 100"><defs><clipPath id="bc"><circle cx="50" cy="50" r="48"/></clipPath><radialGradient id="bg" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#cfcfcf"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#bg)"/><g clip-path="url(#bc)" fill="#1b1b1b" stroke="#1b1b1b"><polygon points="50,34 65,45 59,63 41,63 35,45"/><path d="M50 34V2M65 45L97 35M59 63L79 92M41 63L21 92M35 45L3 35" fill="none" stroke-width="2.5"/><circle cx="50" cy="0" r="12"/><circle cx="100" cy="36" r="12"/><circle cx="80" cy="96" r="12"/><circle cx="20" cy="96" r="12"/><circle cx="0" cy="36" r="12"/></g><circle cx="50" cy="50" r="48" fill="none" stroke="#1b1b1b" stroke-width="2"/></svg></div><div class="shd"></div></div><div class="stt">กำลังเตรียมการ์ดฟุตบอล<span class="dots"><i>.</i><i>.</i><i>.</i></span></div><div class="bar"><i></i></div><div class="sub" id="sst">กำลังจัดทีม…</div><div class="sch">ACADEMY ANUBANCHUMCHON NONGBUADAENG SCHOOL</div></div></div>
@@ -303,7 +338,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div id="tbp"><div class="tbk"><h3 id="tbpt"></h3><input type="text" id="tbq" placeholder="ค้นหาชื่อผู้เล่น" autocomplete="off"><div class="chips sm" id="tbch" style="margin-top:10px"></div><div id="tbl2"></div><div class="tbac"><button id="tbpr" type="button" class="alt">นำผู้เล่นออก</button><button id="tbpc" type="button">ปิด</button></div></div></div>
 <div id="clm" role="dialog" aria-modal="true"><div class="clh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><rect x="4" y="7" width="11" height="14" rx="2"/><path d="M9 4h8a2 2 0 0 1 2 2v11"/></svg>คอลเลกชันการ์ด</h3><button id="clx" type="button">ปิด</button></div><div id="clb"></div></div>
 <div id="bkm" role="dialog" aria-modal="true" aria-label="สมุดสะสมการ์ดนักเตะ"><div class="bkh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>สมุดสะสมการ์ดนักเตะ</h3><button id="bkx" type="button">ปิด</button></div><div id="bkj"></div><div id="bks"><div class="bk" id="bkb"></div><div id="bkld" role="status" aria-live="polite"><i></i><span></span></div></div><div id="bkc"><button id="bkp" type="button" aria-label="หน้าก่อนหน้า">‹ ก่อนหน้า</button><span id="bki"></span><button id="bkn" type="button" aria-label="หน้าถัดไป">ถัดไป ›</button></div></div>
-<div id="adm" role="dialog" aria-modal="true"><div class="bgb"><button class="ax" id="adx" type="button" aria-label="ปิด">✕</button><div id="adc"></div></div></div>
+<div id="adm" role="dialog" aria-modal="true"><div class="bgb"><button class="ax" id="adx" type="button" aria-label="ปิด"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div id="adc"></div></div></div>
 <div id="mcm" role="dialog" aria-modal="true"><div class="bgb"><button id="mcx" type="button" aria-label="ปิด">✕</button><h3>⚽ ผลการแข่งขัน · รอบที่ <span id="mrn"></span></h3><p id="mnx" style="font-size:13px;margin:0 0 8px"></p><div id="ml"></div><button id="mcc" type="button" style="width:100%;margin-top:12px;padding:12px;border:0;border-radius:12px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer">ปิด</button></div></div>
 <div id="vcm" role="dialog" aria-modal="true"><div class="bgb"><h3 id="vct"></h3><p id="vcs" style="margin-bottom:10px"></p><div id="vcl"><i></i><span>กำลังโหลดภาพการ์ด…<br><small>อาจใช้เวลาสักครู่</small></span></div><img id="vci" alt="การ์ดผู้เล่น" style="display:none"><div class="bga"><button id="vcc" type="button" style="display:none">เปลี่ยนผู้เล่นคนนี้</button><button id="vcr" type="button" class="alt" style="display:none">นำออกจากทีม</button><button id="vcx" type="button" aria-label="ปิด">✕</button></div></div></div>
 <div id="svm" role="dialog" aria-modal="true" aria-live="polite" data-st="save"><div class="bgb"><div id="svi">⚽</div><h3 id="svt"></h3><p id="svd"></p><ul class="svs" id="svl"></ul><div id="svr"></div><div class="bga"><button id="svy" type="button"></button><button id="svn" type="button" class="alt"></button></div></div></div>
@@ -665,45 +700,52 @@ var MATCH=null;
 function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=(b&&b.cards)||[];MATCH=(b&&b.match)||null;DB=true;drawTeams()},function(){DB=false;drawTeams()})}
 /* ===== ระบบแอดมิน (รหัสอยู่ในชีตแท็บ "แอดมิน") ===== */
 var ADM={tok:'',list:[],q:'',lg:'',ed:null,cap:11,max:99,busy:false};
+function ai(p,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||18)+'" height="'+(sz||18)+'" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
+var AI={edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',del:'<path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',refresh:'<path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>',lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',back:'<path d="M15 18l-6-6 6-6"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',check:'<path d="M20 6 9 17l-5-5"/>'};
+function admShell(t,inner,foot,back,cnt){return '<div class="ah">'+(back?'<button class="bk" id="adbk" type="button" aria-label="กลับ">'+ai(AI.back,20)+'</button>':ai(AI.users,22))+'<h3>'+t+'</h3>'+(cnt!=null?'<span class="cn">'+cnt+' คน</span>':'')+'</div>'+inner+(foot?'<div class="af">'+foot+'</div>':'')}
 function admPost(b){return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(b)}).then(function(r){return r.json()}).then(function(j){if(!j.ok){if(/หมดอายุ/.test(j.error||''))ADM.tok='';throw new Error(j.error||'เซิร์ฟเวอร์ผิดพลาด')}return j.data})}
 function admOpen(){$('#adm').style.display='flex';admView()}
 function admClose(){$('#adm').style.display='none';ADM.ed=null}
 function admErr(m){var e=$('#ade');if(e)e.textContent=m||''}
 function admView(){if(!ADM.tok)return admLogin();if(ADM.ed)return admEdit();admMain()}
-function admLogin(){$('#adc').innerHTML='<h3>🔐 เข้าสู่ระบบแอดมิน</h3><label for="adp">รหัสแอดมิน</label><input id="adp" type="password" autocomplete="off" placeholder="รหัสจากชีตแท็บ แอดมิน"><div class="ae" id="ade"></div><button class="ab" id="adg" type="button" style="width:100%;margin-top:6px">เข้าสู่ระบบ</button>';
+function admLogin(){$('#adc').innerHTML=admShell('เข้าสู่ระบบแอดมิน','<div class="abd"><div class="lg"><div class="lc">'+ai(AI.lock,30)+'</div><p>ใส่รหัสแอดมินที่ตั้งไว้ในชีตแท็บ “แอดมิน”</p><input id="adp" type="password" autocomplete="off" placeholder="รหัสแอดมิน" aria-label="รหัสแอดมิน" style="text-align:center"></div></div>','<div class="ae" id="ade"></div><div class="fr"><button class="ab" id="adg" type="button">'+ai(AI.check)+'เข้าสู่ระบบ</button></div>');
 var go=function(){if(ADM.busy)return;var pw=$('#adp').value;if(!pw){admErr('กรุณาใส่รหัส');return}ADM.busy=true;$('#adg').disabled=true;admErr('');
 admPost({action:'adminLogin',pw:pw}).then(function(d){ADM.tok=d.token;return admLoad()}).catch(function(e){admErr(e.message);var b=$('#adg');if(b)b.disabled=false}).then(function(){ADM.busy=false})};
 $('#adg').onclick=go;$('#adp').onkeydown=function(e){if(e.key==='Enter')go()};setTimeout(function(){var p=$('#adp');if(p)p.focus()},50)}
-function admLoad(){$('#adc').innerHTML='<h3>🔐 แอดมิน</h3><p style="color:var(--mu)">กำลังโหลดข้อมูลสมาชิก…</p>';
-return admPost({action:'adminList',token:ADM.tok}).then(function(d){ADM.list=d.members||[];ADM.cap=d.teamCap||11;ADM.max=d.statMax||99;admView()}).catch(function(e){if(!ADM.tok)admLogin();else{$('#adc').innerHTML='<h3>🔐 แอดมิน</h3><div class="ae">'+esc(e.message)+'</div><button class="ab" id="adr" type="button">ลองใหม่</button>';$('#adr').onclick=admLoad}})}
-function admMain(){var q=ADM.q.trim().toLowerCase(),lgs={};ADM.list.forEach(function(m){if(okT(m.team))lgs[tLg(m.team)]=1});
+function admLoad(){$('#adc').innerHTML=admShell('จัดการสมาชิก','<div class="abd"><div class="em">กำลังโหลดข้อมูลสมาชิก…</div></div>');
+return admPost({action:'adminList',token:ADM.tok}).then(function(d){ADM.list=d.members||[];ADM.cap=d.teamCap||11;ADM.max=d.statMax||99;admView()}).catch(function(e){if(!ADM.tok)admLogin();else{$('#adc').innerHTML=admShell('จัดการสมาชิก','<div class="abd"><div class="em">โหลดข้อมูลไม่สำเร็จ<br><small>'+esc(e.message)+'</small></div></div>','<div class="fr"><button class="ab" id="adr" type="button">'+ai(AI.refresh)+'ลองใหม่</button></div>');$('#adr').onclick=admLoad}})}
+function admMain(){var lgs={};ADM.list.forEach(function(m){if(okT(m.team))lgs[tLg(m.team)]=1});
 var ks=Object.keys(lgs).map(Number).sort(function(a,b){return a-b});
+$('#adc').innerHTML=admShell('จัดการสมาชิก',
+'<div class="tl"><div class="sx">'+ai(AI.search)+'<input id="adq" type="search" placeholder="ค้นหาชื่อ / ทีม / ตำแหน่ง" aria-label="ค้นหา" value="'+esc(ADM.q)+'"></div><select id="adl" aria-label="กรองตามลีก"><option value="">ทุกลีก</option>'+ks.map(function(i){return '<option value="'+i+'"'+(ADM.lg===i?' selected':'')+'>ลีก '+(i+1)+'</option>'}).join('')+'</select></div><div class="abd" id="adlst"></div>',
+'<div class="ae" id="ade"></div><div class="fr"><span class="nn" id="adn"></span><button class="ab alt sm" id="adrf" type="button">'+ai(AI.refresh,16)+'โหลดใหม่</button><button class="ab alt sm" id="adlo" type="button">'+ai(AI.out,16)+'ออก</button></div>',false,ADM.list.length);
+$('#adq').oninput=function(){ADM.q=this.value;admRows()};
+$('#adl').onchange=function(){ADM.lg=this.value===''?'':+this.value;admRows()};
+$('#adrf').onclick=admLoad;$('#adlo').onclick=function(){ADM.tok='';ADM.list=[];admLogin()};admRows()}
+function admRows(){var q=ADM.q.trim().toLowerCase();
 var L=ADM.list.filter(function(m){if(ADM.lg!==''&&!(okT(m.team)&&tLg(m.team)==ADM.lg))return false;if(!q)return true;return m.name.toLowerCase().indexOf(q)>=0||(okT(m.team)&&tName(m.team).toLowerCase().indexOf(q)>=0)||m.pos.toLowerCase()===q});
 L.sort(function(a,b){return (b.ovr-a.ovr)||(a.created-b.created)});
-var h='<h3>🔐 จัดการสมาชิก <small style="color:var(--mu);font-weight:400">('+ADM.list.length+' คน)</small></h3>'
-+'<div class="g2"><div><input id="adq" type="search" placeholder="ค้นหาชื่อ / ทีม / ตำแหน่ง" value="'+esc(ADM.q)+'"></div><div><select id="adl"><option value="">ทุกลีก</option>'+ks.map(function(i){return '<option value="'+i+'"'+(ADM.lg===i?' selected':'')+'>ลีก '+(i+1)+'</option>'}).join('')+'</select></div></div>'
-+'<div style="margin-top:8px">'+(L.length?L.slice(0,150).map(function(m){return '<div class="ar"><div class="i"><b>'+esc(m.name)+'</b><small>'+esc(m.pos)+' · พลังรวม '+m.ovr+' · '+(okT(m.team)?tName(m.team):'ไม่มีทีม')+'</small></div><button type="button" data-e="'+esc(m.id)+'" aria-label="แก้ไข">✏️</button><button type="button" data-d="'+esc(m.id)+'" aria-label="ลบ">🗑️</button></div>'}).join(''):'<p style="color:var(--mu);text-align:center;padding:14px">ไม่พบสมาชิก</p>')+(L.length>150?'<p style="color:var(--mu);font-size:12px;text-align:center">แสดง 150 คนแรก · ใช้ช่องค้นหาเพื่อกรอง</p>':'')+'</div>'
-+'<div class="ae" id="ade"></div><div class="g2" style="margin-top:6px"><button class="ab alt" id="adrf" type="button">↻ โหลดใหม่</button><button class="ab alt" id="adlo" type="button">ออกจากระบบ</button></div>';
-$('#adc').innerHTML=h;var qi=$('#adq');
-qi.oninput=function(){ADM.q=qi.value;var p=qi.selectionStart;admMain();var n=$('#adq');n.focus();try{n.setSelectionRange(p,p)}catch(e){}};
-$('#adl').onchange=function(){ADM.lg=this.value===''?'':+this.value;admMain()};
-$('#adrf').onclick=admLoad;$('#adlo').onclick=function(){ADM.tok='';ADM.list=[];admLogin()};
-Array.prototype.forEach.call($('#adc').querySelectorAll('[data-e]'),function(b){b.onclick=function(){ADM.ed=ADM.list.filter(function(m){return m.id==b.dataset.e})[0]||null;admView()}});
-Array.prototype.forEach.call($('#adc').querySelectorAll('[data-d]'),function(b){b.onclick=function(){admDel(b.dataset.d)}})}
+var box=$('#adlst');
+box.innerHTML=L.length?L.slice(0,150).map(function(m,i){return '<div class="ar"><span class="rk">'+(i+1)+'</span><div class="i"><span class="nm">'+esc(m.name)+'</span><small><span class="pp">'+esc(m.pos)+'</span>'+(okT(m.team)?'<span class="tc"><i style="background:'+tCol(m.team)+'"></i>'+tName(m.team)+'</span>':'<span class="tc">ไม่มีทีม</span>')+'</small></div><span class="ov"><b>'+m.ovr+'</b><em>พลัง</em></span><button type="button" class="ib" data-e="'+esc(m.id)+'" aria-label="แก้ไข '+esc(m.name)+'" title="แก้ไข">'+ai(AI.edit)+'</button><button type="button" class="ib dl" data-d="'+esc(m.id)+'" aria-label="ลบ '+esc(m.name)+'" title="ลบ">'+ai(AI.del)+'</button></div>'}).join(''):'<div class="em">ไม่พบสมาชิก</div>';
+var n=$('#adn');if(n)n.textContent='แสดง '+Math.min(L.length,150)+' จาก '+ADM.list.length+' คน';
+Array.prototype.forEach.call(box.querySelectorAll('[data-e]'),function(b){b.onclick=function(){ADM.ed=ADM.list.filter(function(m){return m.id==b.dataset.e})[0]||null;admView()}});
+Array.prototype.forEach.call(box.querySelectorAll('[data-d]'),function(b){b.onclick=function(){admDel(b.dataset.d)}})}
 function admDel(id){var m=ADM.list.filter(function(x){return x.id==id})[0];if(!m||ADM.busy)return;
 if(!confirm('ลบ "'+m.name+'" ออกจากระบบถาวร?\nข้อมูลและรูปการ์ดจะถูกลบ ย้อนกลับไม่ได้'))return;
 ADM.busy=true;admErr('กำลังลบ…');
 admPost({action:'adminDelete',token:ADM.tok,id:id}).then(function(){ADM.list=ADM.list.filter(function(x){return x.id!=id});refresh();admMain()}).catch(function(e){if(!ADM.tok)admLogin();else admErr(e.message)}).then(function(){ADM.busy=false})}
+function admTO(lg,k,id){return LET.split('').map(function(c,i){var n=(lg-1)*LEAGUE_TEAMS+i,cnt=ADM.list.filter(function(x){return x.team===n&&x.id!==id}).length;return '<option value="'+i+'"'+(k===i?' selected':'')+'>ทีม '+c+' ('+cnt+'/'+ADM.cap+')</option>'}).join('')}
 function admEdit(){var m=ADM.ed,t=okT(m.team)?m.team:0,lg=tLg(t)+1,k=t%LEAGUE_TEAMS;
-var h='<h3>✏️ แก้ไขสมาชิก</h3>'
-+'<label for="ed_n">ชื่อ</label><input id="ed_n" maxlength="22" value="'+esc(m.name)+'">'
-+'<div class="g3"><div><label for="ed_p">ตำแหน่ง</label><select id="ed_p">'+POS.map(function(p){return '<option value="'+p[0]+'"'+(m.pos===p[0]?' selected':'')+'>'+p[0]+'</option>'}).join('')+'</select></div>'
-+'<div><label for="ed_l">ลีก</label><input id="ed_l" type="number" min="1" max="99" inputmode="numeric" value="'+lg+'"></div>'
-+'<div><label for="ed_t">ทีม</label><select id="ed_t">'+LET.split('').map(function(c,i){return '<option value="'+i+'"'+(k===i?' selected':'')+'>ทีม '+c+'</option>'}).join('')+'</select></div></div>'
-+'<label>ค่าพลัง (1–'+ADM.max+') · พลังรวมคำนวณให้อัตโนมัติ</label><div class="g3">'+LB.map(function(l,i){return '<div><label for="ed_s'+i+'" style="margin-top:0">'+esc(l)+'</label><input id="ed_s'+i+'" type="number" min="1" max="'+ADM.max+'" inputmode="numeric" value="'+(m.st[i]||0)+'"></div>'}).join('')+'</div>'
-+(m.img?'<p style="font-size:12px;color:var(--mu);margin:10px 0 0">หมายเหตุ: รูปการ์ดที่เก็บไว้จะอัปเดตเมื่อผู้เล่นกดบันทึกการ์ดครั้งถัดไป</p>':'')
-+'<div class="ae" id="ade"></div><div class="g2" style="margin-top:6px"><button class="ab alt" id="edc" type="button">ยกเลิก</button><button class="ab" id="eds" type="button">บันทึก</button></div>';
-$('#adc').innerHTML=h;$('#edc').onclick=function(){ADM.ed=null;admView()};
+var body='<div class="abd">'
++'<div class="sc"><h4>ข้อมูลผู้เล่น</h4><label for="ed_n">ชื่อ</label><input id="ed_n" maxlength="22" value="'+esc(m.name)+'"><label for="ed_p">ตำแหน่ง</label><select id="ed_p">'+POS.map(function(p){return '<option value="'+p[0]+'"'+(m.pos===p[0]?' selected':'')+'>'+p[0]+' · '+p[1]+'</option>'}).join('')+'</select></div>'
++'<div class="sc"><h4>ทีม</h4><div class="g2"><div><label for="ed_l">ลีก</label><input id="ed_l" type="number" min="1" max="99" inputmode="numeric" value="'+lg+'"></div><div><label for="ed_t">ทีม (คนในทีม)</label><select id="ed_t">'+admTO(lg,k,m.id)+'</select></div></div></div>'
++'<div class="sc"><h4>ค่าพลัง (1–'+ADM.max+')<span class="ovp">พลังรวม <b id="edo">'+m.ovr+'</b></span></h4><div class="g3" style="margin-top:8px">'+LB.map(function(l,i){return '<div class="stt"><label for="ed_s'+i+'">'+esc(l)+'</label><input id="ed_s'+i+'" type="number" min="1" max="'+ADM.max+'" inputmode="numeric" value="'+(m.st[i]||0)+'"></div>'}).join('')+'</div></div>'
++(m.img?'<p style="font-size:12px;color:var(--mu);margin:0 2px">หมายเหตุ: รูปการ์ดที่เก็บไว้จะอัปเดตเมื่อผู้เล่นกดบันทึกการ์ดครั้งถัดไป</p>':'')+'</div>';
+$('#adc').innerHTML=admShell('แก้ไขสมาชิก',body,'<div class="ae" id="ade"></div><div class="fr"><button class="ab alt" id="edc" type="button">ยกเลิก</button><button class="ab" id="eds" type="button">'+ai(AI.check)+'บันทึก</button></div>',true);
+var back=function(){ADM.ed=null;admView()};$('#edc').onclick=back;$('#adbk').onclick=back;
+var upd=function(){var v=LB.map(function(_,i){return +$('#ed_s'+i).value||0}),o=Math.round(v.reduce(function(a,b){return a+b},0)/6);$('#edo').textContent=Math.max(1,o)};
+LB.forEach(function(_,i){$('#ed_s'+i).oninput=upd});
+$('#ed_l').oninput=function(){var l=Math.floor(+this.value);if(l>=1&&l<=99)$('#ed_t').innerHTML=admTO(l,+$('#ed_t').value,m.id)};
 $('#eds').onclick=function(){if(ADM.busy)return;
 var lgv=Math.floor(+$('#ed_l').value),team=(lgv-1)*LEAGUE_TEAMS+(+$('#ed_t').value),nm=$('#ed_n').value.trim(),st=LB.map(function(_,i){return Math.round(+$('#ed_s'+i).value)});
 if(!nm)return admErr('กรุณาใส่ชื่อ');if(!(lgv>=1&&lgv<=99))return admErr('เลขลีกต้องเป็น 1–99');
