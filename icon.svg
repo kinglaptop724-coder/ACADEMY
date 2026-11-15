@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1fa85a"/><stop offset="1" stop-color="#0b4f8a"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ff9f1a"/></linearGradient>
+<clipPath id="c"><circle cx="256" cy="300" r="78"/></clipPath>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#bg)"/>
+<g stroke="#fff" stroke-opacity=".18" stroke-width="6" fill="none"><circle cx="256" cy="256" r="190"/><path d="M0 256H512"/></g>
+<g transform="rotate(-8 256 256)">
+<rect x="130" y="84" width="252" height="344" rx="30" fill="#000" opacity=".25" transform="translate(8 12)"/>
+<rect x="130" y="84" width="252" height="344" rx="30" fill="url(#gold)"/>
+<rect x="144" y="98" width="224" height="316" rx="22" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="5"/>
+<circle cx="256" cy="300" r="78" fill="#fff"/>
+<g clip-path="url(#c)" fill="#13263b">
+<polygon points="256,260 280,278 271,306 241,306 232,278"/>
+<polygon points="256,238 246,250 266,250"/>
+<polygon points="300,296 316,292 322,312 304,322"/>
+<polygon points="212,296 196,292 190,312 208,322"/>
+<polygon points="236,338 276,338 282,370 230,370"/>
+</g>
+<circle cx="256" cy="300" r="78" fill="none" stroke="#13263b" stroke-width="6"/>
+<rect x="164" y="124" width="62" height="46" rx="10" fill="#13263b"/>
+<text x="195" y="158" font-family="Arial,sans-serif" font-weight="900" font-size="32" fill="#ffd84d" text-anchor="middle">10</text>
+<path d="M310 126l8 18 20 2-15 13 5 20-18-10-18 10 5-20-15-13 20-2z" fill="#13263b"/>
+</g>
+</svg>
