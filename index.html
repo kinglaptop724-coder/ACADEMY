@@ -457,7 +457,7 @@ var ua=navigator.userAgent,inApp=/Line\/|FBAN|FBAV|Instagram|MicroMessenger|; wv
 if(inApp||mob){showImg(b);return}
 var u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=((cur().name||'card').trim().split(/\s+/)[0].replace(/[^\wก-๙]+/g,'_')||'card')+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}catch(e){render(false)}}
 /* ทีม = ลีก × 20 ทีม (A–T) · ต้องตรงกับ Code.gs (TEAM_LETTERS / CONFIG.TEAM_CAP) */
-var LET='ABCDEFGHIJKLMNOPQRST',LEAGUE_TEAMS=LET.length,TEAM_CAP=11,TPAL=['#d62839','#d9a520','#2f55d8','#1f9d55','#8a4fe0','#f08a1c','#1fb5ad','#f0568f','#a8693a','#2fa8e8'],DB=false,ALL=[];
+var LET='ABCDEFGHIJKLMNOPQRST',LEAGUE_TEAMS=LET.length,TEAM_CAP=11,LEAGUE_CAP=20,TPAL=['#d62839','#d9a520','#2f55d8','#1f9d55','#8a4fe0','#f08a1c','#1fb5ad','#f0568f','#a8693a','#2fa8e8'],DB=false,ALL=[];
 function okT(t){return typeof t=='number'&&t>=0}
 function tLg(n){return Math.floor(n/LEAGUE_TEAMS)}
 function tName(n){return 'ลีก '+(tLg(n)+1)+' · ทีม '+LET.charAt(n%LEAGUE_TEAMS)}
@@ -465,7 +465,7 @@ function tCol(n){return TPAL[(n%LEAGUE_TEAMS)%TPAL.length]}
 function esc(v){return String(v).replace(/[&<>"]/g,function(c){return '&#'+c.charCodeAt(0)+';'})}
 function fn(n){return (n||'').trim().replace(/\s+/g,' ')||'ไม่มีชื่อ'}
 function rows(){return DB?ALL.slice():roster.filter(function(r){return r.saved}).map(function(r){return{id:r.id,name:fn(r.name),pos:r.pos,ovr:r.ovr,st:r.st,team:r.team,theme:r.theme,t:r.saved}})}
-function nextTeam(c){for(var lg=0;;lg++){var m=1e9,o=[];for(var k=0;k<LEAGUE_TEAMS;k++){var n=lg*LEAGUE_TEAMS+k,v=c[n]||0;if(v<m){m=v;o=[n]}else if(v==m)o.push(n)}if(m<TEAM_CAP)return o[Math.floor(Math.random()*o.length)]}}
+function nextTeam(c){for(var lg=0;;lg++){var m=1e9,o=[],tot=0;for(var k=0;k<LEAGUE_TEAMS;k++){var n=lg*LEAGUE_TEAMS+k,v=c[n]||0;tot+=v;if(v<m){m=v;o=[n]}else if(v==m)o.push(n)}if(tot<LEAGUE_CAP&&m<TEAM_CAP)return o[Math.floor(Math.random()*o.length)]}}
 function pick(){var c={},id=cur().id;rows().forEach(function(x){if(x.id!=id&&okT(x.team))c[x.team]=(c[x.team]||0)+1});return nextTeam(c)}
 var TF=-1,LG=-1;
 function drawTeams(){var el=$('#sh');if(!el)return;
