@@ -181,8 +181,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div id="adj"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><button class="ghost" id="crb">⬚ ครอปรูป</button><button class="ghost" id="bgb" style="display:none">✂ ลบพื้นหลัง</button><button class="ghost" id="bgr" style="display:none">↺ ใช้รูปต้นฉบับ</button><button class="ghost danger" id="rm" style="margin:0 0 0 auto">ลบรูปนี้</button></div></div></div>
 <div class="card"><div class="ch"><span class="n">3</span>สีการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div></div>
 <div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
-<button class="bkbtn" id="bko" type="button"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>ดูสมุดสะสมการ์ดนักเตะ (พลิกหน้าได้)</button>
-<button class="chip on" id="clo" type="button" style="margin-bottom:12px;width:100%"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><rect x="4" y="7" width="11" height="14" rx="2"/><path d="M9 4h8a2 2 0 0 1 2 2v11"/></svg>ดูคอลเลกชันการ์ดทั้งหมด (แยกตามตำแหน่ง)</button>
+<button class="bkbtn" id="bko" type="button" style="margin-bottom:12px"><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>ดูสมุดสะสมการ์ดนักเตะ (พลิกหน้าได้)</button>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
 <div class="chips sm" id="lgs" style="margin:12px 0"></div>
 <div id="shl" style="font-size:13px;color:var(--mu);margin:2px 2px 8px"></div>
@@ -411,7 +410,7 @@ POS.forEach(function(p){var l=all.filter(function(x){return x.pos===p[0]||x.pos=
 sec('อื่น ๆ','',all.filter(function(x){return !used[x.id]}));
 b.innerHTML=all.length?h2:'<div style="padding:30px;text-align:center;color:var(--mu)">ยังไม่มีการ์ดในระบบ</div>';b.scrollTop=0;$('#clm').style.display='flex'}
 function clClose(){$('#clm').style.display='none'}
-$('#clo').onclick=clOpen;$('#clx').onclick=clClose;
+$('#clx').onclick=clClose;
 $('#clb').onclick=function(e){var t=e.target.closest&&e.target.closest('.clt');if(t)viewCard(t.dataset.id)};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('#vcm').style.display==='flex')vcClose();else if($('#clm').style.display==='flex')clClose()}});
 $('#vcx').onclick=vcClose;$('#vcm').onclick=function(e){if(e.target.id=='vcm')vcClose()};
