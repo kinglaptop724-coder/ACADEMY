@@ -13,7 +13,7 @@
 .n{width:24px;height:24px;border-radius:50%;background:var(--ac);color:#fff;font-size:13px;display:grid;place-items:center}
 .f{display:block;margin-bottom:14px}.f>span,.f>.lb{display:block;font-size:13px;color:var(--mu);margin-bottom:6px}.f small{color:var(--mu);opacity:.8}
 input[type=text],input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--in);color:var(--tx);font:inherit;font-size:16px;outline:none}
-input:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}input:disabled{opacity:.6}
+input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}input:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}input:disabled{opacity:.6}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{padding:8px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--in);color:var(--tx);font:inherit;font-size:14px;cursor:pointer}
 .chip.on{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:500}.chips.sm .chip{padding:6px 12px;font-size:13px}
@@ -114,7 +114,7 @@ input:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}input:disable
 <div class="card" style="display:none"><div class="ch"><span class="n">1</span>เลือกผู้เล่น</div><div id="list" class="chips"></div>
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
 <div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
-<label class="f"><span>ชื่อจริง <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off"></label>
+<label class="f"><span>ชื่อจริง <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
 <div class="f"><div class="lb">ตำแหน่ง <small>(บนการ์ดแสดงเป็นอักษรย่อ)</small></div><div id="pos" class="pg"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
@@ -375,7 +375,9 @@ function svClose(){$('#svm').style.display='none';bgLock(false)}
 $('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')saveCard(svRe);else if(window.fxBurst)fxBurst()};
 $('#svn').onclick=svClose;
 async function saveCard(re){
-if(saving)return;var p=cur();saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
+if(saving)return;var p=cur();
+if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='block';ni.classList.add('bad');ni.focus();try{ni.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
+saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
 var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re},first=!p.rev,gas=inGAS(),stp=0;
 svOpen([first?'สุ่มค่าพลังและทีม':'บันทึกข้อมูลผู้เล่น','สร้างรูปการ์ด'].concat(gas?['เก็บรูปการ์ดลงระบบกลาง']:[]));
 if(first)startSpin();
@@ -396,6 +398,7 @@ svEnd('done','บันทึกเรียบร้อย',warn||(first?'ร�
 }catch(e){stopSpin();render();svStep(stp,'bad');svEnd('err','บันทึกไม่สำเร็จ',((e&&e.message)||String(e)||'')+' กรุณาลองอีกครั้ง','','↻ ลองอีกครั้ง','ปิด')}
 saving=false;btn.disabled=false}
 $('#sv').onclick=function(){saveCard(false)};
+$('#name').addEventListener('input',function(){if(this.value.trim()){this.classList.remove('bad');$('#nameerr').style.display='none'}});
 refresh();setInterval(function(){if(!document.hidden)refresh()},20000);
 document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
 $('#hl').src=LOGO;$('#fl').src=LOGO;fillForm();render();(document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Barlow Condensed"'),document.fonts.load('600 30px "Barlow Condensed"'),document.fonts.load('500 15px Kanit'),document.fonts.load('600 27px Kanit')]):Promise.resolve()).then(render,render);
