@@ -318,6 +318,20 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #adm .ib:hover{color:#d62839;background:rgba(214,40,57,.1)}#adm .ib:active{transform:scale(.92)}
 @media(max-width:400px){#adm .ark,#adm .ahd span:first-child{display:none}#adm .ahd,#adm .ar{grid-template-columns:minmax(0,1fr) 42px 54px 34px 30px;gap:6px;padding:0 10px}#adm .tl{grid-template-columns:1fr 112px}}
 #admb,#insb{margin-left:auto;flex:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,216,77,.55);border-radius:50%;background:rgba(255,255,255,.12);color:#ffd84d;cursor:pointer;padding:0;position:relative;z-index:1}#admb:hover,#insb:hover{background:rgba(255,255,255,.22)}#admb:active,#insb:active{transform:scale(.94)}#insb[hidden]{display:none}#insb+#admb{margin-left:8px}
+#lgs{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 2px 6px}
+#lgs::-webkit-scrollbar{display:none}
+#lgs.fl{-webkit-mask-image:linear-gradient(90deg,transparent,#000 26px);mask-image:linear-gradient(90deg,transparent,#000 26px)}
+#lgs.fr{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
+#lgs.fl.fr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 26px,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,transparent,#000 26px,#000 calc(100% - 26px),transparent)}
+#lgs .lgt{flex:none;scroll-snap-align:center;display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:92px;padding:8px 14px 9px;border-radius:14px;border:1px solid var(--bd);background:var(--in);color:var(--tx);font:inherit;cursor:pointer;text-align:left;transition:background .15s,border-color .15s,transform .1s}
+#lgs .lgt:hover{border-color:var(--ac)}#lgs .lgt:active{transform:scale(.97)}
+#lgs .lgn{font-size:15px;font-weight:600;line-height:1.25}
+#lgs .lgc{font-size:11.5px;color:var(--mu);line-height:1.3;white-space:nowrap}
+#lgs .lgb{display:block;width:100%;height:3px;margin-top:6px;border-radius:3px;background:var(--bd);overflow:hidden}
+#lgs .lgb u{display:block;height:100%;border-radius:3px;background:var(--ac);text-decoration:none}
+#lgs .lgt.full .lgb u{background:#d9a520}
+#lgs .lgt.on{background:linear-gradient(135deg,#a8122a,#6e0c1a);border-color:#d9a520;color:#fff;box-shadow:0 4px 14px rgba(120,15,30,.32)}
+#lgs .lgt.on .lgc{color:#ffe9a0}#lgs .lgt.on .lgb{background:rgba(255,255,255,.22)}#lgs .lgt.on .lgb u{background:#ffd84d}
 #ixm{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,8,10,.78)}
 #ixm.on{display:flex}
 #ixm .ixb{position:relative;width:100%;max-width:380px;max-height:calc(100dvh - 32px);overflow:auto;background:var(--pn);color:var(--tx);border-radius:20px;border:1.5px solid #d9a520;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center;padding:24px 20px 18px}
@@ -578,7 +592,14 @@ all.forEach(function(x,i){x.rk=i+1});
 var cnt={},lt={};all.forEach(function(x){if(okT(x.team)){cnt[x.team]=(cnt[x.team]||0)+1;lt[tLg(x.team)]=(lt[tLg(x.team)]||0)+1}});
 var ls=Object.keys(lt).map(Number).sort(function(a,b){return a-b}),me=all.filter(function(x){return x.id==id})[0];
 if(ls.indexOf(LG)<0)LG=(me&&okT(me.team)&&ls.indexOf(tLg(me.team))>=0)?tLg(me.team):(ls.length?ls[ls.length-1]:0);
-var lgs=$('#lgs');if(lgs){lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button');bt.className='chip'+(LG===i?' on':'');bt.textContent='ลีก '+(i+1)+' · '+lt[i]+' คน';bt.onclick=function(){LG=i;TF=-1;drawTeams()};lgs.appendChild(bt)})}
+var lgs=$('#lgs');if(lgs){var sl0=lgs.scrollLeft,act=null;lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button'),n=lt[i],pc=Math.min(100,Math.round(n/LEAGUE_CAP*100));bt.type='button';bt.className='lgt'+(LG===i?' on':'')+(n>=LEAGUE_CAP?' full':'');bt.setAttribute('aria-pressed',LG===i?'true':'false');
+bt.innerHTML='<span class="lgn">ลีก '+(i+1)+'</span><span class="lgc">'+n+'/'+LEAGUE_CAP+' คน</span><i class="lgb"><u style="width:'+pc+'%"></u></i>';
+bt.onclick=function(){LG=i;TF=-1;drawTeams()};lgs.appendChild(bt);if(LG===i)act=bt});
+lgs.scrollLeft=sl0;
+if(!lgs._w){lgs._w=1;lgs.addEventListener('scroll',lgFade,{passive:true});window.addEventListener('resize',lgFade);
+lgs.addEventListener('wheel',function(e){if(lgs.scrollWidth<=lgs.clientWidth||Math.abs(e.deltaX)>Math.abs(e.deltaY))return;lgs.scrollLeft+=e.deltaY;e.preventDefault()},{passive:false})}
+if(act&&lgs.scrollWidth>lgs.clientWidth){var tx=act.offsetLeft-(lgs.clientWidth-act.offsetWidth)/2;if(lgs.scrollTo)lgs.scrollTo({left:Math.max(0,tx),behavior:'smooth'});else lgs.scrollLeft=tx}
+lgFade()}
 var tg=$('#tg');
 if(tg){var TR=[];LET.split('').forEach(function(l,i){var n=LG*LEAGUE_TEAMS+i,m=all.filter(function(x){return x.team===n});if(!m.length)return;var av=function(f){return m.reduce(function(a,x){return a+f(x)},0)/m.length};TR.push({n:n,l:l,c:m.length,ovr:av(function(x){return x.ovr}),pvo:av(function(x){return x.pv==null?x.ovr:x.pv}),st:[0,1,2,3,4,5].map(function(k){return av(function(x){return x.st[k]||0})}),mine:m.some(function(x){return x.id==id})})});
 TR.sort(function(a,b){return (b.ovr-a.ovr)||(b.c-a.c)||(a.n-b.n)});TR.slice().sort(function(a,b){return (b.pvo-a.pvo)||(b.c-a.c)||(a.n-b.n)}).forEach(function(t,i){t.pr=i+1});
@@ -590,6 +611,7 @@ var R=all.filter(function(x){if(TF>=0){if(x.team!==TF)return false}else if(!q&&!
 var pm={};R.slice().sort(function(a,b){return ((b.pv==null?b.ovr:b.pv)-(a.pv==null?a.ovr:a.pv))||((a.t||0)-(b.t||0))}).forEach(function(x,i){pm[x.id]=i+1});
 if(!q&&TF<0)R=R.slice(0,20);R.forEach(function(x,i){x.rk=i+1;x.mv=pm[x.id]-x.rk});
 function mvh(d){return d>0?'<span class="mv up">▲'+d+'</span>':d<0?'<span class="mv dn">▼'+(-d)+'</span>':'<span class="mv eq">–</span>'}
+function lgFade(){var g=$('#lgs');if(!g)return;g.classList.toggle('fl',g.scrollLeft>2);g.classList.toggle('fr',g.scrollLeft+g.clientWidth<g.scrollWidth-2)}
 function tm(x){return okT(x.team)?'<span style="color:'+tCol(x.team)+';font-weight:600">● '+tName(x.team)+'</span>':'-'}
 var sl=$('#shl');if(sl)sl.textContent=q?'ผลการค้นหา':(TF>=0?'ผู้เล่น · '+tName(TF)+' (แตะแถวทีมซ้ำเพื่อดูทั้งลีก)':'ผู้เล่นทั้งลีก');
 el.innerHTML=R.length?'<table><tr><th>อันดับ</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>รวม</th>'+LB.map(function(l){return '<th>'+l+'</th>'}).join('')+'</tr>'+R.map(function(x){return '<tr class="vw'+(x.id==id?' me':'')+'" data-id="'+esc(x.id)+'"><td style="white-space:nowrap">'+(M[x.rk-1]||x.rk)+mvh(x.mv)+'</td><td>'+esc(x.name)+'</td><td>'+esc(x.pos)+'</td><td>'+x.ovr+'</td>'+x.st.map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>':'<div style="padding:14px;font-size:13px;color:var(--mu);text-align:center">'+(all.length?'ไม่พบผู้เล่นที่ค้นหา':'ยังไม่มีข้อมูล กด “บันทึก” เพื่อเข้าสู่ตารางอันดับ')+'</div>';drawMatches()}
