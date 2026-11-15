@@ -471,7 +471,7 @@ var TF=-1,LG=-1;
 function drawTeams(){var el=$('#sh');if(!el)return;
 var all=rows().filter(function(x){return x.name}),id=cur().id,M=['🥇','🥈','🥉'];
 all.sort(function(a,b){return (b.ovr-a.ovr)||((a.t||0)-(b.t||0))});
-var rk=0,prev=null;all.forEach(function(x,i){if(x.ovr!==prev){rk=i+1;prev=x.ovr}x.rk=rk});
+all.forEach(function(x,i){x.rk=i+1});
 var cnt={},lt={};all.forEach(function(x){if(okT(x.team)){cnt[x.team]=(cnt[x.team]||0)+1;lt[tLg(x.team)]=(lt[tLg(x.team)]||0)+1}});
 var ls=Object.keys(lt).map(Number).sort(function(a,b){return a-b}),me=all.filter(function(x){return x.id==id})[0];
 if(ls.indexOf(LG)<0)LG=(me&&okT(me.team)&&ls.indexOf(tLg(me.team))>=0)?tLg(me.team):(ls.length?ls[ls.length-1]:0);
@@ -484,6 +484,7 @@ tg.innerHTML=TR.length?'<table><tr><th>อันดับ</th><th>ทีม</th>
 Array.prototype.forEach.call(tg.querySelectorAll('tr.pk'),function(r){r.onclick=function(){var n=+r.dataset.n;TF=TF===n?-1:n;drawTeams()}})}
 var q=(($('#q')||{}).value||'').trim().toLowerCase();
 var R=all.filter(function(x){if(TF>=0){if(x.team!==TF)return false}else if(!q&&!(okT(x.team)&&tLg(x.team)==LG))return false;if(!q)return true;var tn=okT(x.team)?tName(x.team).toLowerCase():'';return x.name.toLowerCase().indexOf(q)>=0||tn.indexOf(q)>=0});
+if(!q&&TF<0)R=R.slice(0,20);R.forEach(function(x,i){x.rk=i+1});
 function tm(x){return okT(x.team)?'<span style="color:'+tCol(x.team)+';font-weight:600">● '+tName(x.team)+'</span>':'-'}
 var sl=$('#shl');if(sl)sl.textContent=q?'ผลการค้นหา':(TF>=0?'ผู้เล่น · '+tName(TF)+' (แตะแถวทีมซ้ำเพื่อดูทั้งลีก)':'ผู้เล่นทั้งลีก');
 el.innerHTML=R.length?'<table><tr><th>อันดับ</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>รวม</th>'+LB.map(function(l){return '<th>'+l+'</th>'}).join('')+'</tr>'+R.map(function(x){return '<tr class="vw'+(x.id==id?' me':'')+'" data-id="'+esc(x.id)+'"><td>'+(M[x.rk-1]||x.rk)+'</td><td>'+esc(x.name)+'</td><td>'+esc(x.pos)+'</td><td>'+x.ovr+'</td>'+x.st.map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>':'<div style="padding:14px;font-size:13px;color:var(--mu);text-align:center">'+(all.length?'ไม่พบผู้เล่นที่ค้นหา':'ยังไม่มีข้อมูล กด “บันทึก” เพื่อเข้าสู่ตารางอันดับ')+'</div>'}
