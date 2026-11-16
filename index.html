@@ -367,7 +367,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
 <div class="bkrow"><button class="bkbtn" id="tbo" type="button" style="background:linear-gradient(120deg,#0e5a32,#1f8f4e 60%,#0e5a32);border-color:#d9a520"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 12h17"/><circle cx="12" cy="12" r="2.6"/><path d="M9 4v2.5h6V4M9 20v-2.5h6V20"/></svg><span>จัดทีมฟุตบอล</span><small>เลือกการ์ดลงสนาม</small></button><button class="bkbtn" id="bko" type="button"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg><span>สมุดสะสมการ์ด</span><small>พลิกหน้าได้</small></button></div>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
-<button class="ghost" id="mcb" type="button" style="display:none;margin:12px 0 0">ดูผลการแข่งขันรอบล่าสุด</button>
+<button class="ghost" id="mcb" type="button" style="display:none;margin:12px 0 0">🏆 ดูผลการแข่งขันรอบล่าสุด</button>
 <div class="chips sm" id="lgs" style="margin:12px 0"></div>
 <div id="shl" style="font-size:13px;color:var(--mu);margin:2px 2px 8px"></div>
 <div class="sheet" id="sh"></div></div>
@@ -575,6 +575,7 @@ if(inApp||mob){showImg(b);return}
 var u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=((cur().name||'card').trim().split(/\s+/)[0].replace(/[^\wก-๙]+/g,'_')||'card')+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}catch(e){render(false)}}
 /* ทีม = ลีก × 20 ทีม (A–T) · ต้องตรงกับ Code.gs (TEAM_LETTERS / CONFIG.TEAM_CAP) */
 var LET='ABCDEFGHIJKLMNOPQRST',LEAGUE_TEAMS=LET.length,TEAM_CAP=11,LEAGUE_CAP=20,TPAL=['#d62839','#d9a520','#2f55d8','#1f9d55','#8a4fe0','#f08a1c','#1fb5ad','#f0568f','#a8693a','#2fa8e8'],DB=false,ALL=[];
+var LGP=[['#d62839','#6e0c1a'],['#2f6fe0','#12338a'],['#1fa85a','#0b5a2e'],['#8a4fe0','#3d1a8a'],['#f08a1c','#9a4505'],['#1fb5ad','#0a5f5b'],['#e8528f','#8a1a4a'],['#c9971c','#6b4a05'],['#2fa8e8','#0d5a8a'],['#5b6b7e','#2a3441']];function lgc(i){return LGP[i%LGP.length]}
 function okT(t){return typeof t=='number'&&t>=0}
 function tLg(n){return Math.floor(n/LEAGUE_TEAMS)}
 function tName(n){return 'ลีก '+(tLg(n)+1)+' · ทีม '+LET.charAt(n%LEAGUE_TEAMS)}
@@ -592,7 +593,7 @@ all.forEach(function(x,i){x.rk=i+1});
 var cnt={},lt={};all.forEach(function(x){if(okT(x.team)){cnt[x.team]=(cnt[x.team]||0)+1;lt[tLg(x.team)]=(lt[tLg(x.team)]||0)+1}});
 var ls=Object.keys(lt).map(Number).sort(function(a,b){return a-b}),me=all.filter(function(x){return x.id==id})[0];
 if(ls.indexOf(LG)<0)LG=(me&&okT(me.team)&&ls.indexOf(tLg(me.team))>=0)?tLg(me.team):(ls.length?ls[ls.length-1]:0);
-var lgs=$('#lgs');if(lgs){var sl0=lgs.scrollLeft,act=null,LGC=[['#d62839','#6e0c1a'],['#2f6fe0','#12338a'],['#1fa85a','#0b5a2e'],['#8a4fe0','#3d1a8a'],['#f08a1c','#9a4505'],['#1fb5ad','#0a5f5b'],['#e8528f','#8a1a4a'],['#c9971c','#6b4a05'],['#2fa8e8','#0d5a8a'],['#5b6b7e','#2a3441']];lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button'),n=lt[i],pc=Math.min(100,Math.round(n/LEAGUE_CAP*100));bt.type='button';bt.className='lgt'+(LG===i?' on':'')+(n>=LEAGUE_CAP?' full':'');bt.setAttribute('aria-pressed',LG===i?'true':'false');var cc=LGC[i%LGC.length];bt.style.cssText='--c1:'+cc[0]+';--c2:'+cc[1];
+var lgs=$('#lgs');if(lgs){var sl0=lgs.scrollLeft,act=null,LGC=LGP;lgs.innerHTML='';ls.forEach(function(i){var bt=document.createElement('button'),n=lt[i],pc=Math.min(100,Math.round(n/LEAGUE_CAP*100));bt.type='button';bt.className='lgt'+(LG===i?' on':'')+(n>=LEAGUE_CAP?' full':'');bt.setAttribute('aria-pressed',LG===i?'true':'false');var cc=LGC[i%LGC.length];bt.style.cssText='--c1:'+cc[0]+';--c2:'+cc[1];
 bt.innerHTML='<span class="lgn"><i class="lgd"></i>ลีก '+(i+1)+'</span><span class="lgc">'+n+'/'+LEAGUE_CAP+' คน</span><i class="lgb"><u style="width:'+pc+'%"></u></i>';
 bt.onclick=function(){LG=i;TF=-1;drawTeams()};lgs.appendChild(bt);if(LG===i)act=bt});
 lgs.scrollLeft=sl0;
@@ -954,13 +955,17 @@ $('#tbi').innerHTML='<div class="tbpn"><h4>'+esc(TS.name||'ทีมของฉ
 +(bad?'<div class="tbnt"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.4em" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>มี '+bad+' คนที่ลงไม่ตรงตำแหน่ง ถูกหักพลังในสนาม</div>':'');
 Array.prototype.forEach.call($('#tbfs').children,function(b){b.className=b.dataset.f===TS.form?'on':''});
 if($('#tbn')!==document.activeElement)$('#tbn').value=TS.name}
-function tbPick(i){pk=i;pf='all';$('#tbpr').style.display=TS.ids[i]?'':'none';var r=FM[TS.form][i][0];$('#tbpt').textContent='เลือกการ์ดลงตำแหน่ง '+rn(r)+' ('+r+')';$('#tbq').value='';tbList();$('#tbp').style.display='flex'}
-var pf='all';
+function tbPick(i){pk=i;pf='all';plg=-1;$('#tbpr').style.display=TS.ids[i]?'':'none';var r=FM[TS.form][i][0];$('#tbpt').textContent='เลือกการ์ดลงตำแหน่ง '+rn(r)+' ('+r+')';$('#tbq').value='';tbList();$('#tbp').style.display='flex'}
+var pf='all',plg=-1;
 function tbList(){var r=FM[TS.form][pk][0],q=$('#tbq').value.trim().toLowerCase(),used={};TS.ids.forEach(function(d,j){if(d&&j!==pk)used[d]=1});
 var ch=$('#tbch');ch.innerHTML='';[['all','ทั้งหมด'],['fit','ตรงตำแหน่ง '+r]].forEach(function(o){var b=document.createElement('button');b.type='button';b.className='chip'+(pf===o[0]?' on':'');b.textContent=o[1];b.onclick=function(){pf=o[0];tbList()};ch.appendChild(b)});
+var lgS={};all().forEach(function(x){if(okT(x.team))lgS[tLg(x.team)]=1});var lk=Object.keys(lgS).map(Number).sort(function(a,b){return a-b});
+if(lk.length>1)lk.forEach(function(g){var b=document.createElement('button'),c=lgc(g)[0],on=plg===g;b.type='button';b.className='chip'+(on?' on':'');
+b.innerHTML='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:'+(on?'#fff':c)+'"></span>ลีก '+(g+1);
+if(on){b.style.background=c;b.style.borderColor=c}b.onclick=function(){plg=on?-1:g;tbList()};ch.appendChild(b)});
 $('#tbl2').style.setProperty('--clip',$('#tbf').style.getPropertyValue('--clip'));
-var L=all().filter(function(x){return (!q||x.name.toLowerCase().indexOf(q)>=0)&&(pf==='all'||pc(x)===r)}).map(function(x){var f=fit(r,pc(x));return{x:x,f:f,e:Math.round(x.ovr*f)}}).sort(function(a,b){return b.e-a.e||b.x.ovr-a.x.ovr}).slice(0,200);
-$('#tbl2').innerHTML=L.length?'<div class="tpg">'+L.map(function(o){var x=o.x,t=(TH[x.theme]||TH.red).b,u=used[x.id];return '<div class="tpw'+(u?' u':'')+'"><button type="button" class="tcd tpk" data-id="'+esc(x.id)+'"'+(u?' disabled':'')+' aria-label="'+esc(x.name)+'" style="--b0:'+t[0]+';--b1:'+t[1]+';--b2:'+t[2]+';--b3:'+t[3]+'"><div class="tin"><b class="tov">'+o.e+'</b><i class="tps">'+esc(pc(x))+'</i><span class="tnm" style="--nf:'+nf(x.name)+'">'+esc(x.name)+'</span></div></button><div class="tpi">'+(okT(x.team)?'ทีม '+LET.charAt(x.team%LEAGUE_TEAMS):'')+(o.f<1?' · จริง '+x.ovr:'')+'</div>'+(u?'<em class="tpu">ในทีม</em>':'')+'</div>'}).join('')+'</div>':'<div style="padding:24px;text-align:center;color:var(--mu)">ไม่พบการ์ด</div>'}
+var L=all().filter(function(x){return (!q||x.name.toLowerCase().indexOf(q)>=0)&&(pf==='all'||pc(x)===r)&&(plg<0||(okT(x.team)&&tLg(x.team)===plg))}).map(function(x){var f=fit(r,pc(x));return{x:x,f:f,e:Math.round(x.ovr*f)}}).sort(function(a,b){return b.e-a.e||b.x.ovr-a.x.ovr}).slice(0,200);
+$('#tbl2').innerHTML=L.length?'<div class="tpg">'+L.map(function(o){var x=o.x,t=(TH[x.theme]||TH.red).b,u=used[x.id];return '<div class="tpw'+(u?' u':'')+'"><button type="button" class="tcd tpk" data-id="'+esc(x.id)+'"'+(u?' disabled':'')+' aria-label="'+esc(x.name)+'" style="--b0:'+t[0]+';--b1:'+t[1]+';--b2:'+t[2]+';--b3:'+t[3]+'"><div class="tin"><b class="tov">'+o.e+'</b><i class="tps">'+esc(pc(x))+'</i><span class="tnm" style="--nf:'+nf(x.name)+'">'+esc(x.name)+'</span></div></button><div class="tpi">'+(okT(x.team)?'<span style="color:'+lgc(tLg(x.team))[0]+'">●</span> ลีก '+(tLg(x.team)+1)+' · '+LET.charAt(x.team%LEAGUE_TEAMS):'')+(o.f<1?' · จริง '+x.ovr:'')+'</div>'+(u?'<em class="tpu">ในทีม</em>':'')+'</div>'}).join('')+'</div>':'<div style="padding:24px;text-align:center;color:var(--mu)">ไม่พบการ์ด</div>'}
 function tbClose2(){$('#tbp').style.display='none';pk=-1}
 function tbAuto(){var A=all(),used={},o=FM[TS.form].map(function(s,i){return i}).sort(function(a,b){return (FM[TS.form][a][0]==='GK'?0:1)-(FM[TS.form][b][0]==='GK'?0:1)});TS.ids=[];
 o.forEach(function(i){var r=FM[TS.form][i][0],b=null,be=-1;A.forEach(function(x){if(used[x.id])return;var e=x.ovr*fit(r,pc(x));if(e>be){be=e;b=x}});if(b){used[b.id]=1;TS.ids[i]=b.id}else TS.ids[i]=''});tbSave();tbRender()}
