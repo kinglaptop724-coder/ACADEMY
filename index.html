@@ -657,6 +657,7 @@ $('#ml').innerHTML=h;$('#mrn').textContent=m.round;
 var nx=new Date(m.next);$('#mnx').textContent='ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ทีมที่ชนะได้ค่าพลังทุกด้าน +1 (เสมอไม่เพิ่ม) แล้วจัดอันดับใหม่ · '+(m.next>Date.now()?'แข่งรอบต่อไป '+nx.toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'แข่งรอบใหม่เร็ว ๆ นี้');
 if(b)b.style.display='';mcAuto()}
 /* ===== UCL (แข่งข้ามลีก) ===== */
+function evr(x){x=+x||24;return x%24===0?(x/24)+' วัน':x+' ชั่วโมง'}
 function ucOpen(){ucRender();$('#ucm').style.display='flex'}
 function ucClose(){$('#ucm').style.display='none'}
 function drawUcl(){var b=$('#ucb');if(!b)return;
@@ -671,14 +672,14 @@ $('#ucs').textContent='ฤดูกาลที่ '+u.season+' · ลีกล�
 var h='';
 if(u.status==='done'&&u.champion>=0)h+='<div class="ucc"><div class="ucct">🏆</div><small>แชมป์ UCL ฤดูกาลที่ '+u.season+'</small><b>'+nm(u.champion)+'</b><span>'+tName(u.champion)+'</span></div>';
 if(u.status==='active'){h+='<div class="ucst" style="margin-top:2px">'+(u.stages.length?'ทีมที่ยังอยู่ในการแข่งขัน':'ทีมที่ผ่านเข้ารอบ')+' ('+u.alive.length+')</div><div class="ucch">'+u.alive.map(function(n){return '<span class="ucp">'+dt(n)+nm(n)+lg(n)+'</span>'}).join('')+'</div>';
-h+='<div class="ucnx">'+(MATCH&&MATCH.next>Date.now()?'รอบการแข่งต่อไป '+new Date(MATCH.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'รอบการแข่งต่อไป เร็ว ๆ นี้')+' · จับสลากใหม่ทุกรอบ</div>'}
+h+='<div class="ucnx">'+(u.next>Date.now()?'นัดต่อไป '+new Date(u.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'นัดต่อไป เร็ว ๆ นี้')+' · แข่งทุก '+evr(u.every)+' · จับสลากใหม่ทุกรอบ</div>'}
 u.stages.slice().reverse().forEach(function(s){h+='<div class="ucst">'+esc(s.name)+'</div>';
 s.matches.forEach(function(x){
 if(x.a<0){h+='<div class="mt by'+(x.h===mt?' me':'')+'"><span class="tm">'+dt(x.h)+' '+nm(x.h)+lg(x.h)+' ผ่านเข้ารอบถัดไปโดยตรง</span></div>';return}
 var hw=x.w===x.h,aw=x.w===x.a;
 h+='<div class="mt'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+(hw?'<span class="up">+1</span>':'')+nm(x.h)+lg(x.h)+dt(x.h)+'</span><span class="sc">'+(x.hs==null?'–':x.hs+' - '+x.as)+'</span><span class="tm'+(aw?' w':'')+'">'+dt(x.a)+nm(x.a)+lg(x.a)+(aw?'<span class="up">+1</span>':'')+'</span></div>';
 if(x.ph!=null)h+='<div class="ucpn">ดวลจุดโทษ '+x.ph+' - '+x.pa+'</div>'})});
-if(!u.stages.length&&u.status==='active')h+='<div class="ucnx">ยังไม่มีผลการแข่ง รอบแรกจะแข่งพร้อมรอบลีกครั้งถัดไป</div>';
+if(!u.stages.length&&u.status==='active')h+='<div class="ucnx">ยังไม่มีผลการแข่ง นัดแรกจะแข่งที่รอบลีกถัดไป</div>';
 h+='<div class="ucnx" style="margin-bottom:6px">ทีมที่ชนะแต่ละนัดได้ค่าพลังทุกด้าน +1 · แชมป์ได้โบนัสเพิ่ม · เสมอตัดสินด้วยดวลจุดโทษ · ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ตัวเลขเล็ก = ลีก·ทีม</div>';
 $('#ucbd').innerHTML=h}
 $('#ucb').onclick=ucOpen;$('#ucx').onclick=ucClose;$('#ucc').onclick=ucClose;$('#ucm').onclick=function(e){if(e.target.id=='ucm')ucClose()};
@@ -814,7 +815,7 @@ var go=function(){if(ADM.busy)return;var pw=$('#adp').value;if(!pw){admErr('ก�
 admPost({action:'adminLogin',pw:pw}).then(function(d){ADM.tok=d.token;return admLoad()}).catch(function(e){admErr(e.message);var b=$('#adg');if(b)b.disabled=false}).then(function(){ADM.busy=false})};
 $('#adg').onclick=go;$('#adp').onkeydown=function(e){if(e.key==='Enter')go()};setTimeout(function(){var p=$('#adp');if(p)p.focus()},50)}
 function admLoad(){$('#adc').innerHTML=admShell('จัดการสมาชิก','<div class="abd"><div class="em">กำลังโหลดข้อมูลสมาชิก…</div></div>');
-return admPost({action:'adminList',token:ADM.tok}).then(function(d){ADM.list=d.members||[];ADM.cap=d.teamCap||11;ADM.max=d.statMax||99;ADM.ucl=d.ucl||null;ADM.uclK=d.uclPerLeague||4;ADM.uclMin=d.uclMin||3;admView()}).catch(function(e){if(!ADM.tok)admLogin();else{$('#adc').innerHTML=admShell('จัดการสมาชิก','<div class="abd"><div class="em">โหลดข้อมูลไม่สำเร็จ<br><small>'+esc(e.message)+'</small></div></div>','<div class="fr"><button class="ab" id="adr" type="button">'+ai(AI.refresh)+'ลองใหม่</button></div>');$('#adr').onclick=admLoad}})}
+return admPost({action:'adminList',token:ADM.tok}).then(function(d){ADM.list=d.members||[];ADM.cap=d.teamCap||11;ADM.max=d.statMax||99;ADM.ucl=d.ucl||null;ADM.uclK=d.uclPerLeague||4;ADM.uclMin=d.uclMin||3;ADM.uclH=d.uclHours||48;admView()}).catch(function(e){if(!ADM.tok)admLogin();else{$('#adc').innerHTML=admShell('จัดการสมาชิก','<div class="abd"><div class="em">โหลดข้อมูลไม่สำเร็จ<br><small>'+esc(e.message)+'</small></div></div>','<div class="fr"><button class="ab" id="adr" type="button">'+ai(AI.refresh)+'ลองใหม่</button></div>');$('#adr').onclick=admLoad}})}
 function admMain(){var lgs={};ADM.list.forEach(function(m){if(okT(m.team))lgs[tLg(m.team)]=1});
 var ks=Object.keys(lgs).map(Number).sort(function(a,b){return a-b});
 $('#adc').innerHTML=admShell('จัดการสมาชิก',
@@ -841,15 +842,15 @@ admPost({action:'adminDelete',token:ADM.tok,id:id}).then(function(){ADM.list=ADM
 function admUcl(){var u=ADM.ucl,act=u&&u.status==='active',K=ADM.uclK||4,body,foot;
 var tn=function(n){return n>=0?tName(n):'-'};
 var card=function(t,s){return '<div class="asc"><h4>'+t+'</h4><p style="margin:8px 0 2px;font-size:14px;line-height:1.55">'+s+'</p></div>'};
-if(act)body=card('สถานะ UCL','กำลังแข่ง<b> ฤดูกาลที่ '+u.season+'</b><br>แข่งไปแล้ว '+u.stages.length+' รอบการแข่ง · เหลือ '+u.alive.length+' ทีม จากทั้งหมด '+u.qualified.length+' ทีม<br><span style="color:var(--mu);font-size:12.5px">แต่ละรอบการแข่งเดินหน้าไปพร้อมรอบลีกครั้งถัดไป</span>');
+if(act)body=card('สถานะ UCL','กำลังแข่ง<b> ฤดูกาลที่ '+u.season+'</b><br>แข่งไปแล้ว '+u.stages.length+' รอบการแข่ง · เหลือ '+u.alive.length+' ทีม จากทั้งหมด '+u.qualified.length+' ทีม<br><span style="color:var(--mu);font-size:12.5px">แข่งทุก '+evr(ADM.uclH)+(u.next>Date.now()?' · นัดต่อไป '+new Date(u.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'')+'</span>');
 else body=card('สถานะ UCL',u&&u.status==='done'?'จบฤดูกาลที่ '+u.season+'<br>แชมป์: <b>'+esc(tn(u.champion))+'</b>':u&&u.status==='cancelled'?'ฤดูกาลที่ '+u.season+' ถูกยกเลิก':'ยังไม่เคยจัด UCL')
-+'<div class="asc"><h4>เริ่ม UCL ฤดูกาลใหม่</h4><label for="uc_k">ส่งทีมเข้าแข่ง ลีกละ (ทีม)</label><select id="uc_k">'+[1,2,3,4,5,6,7,8].map(function(i){return '<option value="'+i+'"'+(i===K?' selected':'')+'>'+i+' ทีม</option>'}).join('')+'</select><p style="margin:10px 0 0;font-size:12.5px;color:var(--mu);line-height:1.55">ทีมที่ได้สิทธิ์ = ทีมที่ค่าพลังเฉลี่ยสูงสุดของแต่ละลีก (ต้องมีผู้เล่นอย่างน้อย '+ADM.uclMin+' คน) · ต้องมีอย่างน้อย 2 ลีก · แข่งแพ้คัดออกนัดเดียวจบ เสมอดวลจุดโทษ · ทีมชนะได้ค่าพลัง +1</p></div>';
++'<div class="asc"><h4>เริ่ม UCL ฤดูกาลใหม่</h4><label for="uc_k">ส่งทีมเข้าแข่ง ลีกละ (ทีม)</label><select id="uc_k">'+[1,2,3,4,5,6,7,8].map(function(i){return '<option value="'+i+'"'+(i===K?' selected':'')+'>'+i+' ทีม</option>'}).join('')+'</select><p style="margin:10px 0 0;font-size:12.5px;color:var(--mu);line-height:1.55">ทีมที่ได้สิทธิ์ = ทีมที่ค่าพลังเฉลี่ยสูงสุดของแต่ละลีก (ต้องมีผู้เล่นอย่างน้อย '+ADM.uclMin+' คน) · ต้องมีอย่างน้อย 2 ลีก · แข่งแพ้คัดออกนัดเดียวจบ เสมอดวลจุดโทษ · ทีมชนะได้ค่าพลัง +1 · แข่งทุก '+evr(ADM.uclH)+'</p></div>';
 foot='<div class="ae" id="ade"></div><div class="fr">'+(act?'<button class="ab dg" id="ucs2" type="button">ยกเลิก UCL นี้</button>':'<button class="ab" id="ucg" type="button">'+ai(AI.cup)+'เริ่ม UCL</button>')+'</div>';
 $('#adc').innerHTML=admShell('จัดการ UCL','<div class="abd">'+body+'</div>',foot,true);
 $('#adbk').onclick=function(){ADM.uv=false;admView()};
 var fin=function(d){ADM.ucl=d;ADM.busy=false;refresh();admUcl()},fail=function(e){ADM.busy=false;if(!ADM.tok){ADM.uv=false;admLogin()}else admErr(e.message)};
 if(act)$('#ucs2').onclick=function(){if(ADM.busy)return;admAsk('ยกเลิก UCL นี้?','ผลที่แข่งไปแล้วยังเก็บไว้ในชีต UCL แต่จะไม่แข่งต่อ และปุ่ม UCL บนหน้าเว็บจะหายไป','ยกเลิก UCL',function(){ADM.busy=true;admErr('กำลังยกเลิก…');admPost({action:'adminUclStop',token:ADM.tok}).then(fin,fail)})};
-else $('#ucg').onclick=function(){if(ADM.busy)return;var k=+$('#uc_k').value;admAsk('เริ่ม UCL?','แต่ละลีกส่งทีมเข้าแข่ง <b>'+k+' ทีม</b><br>รอบแรกจะแข่งพร้อมรอบลีกครั้งถัดไป','เริ่มเลย',function(){ADM.busy=true;admErr('กำลังเริ่ม…');admPost({action:'adminUclStart',token:ADM.tok,perLeague:k}).then(fin,fail)},AI.cup,false)}}
+else $('#ucg').onclick=function(){if(ADM.busy)return;var k=+$('#uc_k').value;admAsk('เริ่ม UCL?','แต่ละลีกส่งทีมเข้าแข่ง <b>'+k+' ทีม</b><br>นัดแรกแข่งที่รอบลีกถัดไป แล้วแข่งทุก '+evr(ADM.uclH),'เริ่มเลย',function(){ADM.busy=true;admErr('กำลังเริ่ม…');admPost({action:'adminUclStart',token:ADM.tok,perLeague:k}).then(fin,fail)},AI.cup,false)}}
 function admTO(lg,k,id){return LET.split('').map(function(c,i){var n=(lg-1)*LEAGUE_TEAMS+i,cnt=ADM.list.filter(function(x){return x.team===n&&x.id!==id}).length;return '<option value="'+i+'"'+(k===i?' selected':'')+'>ทีม '+c+' ('+cnt+'/'+ADM.cap+')</option>'}).join('')}
 function admEdit(){var m=ADM.ed,t=okT(m.team)?m.team:0,lg=tLg(t)+1,k=t%LEAGUE_TEAMS;
 var body='<div class="abd">'
