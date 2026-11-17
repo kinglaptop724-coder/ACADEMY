@@ -90,7 +90,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .crh{position:absolute;width:32px;height:32px}.crh::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#ffe27a;border:2px solid #7a0f1c}
 .crh.nw{left:0;top:0;cursor:nwse-resize}.crh.nw::after{left:2px;top:2px}.crh.ne{right:0;top:0;cursor:nesw-resize}.crh.ne::after{right:2px;top:2px}
 .crh.sw{left:0;bottom:0;cursor:nesw-resize}.crh.sw::after{left:2px;bottom:2px}.crh.se{right:0;bottom:0;cursor:nwse-resize}.crh.se::after{right:2px;bottom:2px}
-#vcm{position:fixed;inset:0;z-index:9998;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(20,8,10,.78)}
+#vcm{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(20,8,10,.78)}
 #vcm .bgb{max-width:400px}#vcl{max-height:calc(100dvh - 210px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;height:220px;margin:0 auto 10px;max-width:340px;border:2px dashed var(--bd);border-radius:14px;background:var(--in);color:var(--mu);font-size:14px}
 #vcl i{width:34px;height:34px;border:4px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:vcsp .8s linear infinite}@keyframes vcsp{to{transform:rotate(360deg)}}
 #vcm .bgb{max-height:calc(100vh - 36px);max-height:calc(100dvh - 36px);overflow:auto;display:flex;flex-direction:column}#vcm .bgb h3,#vcm .bgb p{flex:none}#vcm .bga{flex:none}#vcm .bgb{position:relative}#vcm .bga{flex-direction:row}#vcm .bga button{flex:1;padding:12px 6px;font-size:14px}#vcm .bga button#vcx{position:absolute;top:8px;right:8px;flex:none;width:34px;height:34px;padding:0;border-radius:50%;border:0;background:rgba(0,0,0,.08);color:var(--tx);font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center}#vcm .bgb h3{padding:0 34px}
@@ -328,7 +328,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #adm .ahd span:nth-child(n+3){text-align:center}
 #adm .ar{height:44px;border-bottom:1px solid var(--bd);background:var(--pn)}#adm .ar:hover{background:var(--in)}
 #adm .ark{text-align:center;font-size:12px;font-weight:600;color:var(--mu)}
-#adm .anm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#adm .anm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}#adm .anm:hover{text-decoration:underline}
 #adm .apc{text-align:center}#adm .app{display:inline-block;background:var(--ac2);color:var(--ac);font-weight:600;border-radius:6px;padding:1px 6px;font-size:11px;letter-spacing:.3px}
 #adm .atc{display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;color:var(--tx);white-space:nowrap}#adm .atc i{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
 #adm .aov{text-align:center;font-size:15px;font-weight:700;color:var(--ac)}
@@ -685,7 +685,7 @@ $('#ucbd').innerHTML=h}
 $('#ucb').onclick=ucOpen;$('#ucx').onclick=ucClose;$('#ucc').onclick=ucClose;$('#ucm').onclick=function(e){if(e.target.id=='ucm')ucClose()};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#ucm').style.display==='flex')ucClose()});
 var vcCache={},vcTok=0;
-function viewCard(id){var x=rows().filter(function(r){return r.id==id})[0];if(!x)return;
+function viewCard(id){var x=rows().filter(function(r){return r.id==id})[0]||(ADM.list||[]).filter(function(r){return r.id==id})[0];if(!x)return;
 var m=$('#vcm'),im=$('#vci'),ld=$('#vcl'),info=(okT(x.team)?tName(x.team)+' · ':'')+x.pos+' · พลังรวม '+x.ovr,tok=++vcTok;m.style.display='flex';bgLock(true);$('#vct').textContent=x.name;$('#vcs').textContent=info;
 im.style.display='none';im.removeAttribute('src');ld.style.display='flex';
 function show(u){if(tok!==vcTok)return;im.onload=function(){if(tok===vcTok){ld.style.display='none';im.style.display='block'}};im.onerror=function(){if(tok===vcTok){ld.style.display='none';$('#vcs').textContent='โหลดภาพไม่สำเร็จ'}};im.src=u}
@@ -828,9 +828,9 @@ function admRows(){var q=ADM.q.trim().toLowerCase();
 var L=ADM.list.filter(function(m){if(ADM.lg!==''&&!(okT(m.team)&&tLg(m.team)==ADM.lg))return false;if(!q)return true;return m.name.toLowerCase().indexOf(q)>=0||(okT(m.team)&&tName(m.team).toLowerCase().indexOf(q)>=0)||m.pos.toLowerCase()===q});
 L.sort(function(a,b){return (b.ovr-a.ovr)||(a.created-b.created)});
 var box=$('#adlst');
-box.innerHTML=L.length?'<div class="ahd"><span>#</span><span>ชื่อ</span><span>ตำแหน่ง</span><span>ลีก·ทีม</span><span>พลัง</span><span></span></div>'+L.slice(0,150).map(function(m,i){var ok=okT(m.team);return '<div class="ar"><span class="ark">'+(i+1)+'</span><span class="anm" title="'+esc(m.name)+'">'+esc(m.name)+'</span><span class="apc"><span class="app">'+esc(m.pos)+'</span></span><span class="atc"'+(ok?' title="'+tName(m.team)+'"':'')+'>'+(ok?'<i style="background:'+tCol(m.team)+'"></i>'+(tLg(m.team)+1)+'·'+LET.charAt(m.team%LEAGUE_TEAMS):'-')+'</span><span class="aov">'+m.ovr+'</span><button type="button" class="ib" data-d="'+esc(m.id)+'" aria-label="ลบ '+esc(m.name)+'" title="ลบ">'+ai(AI.del,17)+'</button></div>'}).join(''):'<div class="em">ไม่พบสมาชิก</div>';
+box.innerHTML=L.length?'<div class="ahd"><span>#</span><span>ชื่อ</span><span>ตำแหน่ง</span><span>ลีก·ทีม</span><span>พลัง</span><span></span></div>'+L.slice(0,150).map(function(m,i){var ok=okT(m.team);return '<div class="ar"><span class="ark">'+(i+1)+'</span><span class="anm" data-v="'+esc(m.id)+'" role="button" tabindex="0" title="กดเพื่อดูการ์ด: '+esc(m.name)+'">'+esc(m.name)+'</span><span class="apc"><span class="app">'+esc(m.pos)+'</span></span><span class="atc"'+(ok?' title="'+tName(m.team)+'"':'')+'>'+(ok?'<i style="background:'+tCol(m.team)+'"></i>'+(tLg(m.team)+1)+'·'+LET.charAt(m.team%LEAGUE_TEAMS):'-')+'</span><span class="aov">'+m.ovr+'</span><button type="button" class="ib" data-d="'+esc(m.id)+'" aria-label="ลบ '+esc(m.name)+'" title="ลบ">'+ai(AI.del,17)+'</button></div>'}).join(''):'<div class="em">ไม่พบสมาชิก</div>';
 var n=$('#adn');if(n)n.textContent='แสดง '+Math.min(L.length,150)+' จาก '+ADM.list.length+' คน';
-Array.prototype.forEach.call(box.querySelectorAll('[data-d]'),function(b){b.onclick=function(){admDel(b.dataset.d)}})}
+Array.prototype.forEach.call(box.querySelectorAll('[data-d]'),function(b){b.onclick=function(){admDel(b.dataset.d)}});Array.prototype.forEach.call(box.querySelectorAll('[data-v]'),function(b){b.onclick=function(){viewCard(b.dataset.v)};b.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();viewCard(b.dataset.v)}}})}
 function admAsk(t,msg,ok,fn,icon,danger){var c=$('#adcf'),dg=danger!==false;
 c.innerHTML='<div class="cb" role="alertdialog" aria-modal="true"><div class="ci'+(dg?'':' ok')+'">'+ai(icon||AI.del,26)+'</div><h5>'+t+'</h5><p>'+msg+'</p><div class="fr"><button class="ab alt" id="cfn" type="button">ยกเลิก</button><button class="ab'+(dg?' dg':'')+'" id="cfy" type="button">'+ok+'</button></div></div>';
 c.classList.add('on');var off=function(){c.classList.remove('on');c.innerHTML=''};
