@@ -329,6 +329,12 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #ucm .ucst{font-size:13px;font-weight:700;color:var(--mu);margin:14px 2px 4px}
 
 #ucm .ucb{max-width:560px}
+#ucb{display:flex;align-items:center;gap:12px;width:100%;margin:12px 0 0;padding:13px 16px;border:1.5px solid #d9a520;border-radius:16px;cursor:pointer;font:inherit;text-align:left;color:#fff;background:radial-gradient(circle at 90% 15%,rgba(255,213,74,.3),transparent 45%),linear-gradient(135deg,#0b1f5c,#16399a 60%,#0a1744);box-shadow:0 6px 18px rgba(22,57,154,.35);-webkit-tap-highlight-color:transparent}
+#ucb:active{transform:scale(.985)}
+#ucb .ub-i{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:25px;line-height:1;background:rgba(255,213,74,.16);border:1.5px solid rgba(255,213,74,.75)}
+#ucb .ub-t{flex:1;min-width:0}#ucb .ub-t b{display:block;font-size:17px;font-weight:700;line-height:1.25;color:#ffe27a}#ucb .ub-t small{display:block;margin-top:2px;font-size:12.5px;line-height:1.35;color:#cfd9ff}
+#ucb .ub-a{flex:none;font-size:28px;line-height:1;color:#ffe27a}
+#ucb.done{color:#4a2a00;background:linear-gradient(135deg,#fff1a8,#e0aa20 50%,#b07800);box-shadow:0 6px 18px rgba(176,120,0,.4)}#ucb.done .ub-i{background:rgba(255,255,255,.4);border-color:#7a4d00}#ucb.done .ub-t b{color:#4a1500}#ucb.done .ub-t small{color:#5a3a10}#ucb.done .ub-a{color:#4a1500}
 #ucm .uct{position:sticky;top:-12px;z-index:3;display:flex;gap:6px;margin:-12px -14px 10px;padding:10px 14px 8px;background:var(--pn);border-bottom:1px solid var(--bd)}
 #ucm .uct button{flex:1;padding:9px 6px;border:1.5px solid var(--bd);border-radius:999px;background:var(--in);color:var(--tx);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 #ucm .uct button.on{background:#16399a;border-color:#16399a;color:#ffe27a}
@@ -453,7 +459,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
 <div class="bkrow"><button class="bkbtn" id="tbo" type="button" style="background:linear-gradient(120deg,#0e5a32,#1f8f4e 60%,#0e5a32);border-color:#d9a520"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 12h17"/><circle cx="12" cy="12" r="2.6"/><path d="M9 4v2.5h6V4M9 20v-2.5h6V20"/></svg><span>จัดทีมฟุตบอล</span><small>เลือกการ์ดลงสนาม</small></button><button class="bkbtn" id="bko" type="button"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg><span>สมุดสะสมการ์ด</span><small>พลิกหน้าได้</small></button></div>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
-<button class="ghost" id="mcb" type="button" style="display:none;margin:12px 0 0">🏆 ดูผลการแข่งขันรอบล่าสุด</button><button class="ghost" id="ucb" type="button" style="display:none;margin:12px 0 0 4px;color:#16399a;font-weight:600"></button>
+<button class="ghost" id="mcb" type="button" style="display:none;margin:12px 0 0">🏆 ดูผลการแข่งขันรอบล่าสุด</button><button id="ucb" type="button" style="display:none"></button>
 <div class="chips sm" id="lgs" style="margin:12px 0"></div>
 <div id="shl" style="font-size:13px;color:var(--mu);margin:2px 2px 8px"></div>
 <div class="sheet" id="sh"></div></div>
@@ -734,7 +740,8 @@ function ucOpen(){ucRender();$('#ucm').style.display='flex'}
 function ucClose(){$('#ucm').style.display='none'}
 function drawUcl(){var b=$('#ucb');if(!b)return;
 if(!UCL||(UCL.status!=='active'&&UCL.status!=='done')){b.style.display='none';return}
-b.style.display='';b.textContent=UCL.status==='done'?'🏆 UCL · แชมป์ฤดูกาลที่ '+UCL.season:'🏆 UCL ศึกชิงแชมป์ข้ามลีก'}
+b.style.display='';var dn=UCL.status==='done';b.className=dn?'done':'';
+b.innerHTML='<span class="ub-i">🏆</span><span class="ub-t"><b>'+(dn?'UCL · แชมป์ฤดูกาลที่ '+UCL.season:'UCL ศึกชิงแชมป์ข้ามลีก')+'</b><small>'+(dn?'ดูผลและสายการแข่งขันทั้งหมด':'รายการใหญ่ · แตะเพื่อดูตารางและผลแข่งขัน')+'</small></span><span class="ub-a">›</span>'}
 var UCT=null;
 function ucStageName(n){return n===2?'รอบชิงชนะเลิศ':n===4?'รอบรองชนะเลิศ':n===8?'รอบ 8 ทีมสุดท้าย':'รอบ '+n+' ทีม'}
 function ucRender(){var u=UCL;if(!u)return;
