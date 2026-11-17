@@ -433,7 +433,7 @@ var spin=0,spinT=null;
 function RN(){return String(60+Math.floor(Math.random()*36))}
 function SV(p,i){return spin?RN():(p.rev?String(p.st[i]):'?')}
 function OV(p){return spin?RN():(p.rev?String(p.ovr):'??')}
-function startSpin(){if(window.fxShine)fxShine();spin=1;clearInterval(spinT);spinT=setInterval(render,80)}
+function startSpin(){if(window.fxShine)fxShine();spin=1;clearInterval(spinT);spinT=setInterval(function(){render()},80)}
 function stopSpin(){spin=0;clearInterval(spinT);spinT=null}
 function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
 function hasA(im){if(im.__a!=null)return im.__a;var c=document.createElement('canvas');c.width=c.height=24;var x=c.getContext('2d');x.drawImage(im,0,0,24,24);var d=x.getImageData(0,0,24,24).data,r=false;for(var i=3;i<d.length;i+=4)if(d[i]<245){r=true;break}return im.__a=r}
@@ -463,7 +463,7 @@ fl(330,340,2.5,.18,L,.2);fl(345,240,1.5,-.2,D,.16);fl(270,310,1.7,-.1,L,.16);fl(
 [[120,120,5],[290,95,4],[60,300,5],[310,260,6],[200,60,3],[90,230,3],[250,200,4]].forEach(function(d){c.beginPath();c.arc(d[0],d[1],d[2],0,7);c.fillStyle=rg(.35);c.fill()})}
 c.restore()}
 function patThumbs(){document.querySelectorAll('#pt .pb canvas').forEach(function(cn){var c=cn.getContext('2d'),k=cn.width/360,h=cn.height/k;c.setTransform(k,0,0,k,0,0);c.clearRect(0,0,360,h);var g=c.createRadialGradient(.72*W,.22*H,0,.72*W,.22*H,H);[0,.4,.8,1].forEach(function(s,i){g.addColorStop(s,T.b[i])});c.fillStyle=g;c.fillRect(0,0,360,h);c.save();c.beginPath();c.rect(0,0,360,h);c.clip();patDraw(c,cn.parentNode.dataset.p,1.7);c.restore()})}
-function render(ex){
+function render(ex){ex=(ex===true);
 var p=cur();T=TH[p.theme]||TH.red;var dd=$('#dl');if(dd){dd.disabled=!p.rev;dd.title=p.rev?'':'ต้องกดบันทึกการ์ดก่อน'}var tn=$('#thn');if(tn){var q=TN.filter(function(x){return x[0]==p.theme})[0]||TN[0];tn.textContent='สีที่เลือก: '+q[1]+' · ลวดลาย: '+patName(p.pat||'flame')}if(PTT!==p.theme){PTT=p.theme;patThumbs()}
 ctx.setTransform(S,0,0,S,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.translate(MX,MY);ctx.textAlign='left';ctx.textBaseline='alphabetic';if('letterSpacing' in ctx)ctx.letterSpacing='0px';
 ctx.save();ctx.strokeStyle='#ffd54a';ctx.lineWidth=1.2;[[1.1,.3],[1.05,.55]].forEach(function(o){path(o[0]);ctx.globalAlpha=o[1];ctx.stroke()});ctx.restore();
@@ -939,7 +939,7 @@ $('#sv').onclick=function(){saveCard(false)};
 $('#name').addEventListener('input',function(){if(this.value.trim()){this.classList.remove('bad');$('#nameerr').style.display='none'}});
 refresh();setInterval(function(){if(!document.hidden)refresh()},20000);
 document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh()});
-$('#hl').src=LOGO;$('#fl').src=LOGO;fillForm();render();(document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Barlow Condensed"'),document.fonts.load('600 30px "Barlow Condensed"'),document.fonts.load('500 15px Kanit'),document.fonts.load('600 27px Kanit')]):Promise.resolve()).then(render,render);
+$('#hl').src=LOGO;$('#fl').src=LOGO;fillForm();render();(document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Barlow Condensed"'),document.fonts.load('600 30px "Barlow Condensed"'),document.fonts.load('500 15px Kanit'),document.fonts.load('600 27px Kanit')]):Promise.resolve()).then(function(){render()},function(){render()});
 (function(){var t0=Date.now(),sp=$('#sp'),st=$('#sst'),m=['กำลังเตรียมกรอบการ์ด…','พร้อมแล้ว!'],fin=0;
 setTimeout(function(){st.textContent=m[0]},1100);
 function done(){if(fin)return;fin=1;st.textContent=m[1];setTimeout(function(){sp.classList.add('out');setTimeout(function(){sp.remove()},700)},350)}
