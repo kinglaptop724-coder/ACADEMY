@@ -835,7 +835,7 @@ if(name==='getImage')return fetch(API+'?action=getImage&id='+encodeURIComponent(
 var body=name==='saveCard'?{action:'saveCard',rec:args[0]}:{action:'saveCardImage',id:args[0],png:args[1]};
 return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(chk)}
 var MATCH=null,UCL=null;
-function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=(b&&b.cards)||[];MATCH=(b&&b.match)||null;UCL=(b&&b.ucl)||null;DB=true;drawTeams();drawUcl()},function(){DB=false;drawTeams()})}
+function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=((b&&b.cards)||[]).map(function(c){c.st=(c.st||[]).map(function(n){return Math.round(n)});return c});MATCH=(b&&b.match)||null;UCL=(b&&b.ucl)||null;DB=true;drawTeams();drawUcl()},function(){DB=false;drawTeams()})}
 /* ===== ระบบแอดมิน (รหัสอยู่ในชีตแท็บ "แอดมิน") ===== */
 var ADM={tok:'',list:[],q:'',lg:'',ed:null,cap:11,max:99,busy:false};
 function ai(p,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||18)+'" height="'+(sz||18)+'" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
@@ -894,7 +894,7 @@ function admEdit(){var m=ADM.ed,t=okT(m.team)?m.team:0,lg=tLg(t)+1,k=t%LEAGUE_TE
 var body='<div class="abd">'
 +'<div class="asc"><h4>ข้อมูลผู้เล่น</h4><label for="ed_n">ชื่อ</label><input id="ed_n" maxlength="22" value="'+esc(m.name)+'"><label for="ed_p">ตำแหน่ง</label><select id="ed_p">'+POS.map(function(p){return '<option value="'+p[0]+'"'+(m.pos===p[0]?' selected':'')+'>'+p[0]+' · '+p[1]+'</option>'}).join('')+'</select></div>'
 +'<div class="asc"><h4>ทีม</h4><div class="g2"><div><label for="ed_l">ลีก</label><input id="ed_l" type="number" min="1" max="99" inputmode="numeric" value="'+lg+'"></div><div><label for="ed_t">ทีม (คนในทีม)</label><select id="ed_t">'+admTO(lg,k,m.id)+'</select></div></div></div>'
-+'<div class="asc"><h4>ค่าพลัง (1–'+ADM.max+')<span class="ovp">พลังรวม <b id="edo">'+m.ovr+'</b></span></h4><div class="g3" style="margin-top:8px">'+LB.map(function(l,i){return '<div class="astt"><label for="ed_s'+i+'">'+esc(l)+'</label><input id="ed_s'+i+'" type="number" min="1" max="'+ADM.max+'" inputmode="numeric" value="'+(m.st[i]||0)+'"></div>'}).join('')+'</div></div>'
++'<div class="asc"><h4>ค่าพลัง (1–'+ADM.max+')<span class="ovp">พลังรวม <b id="edo">'+m.ovr+'</b></span></h4><div class="g3" style="margin-top:8px">'+LB.map(function(l,i){return '<div class="astt"><label for="ed_s'+i+'">'+esc(l)+'</label><input id="ed_s'+i+'" type="number" min="1" max="'+ADM.max+'" inputmode="numeric" value="'+Math.round(m.st[i]||0)+'"></div>'}).join('')+'</div></div>'
 +(m.img?'<p style="font-size:12px;color:var(--mu);margin:0 2px">หมายเหตุ: รูปการ์ดที่เก็บไว้จะอัปเดตเมื่อผู้เล่นกดบันทึกการ์ดครั้งถัดไป</p>':'')+'</div>';
 $('#adc').innerHTML=admShell('แก้ไขสมาชิก',body,'<div class="ae" id="ade"></div><div class="fr"><button class="ab alt" id="edc" type="button">ยกเลิก</button><button class="ab" id="eds" type="button">'+ai(AI.check)+'บันทึก</button></div>',true);
 var back=function(){ADM.ed=null;admView()};$('#edc').onclick=back;$('#adbk').onclick=back;
