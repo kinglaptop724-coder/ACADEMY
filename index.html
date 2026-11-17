@@ -718,15 +718,23 @@ h+='<div class="ucnx" style="margin-bottom:6px">ทีมที่ชนะแ�
 $('#ucbd').innerHTML=h}
 $('#ucb').onclick=ucOpen;$('#ucx').onclick=ucClose;$('#ucc').onclick=ucClose;$('#ucm').onclick=function(e){if(e.target.id=='ucm')ucClose()};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#ucm').style.display==='flex')ucClose()});
-var vcCache={},vcTok=0;
+var vcCache={},vcTok=0,BKT={};
+/* แคชรูปการ์ดถาวรในเครื่อง (IndexedDB) · คีย์ = รหัสการ์ด + เวลาแก้ไขล่าสุด → เปิดครั้งต่อไปไม่ต้องโหลดซ้ำ ถ้าการ์ดถูกแก้จะโหลดใหม่เอง */
+var IDBP=null;
+function idb(){if(IDBP)return IDBP;IDBP=new Promise(function(ok){try{var q=indexedDB.open('fbcards-img',1);q.onupgradeneeded=function(){q.result.createObjectStore('t')};q.onsuccess=function(){ok(q.result)};q.onerror=function(){ok(null)};q.onblocked=function(){ok(null)}}catch(e){ok(null)}});return IDBP}
+function idbGet(k,u){if(!u)return Promise.resolve(null);return idb().then(function(d){if(!d)return null;return new Promise(function(ok){try{var r=d.transaction('t').objectStore('t').get(k);r.onsuccess=function(){var v=r.result;ok(v&&v.u===u?v.d:null)};r.onerror=function(){ok(null)}}catch(e){ok(null)}})})}
+function idbSet(k,u,d){if(!u||!d)return;idb().then(function(db){if(!db)return;try{db.transaction('t','readwrite').objectStore('t').put({u:u,d:d},k)}catch(e){}})}
+function cardU(id){var x=(typeof ALL!=='undefined'?ALL:[]).filter(function(r){return r.id==id})[0];return x&&x.u||0}
+function cardImg(id,thumb){var u=cardU(id),k=id+(thumb?'#t':'#f');return idbGet(k,u).then(function(hit){if(hit)return{png:hit};return run('getImage',thumb?[id,1]:[id]).then(function(r){if(r&&r.png)idbSet(k,u,r.png);return r})})}
 function viewCard(id){var x=rows().filter(function(r){return r.id==id})[0]||(ADM.list||[]).filter(function(r){return r.id==id})[0];if(!x)return;
 var m=$('#vcm'),im=$('#vci'),ld=$('#vcl'),info=(okT(x.team)?tName(x.team)+' · ':'')+x.pos+' · พลังรวม '+x.ovr,tok=++vcTok;m.style.display='flex';bgLock(true);$('#vct').textContent=x.name;$('#vcs').textContent=info;var vv=$('#vcv');vv.textContent='มูลค่า '+bkVal(x.ovr);vv.style.display='block';
 im.style.display='none';im.removeAttribute('src');ld.style.display='flex';
 function show(u){if(tok!==vcTok)return;im.onload=function(){if(tok===vcTok){ld.style.display='none';im.style.display='block'}};im.onerror=function(){if(tok===vcTok){ld.style.display='none';$('#vcs').textContent='โหลดภาพไม่สำเร็จ'}};im.src=u}
 if(vcCache[id]){show(vcCache[id]);return}
+if(BKT[id])show(BKT[id]);
 var done=false;function fb(){if(done||tok!==vcTok)return;done=true;fallback(x)}
 var tm=setTimeout(fb,30000);
-run('getImage',[id]).then(function(r){clearTimeout(tm);if(done||tok!==vcTok)return;done=true;var u=r&&r.png;if(u){vcCache[id]=u;show(u)}else{done=false;fb()}},function(){clearTimeout(tm);fb()})}
+cardImg(id,false).then(function(r){clearTimeout(tm);if(done||tok!==vcTok)return;done=true;var u=r&&r.png;if(u){vcCache[id]=u;show(u)}else{done=false;fb()}},function(){clearTimeout(tm);fb()})}
 function fallback(x){
 var keep=roster,kc=ci;roster=[{id:'view',name:x.name,pos:x.pos,ovr:x.ovr,st:x.st,rev:true,theme:x.theme||'red',photo:'',zoom:100,ox:0,oy:0}];ci=0;
 var u;try{render(true);u=cv.toDataURL('image/png')}finally{roster=keep;ci=kc;render()}
@@ -781,11 +789,11 @@ function bkLd(){var b=$('#bkb'),q={},n=0,k;(BK.q||[]).forEach(function(i){q[i]=1
 if(b)Array.prototype.forEach.call(b.querySelectorAll('.bkt'),function(t){t.classList.toggle('ld',!!q[t.dataset.id]&&!t.__r)});
 var x=$('#bkld');if(x){x.classList.toggle('on',BK.open&&n>0);if(n)x.lastChild.textContent='กำลังโหลดภาพการ์ด… เหลือ '+n+' ใบ'}}
 function bkImgs(){if(!BK.open)return;var v=bkVis(),b=$('#bkb'),L=[],seen={};
-Array.prototype.forEach.call(b.querySelectorAll('.bkt'),function(t){var id=t.dataset.id;if(vcCache[id]){bkApply(id,vcCache[id]);return}
+Array.prototype.forEach.call(b.querySelectorAll('.bkt'),function(t){var id=t.dataset.id;var cc=BKT[id]||vcCache[id];if(cc){bkApply(id,cc);return}
 if(BK.bad[id]||BK.fly[id]||seen[id])return;var pg=+t.dataset.pg,d=9;v.forEach(function(q){d=Math.min(d,Math.abs(q-pg))});if(d>3)return;seen[id]=1;L.push([d,id])});
 L.sort(function(a,c){return a[0]-c[0]});BK.q=L.map(function(x){return x[1]});bkPump();bkLd()}
-function bkPump(){while(BK.open&&BK.act<3&&BK.q&&BK.q.length){(function(id){BK.act++;BK.fly[id]=1;
-run('getImage',[id]).then(function(r){var u=r&&r.png;if(u){vcCache[id]=u;bkApply(id,u)}else BK.bad[id]=1},function(){BK.bad[id]=1}).then(function(){BK.act--;delete BK.fly[id];bkPump();bkLd()})})(BK.q.shift())}}
+function bkPump(){while(BK.open&&BK.act<4&&BK.q&&BK.q.length){(function(id){BK.act++;BK.fly[id]=1;
+cardImg(id,true).then(function(r){var u=r&&r.png;if(u){BKT[id]=u;bkApply(id,u)}else BK.bad[id]=1},function(){BK.bad[id]=1}).then(function(){BK.act--;delete BK.fly[id];bkPump();bkLd()})})(BK.q.shift())}}
 function bkMake(){var b=$('#bkb'),pg=BK.pages,w=BK.wide,h='',i,N=w?pg.length/2:pg.length;
 b.className='bk'+(w?'':' one');
 for(i=0;i<N;i++)h+='<div class="bklf"><div class="bkf">'+bkPg(w?2*i:i)+'</div><div class="bkbb">'+(w?bkPg(2*i+1):'')+'</div></div>';
@@ -831,7 +839,7 @@ function run(name,args){args=args||[];
 function chk(r){return r.json().then(function(j){if(!j.ok)throw new Error(j.error||'เซิร์ฟเวอร์ผิดพลาด');return j.data})}
 if(name==='getCards')return fetch(API+'?action=getCards').then(chk);
 if(name==='getBoard')return fetch(API+'?action=getBoard').then(chk);
-if(name==='getImage')return fetch(API+'?action=getImage&id='+encodeURIComponent(args[0])).then(chk);
+if(name==='getImage')return fetch(API+'?action=getImage&id='+encodeURIComponent(args[0])+(args[1]?'&t=1':'')).then(chk);
 var body=name==='saveCard'?{action:'saveCard',rec:args[0]}:{action:'saveCardImage',id:args[0],png:args[1]};
 return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(chk)}
 var MATCH=null,UCL=null;
@@ -968,7 +976,7 @@ stopSpin();save();render();fillList();svStep(0,'ok');
 stp=1;svStep(1,'act');await Promise.race([autoDl(),wait(8000)]);svStep(1,'ok');
 var tn=tName(r.team),warn='';
 if(gas){stp=2;svStep(2,'act');try{if(document.fonts&&document.fonts.load)await Promise.all([document.fonts.load('500 14px Kanit','เร็วเลี้ยงยิงรับจ่ายแกร่ง'),document.fonts.load('700 44px Kanit',p.name||'ก'),document.fonts.load('700 32px "Barlow Condensed"','0123456789')])}catch(_){}render(true);var png=cv.toDataURL('image/png');render(false);
-try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');warn='บันทึกข้อมูลแล้ว แต่เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ'}
+try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];delete BKT[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');warn='บันทึกข้อมูลแล้ว แต่เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ'}
 refresh()}else drawTeams();
 toast(gas?'บันทึกแล้ว · '+tn:'บันทึกในเครื่องแล้ว · '+tn);
 svEnd('done','บันทึกเรียบร้อย',warn||(first?'ระบบสุ่มค่าพลังและทีมให้แล้ว':'อัปเดตข้อมูลการ์ดแล้ว'),'<b style="color:'+tCol(r.team)+'">● '+tn+'</b><span>ค่าพลังรวม <b>'+p.ovr+'</b></span>','ตกลง')
