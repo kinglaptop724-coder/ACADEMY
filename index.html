@@ -593,7 +593,7 @@ var ua=navigator.userAgent,inApp=/Line\/|FBAN|FBAV|Instagram|MicroMessenger|; wv
 if(inApp||mob){showImg(b);return}
 var u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=((cur().name||'card').trim().split(/\s+/)[0].replace(/[^\wก-๙]+/g,'_')||'card')+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}catch(e){render(false)}}
 /* ทีม = ลีก × 20 ทีม (A–T) · ต้องตรงกับ Code.gs (TEAM_LETTERS / CONFIG.TEAM_CAP) */
-var LET='ABCDEFGHIJKLMNOPQRST',LEAGUE_TEAMS=LET.length,TEAM_CAP=11,LEAGUE_CAP=20,TPAL=['#d62839','#d9a520','#2f55d8','#1f9d55','#8a4fe0','#f08a1c','#1fb5ad','#f0568f','#a8693a','#2fa8e8'],DB=false,ALL=[];
+var LET='ABCDEFGHIJKLMNOPQRST',LEAGUE_TEAMS=LET.length,TEAM_CAP=11,LEAGUE_CAP=10,TPAL=['#d62839','#d9a520','#2f55d8','#1f9d55','#8a4fe0','#f08a1c','#1fb5ad','#f0568f','#a8693a','#2fa8e8'],DB=false,ALL=[];
 var LGP=[['#d62839','#6e0c1a'],['#2f6fe0','#12338a'],['#1fa85a','#0b5a2e'],['#8a4fe0','#3d1a8a'],['#f08a1c','#9a4505'],['#1fb5ad','#0a5f5b'],['#e8528f','#8a1a4a'],['#c9971c','#6b4a05'],['#2fa8e8','#0d5a8a'],['#5b6b7e','#2a3441']];function lgc(i){return LGP[i%LGP.length]}
 function okT(t){return typeof t=='number'&&t>=0}
 function tLg(n){return Math.floor(n/LEAGUE_TEAMS)}
@@ -836,9 +836,9 @@ c.innerHTML='<div class="cb" role="alertdialog" aria-modal="true"><div class="ci
 c.classList.add('on');var off=function(){c.classList.remove('on');c.innerHTML=''};
 $('#cfn').onclick=off;$('#cfy').onclick=function(){off();fn()};c.onclick=function(e){if(e.target===c)off()};setTimeout(function(){var b=$('#cfn');if(b)b.focus()},30)}
 function admDel(id){var m=ADM.list.filter(function(x){return x.id==id})[0];if(!m||ADM.busy)return;
-admAsk('ลบสมาชิกนี้?','<b>'+esc(m.name)+'</b><br>ข้อมูลและรูปการ์ดจะถูกลบถาวร ย้อนกลับไม่ได้','ลบ',function(){
+admAsk('ลบสมาชิกนี้?','<b>'+esc(m.name)+'</b><br>ข้อมูลและรูปการ์ดจะถูกลบถาวร ย้อนกลับไม่ได้<br><small>คนถัดไปจากลีกหลัง ๆ จะเลื่อนขึ้นมาเติมลีกนี้ให้ครบ '+LEAGUE_CAP+' คน</small>','ลบ',function(){
 ADM.busy=true;admErr('กำลังลบ…');
-admPost({action:'adminDelete',token:ADM.tok,id:id}).then(function(){ADM.list=ADM.list.filter(function(x){return x.id!=id});refresh();admMain()}).catch(function(e){if(!ADM.tok)admLogin();else admErr(e.message)}).then(function(){ADM.busy=false})})}
+admPost({action:'adminDelete',token:ADM.tok,id:id}).then(function(d){ADM.list=ADM.list.filter(function(x){return x.id!=id});((d&&d.moved)||[]).forEach(function(mv){for(var i=0;i<ADM.list.length;i++)if(ADM.list[i].id==mv.id)ADM.list[i].team=mv.team});refresh();admMain()}).catch(function(e){if(!ADM.tok)admLogin();else admErr(e.message)}).then(function(){ADM.busy=false})})}
 function admUcl(){var u=ADM.ucl,act=u&&u.status==='active',K=ADM.uclK||4,body,foot;
 var tn=function(n){return n>=0?tName(n):'-'};
 var card=function(t,s){return '<div class="asc"><h4>'+t+'</h4><p style="margin:8px 0 2px;font-size:14px;line-height:1.55">'+s+'</p></div>'};
@@ -867,7 +867,7 @@ $('#eds').onclick=function(){if(ADM.busy)return;
 var lgv=Math.floor(+$('#ed_l').value),team=(lgv-1)*LEAGUE_TEAMS+(+$('#ed_t').value),nm=$('#ed_n').value.trim(),st=LB.map(function(_,i){return Math.round(+$('#ed_s'+i).value)});
 if(!nm)return admErr('กรุณาใส่ชื่อ');if(!(lgv>=1&&lgv<=99))return admErr('เลขลีกต้องเป็น 1–99');
 if(st.some(function(n){return !(n>=1&&n<=ADM.max)}))return admErr('ค่าพลังต้องอยู่ระหว่าง 1–'+ADM.max);
-if(team!==m.team){var cnt=ADM.list.filter(function(x){return x.team===team&&x.id!==m.id}).length;if(cnt>=ADM.cap&&!confirm(tName(team)+' มี '+cnt+' คนแล้ว (เต็ม '+ADM.cap+') ย้ายเข้าไปต่อไหม?'))return}
+if(tLg(team)!==tLg(m.team)){var lgn=ADM.list.filter(function(x){return tLg(x.team)===tLg(team)&&x.id!==m.id}).length;if(lgn>=LEAGUE_CAP&&!confirm('ลีก '+(tLg(team)+1)+' มี '+lgn+' คนแล้ว (เต็ม '+LEAGUE_CAP+') ย้ายเข้าไปต่อไหม?'))return}if(team!==m.team){var cnt=ADM.list.filter(function(x){return x.team===team&&x.id!==m.id}).length;if(cnt>=ADM.cap&&!confirm(tName(team)+' มี '+cnt+' คนแล้ว (เต็ม '+ADM.cap+') ย้ายเข้าไปต่อไหม?'))return}
 ADM.busy=true;$('#eds').disabled=true;admErr('กำลังบันทึก…');
 admPost({action:'adminSave',token:ADM.tok,rec:{id:m.id,name:nm,pos:$('#ed_p').value,team:team,st:st}}).then(function(d){for(var i=0;i<ADM.list.length;i++)if(ADM.list[i].id==d.id){ADM.list[i].name=d.name;ADM.list[i].pos=d.pos;ADM.list[i].ovr=d.ovr;ADM.list[i].st=d.st;ADM.list[i].team=d.team}ADM.ed=null;refresh();admView()}).catch(function(e){if(!ADM.tok){ADM.ed=null;admLogin()}else{admErr(e.message);var b=$('#eds');if(b)b.disabled=false}}).then(function(){ADM.busy=false})}}
 $('#admb').onclick=admOpen;$('#adx').onclick=admClose;$('#adm').onclick=function(e){if(e.target.id=='adm')admClose()};
