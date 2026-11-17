@@ -315,7 +315,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #ucm .ucc{text-align:center;padding:14px 12px;margin-bottom:6px;border-radius:16px;background:linear-gradient(135deg,#ffe27a,#d9a520);color:#3a2a00}
 #ucm .ucc .ucct{font-size:34px;line-height:1.1}#ucm .ucc small{display:block;font-size:12px;opacity:.8}#ucm .ucc b{display:block;font-size:22px;margin:2px 0}#ucm .ucc span{font-size:13px}
 #ucm .ucst{font-size:13px;font-weight:700;color:var(--mu);margin:14px 2px 4px}
-.ugg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.ugg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
 .ugc{border:1px solid var(--bd);border-radius:14px;background:var(--in);padding:8px 8px 4px;overflow:hidden}
 .ugh{font-weight:700;font-size:13.5px;margin:0 2px 4px}
 .ugt{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -325,6 +325,10 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .ugt td.ugn{max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ugt tr.q td:first-child{box-shadow:inset 3px 0 #1f9d55}
 .ugt tr.me td{background:rgba(217,165,32,.16)}
+.ugr{margin-top:6px}
+.ugd{font-size:11.5px;font-weight:700;color:var(--mu);margin:8px 2px 2px}
+.ugm{display:flex;align-items:center;gap:6px;padding:5px 4px;border-top:1px solid var(--bd);font-size:12.5px}
+.ugm.me{background:rgba(217,165,32,.16);border-radius:8px}
 .ugg-l{font-size:11px;color:var(--mu);margin-right:4px}
 #ucm .ucch{display:flex;flex-wrap:wrap;gap:6px}
 #ucm .ucp{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--bd);border-radius:999px;background:var(--in);font-size:13px}
@@ -685,9 +689,9 @@ if(u.status==='done'&&u.champion>=0)h+='<div class="ucc"><div class="ucct">🏆<
 var GL=function(i){return String.fromCharCode(65+i%26)},grp=u.phase==='group';
 if(u.status==='active'){if(!grp)h+='<div class="ucst" style="margin-top:2px">'+(u.stages.length?'ทีมที่ยังอยู่ในการแข่งขัน':'ทีมที่ผ่านเข้ารอบ')+' ('+u.alive.length+')</div><div class="ucch">'+u.alive.map(function(n){return '<span class="ucp">'+dt(n)+nm(n)+lg(n)+'</span>'}).join('')+'</div>';
 h+='<div class="ucnx">'+(u.next>Date.now()?'นัดต่อไป '+new Date(u.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'นัดต่อไป เร็ว ๆ นี้')+' · แข่งทุก '+evr(u.every)+(grp?' · รอบแบ่งกลุ่ม นัดที่ '+(u.gday+1)+'/'+u.total:' · จับสลากใหม่ทุกรอบ')+'</div>';
-if(grp&&u.nextFix&&u.nextFix.length){h+='<div class="ucst">โปรแกรมนัดต่อไป (นัดที่ '+(u.gday+1)+')</div>'+u.nextFix.map(function(f){var a=f[1],b=f[2];return '<div class="mt'+((a===mt||b===mt)?' me':'')+'"><span class="tm r"><span class="ugg-l">'+GL(f[0])+'</span>'+nm(a)+lg(a)+dt(a)+'</span><span class="sc">vs</span><span class="tm">'+dt(b)+nm(b)+lg(b)+'</span></div>'}).join('')}}
-if(u.groups&&u.groups.length){h+='<div class="ucst">ตารางรอบแบ่งกลุ่ม · ที่ 1–2 (แถบเขียว) เข้ารอบแพ้คัดออก</div><div class="ugg">'+u.groups.map(function(g,gi){return '<div class="ugc"><div class="ugh">กลุ่ม '+GL(gi)+'</div><table class="ugt"><tr><th></th><th>ทีม</th><th>แข่ง</th><th>+/-</th><th>แต้ม</th></tr>'+g.teams.map(function(t,i){var gd=t.gf-t.ga;return '<tr class="'+(i<g.q?'q':'')+(t.t===mt?' me':'')+'"><td>'+(i+1)+'</td><td class="ugn">'+dt(t.t)+' '+nm(t.t)+lg(t.t)+'</td><td>'+t.p+'</td><td>'+(gd>0?'+':'')+gd+'</td><td><b>'+t.pts+'</b></td></tr>'}).join('')+'</table></div>'}).join('')+'</div>'}
-u.stages.slice().reverse().forEach(function(s){h+='<div class="ucst">'+esc(s.name)+'</div>';
+}
+if(u.groups&&u.groups.length){var GR=function(gi){var o='';(u.nextFix||[]).filter(function(f){return f[0]===gi}).forEach(function(f,i){if(!i)o+='<div class="ugd">นัดที่ '+(u.gday+1)+' · ยังไม่แข่ง</div>';o+='<div class="ugm'+((f[1]===mt||f[2]===mt)?' me':'')+'"><span class="tm r">'+nm(f[1])+lg(f[1])+dt(f[1])+'</span><span class="sc">vs</span><span class="tm">'+dt(f[2])+nm(f[2])+lg(f[2])+'</span></div>'});u.stages.slice().reverse().forEach(function(s){var ms=s.matches.filter(function(x){return x.g===gi});if(!ms.length)return;o+='<div class="ugd">'+esc(s.name.replace(/^รอบแบ่งกลุ่ม · /,''))+'</div>'+ms.map(function(x){var hw=x.hs>x.as,aw=x.as>x.hs;return '<div class="ugm'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+nm(x.h)+lg(x.h)+dt(x.h)+'</span><span class="sc">'+x.hs+' - '+x.as+'</span><span class="tm'+(aw?' w':'')+'">'+dt(x.a)+nm(x.a)+lg(x.a)+'</span></div>'}).join('')});return o?'<div class="ugr">'+o+'</div>':''};h+='<div class="ucst">รอบแบ่งกลุ่ม · ตารางคะแนนและผลทุกนัด · ที่ 1–2 (แถบเขียว) เข้ารอบแพ้คัดออก</div><div class="ugg">'+u.groups.map(function(g,gi){return '<div class="ugc"><div class="ugh">กลุ่ม '+GL(gi)+'</div><table class="ugt"><tr><th></th><th>ทีม</th><th>แข่ง</th><th>+/-</th><th>แต้ม</th></tr>'+g.teams.map(function(t,i){var gd=t.gf-t.ga;return '<tr class="'+(i<g.q?'q':'')+(t.t===mt?' me':'')+'"><td>'+(i+1)+'</td><td class="ugn">'+dt(t.t)+' '+nm(t.t)+lg(t.t)+'</td><td>'+t.p+'</td><td>'+(gd>0?'+':'')+gd+'</td><td><b>'+t.pts+'</b></td></tr>'}).join('')+'</table>'+GR(gi)+'</div>'}).join('')+'</div>'}
+u.stages.slice().reverse().forEach(function(s){if(s.matches.length&&s.matches[0].g!=null)return;h+='<div class="ucst">'+esc(s.name)+'</div>';
 s.matches.forEach(function(x){
 if(x.a<0){h+='<div class="mt by'+(x.h===mt?' me':'')+'"><span class="tm">'+dt(x.h)+' '+nm(x.h)+lg(x.h)+' ผ่านเข้ารอบถัดไปโดยตรง</span></div>';return}
 var hw=x.w===x.h,aw=x.w===x.a,gl=x.g!=null?'<span class="ugg-l">'+GL(x.g)+'</span>':'';
