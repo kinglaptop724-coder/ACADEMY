@@ -144,6 +144,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .bkq{position:absolute;left:3%;top:30%;width:36%;text-align:center;font-style:normal;font-family:"Barlow Condensed",Kanit,sans-serif;font-size:1.05em;font-weight:600;line-height:1;color:#fff6c2}
 .bkn{position:absolute;left:5%;right:5%;bottom:26%;text-align:center;font-weight:600;font-size:.78em;line-height:1.15;color:#ffe9a0;text-transform:uppercase;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word;text-shadow:0 1px 2px rgba(0,0,0,.6)}
 .bkm2{position:absolute;left:0;right:0;bottom:15%;text-align:center;font-size:.6em;color:#ffd54a;letter-spacing:.04em}
+.bkv{margin:.45em auto 0;width:max-content;max-width:100%;padding:.1em .75em;border-radius:999px;background:#fff6d6;border:.09em solid #c9a24a;font-family:"Barlow Condensed",Kanit,sans-serif;font-size:1.15em;font-weight:700;line-height:1.25;color:#8a1428;text-align:center;letter-spacing:.03em}
 .bke{position:relative;display:block;width:100%;aspect-ratio:360/580;clip-path:var(--clip);-webkit-clip-path:var(--clip);background:rgba(150,110,50,.4)}
 .bke::after{content:"?";position:absolute;inset:.14em;clip-path:var(--clip);-webkit-clip-path:var(--clip);background:#f6ecd4;display:grid;place-items:center;font-family:"Barlow Condensed",Kanit,sans-serif;font-size:2.4em;font-weight:700;color:rgba(150,110,50,.35)}
 .bkcr{position:absolute;right:7%;top:7%;font-size:1em;text-decoration:none;line-height:1}
@@ -747,6 +748,8 @@ $('#vcx').onclick=vcClose;$('#vcm').onclick=function(e){if(e.target.id=='vcm')vc
 var BK={pages:[],secs:[],lv:[],s:0,pw:0,wide:null,open:false,me:'',total:0,zt:null,rt:null,sw:0,url:null},BK_PER=6;
 function bkLogo(){if(BK.url)return BK.url;try{var m=/^data:([^;]+);base64,(.*)$/.exec(LOGO),b=atob(m[2]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);BK.url=URL.createObjectURL(new Blob([a],{type:m[1]}))}catch(e){BK.url=LOGO}return BK.url}
 function bkLb(i){var p=BK.pages[i];if(!p)return '';if(p.k=='cover')return 'ปกหน้า';if(p.k=='back')return 'ปกหลัง';if(p.k=='toc')return 'สารบัญ';return 'หน้า '+(i-1)}
+/* มูลค่าการ์ด (ล้านบาท/หน่วย M) ขึ้นตามค่าพลังรวมแบบก้าวกระโดด: พลัง 60≈2M, 70≈5M, 80≈11M, 90≈26M */
+function bkVal(o){var v=2*Math.pow(1.09,(+o||0)-60),r;if(v<1)v=1;r=v<10?Math.round(v*2)/2:Math.round(v);return r+'M'}
 function bkPages(){
 var all=rows().filter(function(x){return x.name}),secs=[],used={},pg;
 all.sort(function(a,c){return (c.ovr-a.ovr)||((a.t||0)-(c.t||0))});
@@ -766,7 +769,7 @@ if(p.k=='empty')return '<div class="bkpp"><div class="bkem"><svg viewBox="0 0 24
 if(p.k=='blank')return '<div class="bkpp"><div class="bkem"><br>เว้นที่ไว้สำหรับ<br>การ์ดใบต่อไป</div></div>';
 h='<div class="bkpp"><div class="bkph"><b>'+esc(p.sc.code)+'</b><span>'+esc(p.sc.th)+(p.sc.n2>1?' <small>('+(p.j+1)+'/'+p.sc.n2+')</small>':'')+'</span></div><div class="bkg">';
 p.list.forEach(function(x,k){var t=(TH[x.theme]||TH.red).b;
-h+='<div class="bkw'+(x.id==BK.me?' me':'')+'"><button type="button" class="bkt" data-pg="'+i+'" data-id="'+esc(x.id)+'" aria-label="'+esc(x.name)+' พลังรวม '+x.ovr+'" style="--b0:'+t[0]+';--b1:'+t[1]+';--b2:'+t[2]+';--b3:'+t[3]+'"><div class="bki"><img class="bkl" src="'+bkLogo()+'" alt=""><b class="bko">'+x.ovr+'</b><i class="bkq">'+esc(x.pos)+'</i>'+(p.j==0&&k==0?'<u class="bkcr">👑</u>':'')+'<span class="bkn">'+esc(x.name)+'</span>'+(okT(x.team)?'<small class="bkm2">ทีม '+LET.charAt(x.team%LEAGUE_TEAMS)+'</small>':'')+'</div></button></div>'});
+h+='<div class="bkw'+(x.id==BK.me?' me':'')+'"><button type="button" class="bkt" data-pg="'+i+'" data-id="'+esc(x.id)+'" aria-label="'+esc(x.name)+' พลังรวม '+x.ovr+'" style="--b0:'+t[0]+';--b1:'+t[1]+';--b2:'+t[2]+';--b3:'+t[3]+'"><div class="bki"><img class="bkl" src="'+bkLogo()+'" alt=""><b class="bko">'+x.ovr+'</b><i class="bkq">'+esc(x.pos)+'</i>'+(p.j==0&&k==0?'<u class="bkcr">👑</u>':'')+'<span class="bkn">'+esc(x.name)+'</span>'+(okT(x.team)?'<small class="bkm2">ทีม '+LET.charAt(x.team%LEAGUE_TEAMS)+'</small>':'')+'</div></button><div class="bkv">'+bkVal(x.ovr)+'</div></div>'});
 for(var e=p.list.length;e<BK_PER;e++)h+='<div class="bkw" style="filter:none"><span class="bke"></span></div>';
 return h+'</div><div class="bkpf">'+(i-1)+'</div></div>'}
 
