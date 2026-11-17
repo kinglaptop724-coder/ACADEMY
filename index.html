@@ -401,7 +401,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
 <div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
 <label class="f"><span>ชื่อ <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
-<div class="f"><div class="lb">ตำแหน่ง <small>(บนการ์ดแสดงเป็นอักษรย่อ)</small></div><div id="pos" class="pg"></div></div>
+<div class="f"><div class="lb">ตำแหน่ง <small>(ระบบสุ่มให้ตอนบันทึกการ์ดครั้งแรก)</small></div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
 <label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>ระบบจะลบพื้นหลังให้อัตโนมัติ จากนั้นลากครอปส่วนที่ต้องการ<br><b style="color:#d33">⚠ ต้องเป็นรูปของตนเองเท่านั้น ไม่เช่นนั้นระบบจะลบการ์ดออก</b></small></span></label>
@@ -443,7 +443,7 @@ var P=[[0,46],[38,22],[132,22],[152,8],[164,0],[196,0],[208,8],[228,22],[322,22]
 var TH={red:{b:['#e0253b', '#9c0f23', '#4d0614', '#26030a'],g:['#fff6c2','#ffd54a','#c98d0a']},navy:{b:['#2f55d8', '#17308a', '#0b1647', '#050a22'],g:['#fff6c2','#ffd54a','#c98d0a']},black:{b:['#4a4a4a', '#262626', '#121212', '#050505'],g:['#fff6c2','#ffd54a','#c98d0a']},green:{b:['#2fb36a', '#14793f', '#094022', '#03200f'],g:['#fff6c2','#ffd54a','#c98d0a']},purple:{b:['#8a4fe0', '#5a25a8', '#2c1060', '#14062e'],g:['#fff6c2','#ffd54a','#c98d0a']},orange:{b:['#f08a1c', '#b8530a', '#5c2605', '#2a1002'],g:['#fff6c2','#ffd54a','#c98d0a']},pink:{b:['#f0568f', '#b01e5c', '#5a0c30', '#2a0415'],g:['#fff6c2','#ffd54a','#c98d0a']},teal:{b:['#1fb5ad', '#0f7a78', '#07403f', '#031f20'],g:['#fff6c2','#ffd54a','#c98d0a']},brown:{b:['#a8693a', '#6e3d1c', '#3a1d0b', '#1c0d04'],g:['#fff6c2','#ffd54a','#c98d0a']},sky:{b:['#2fa8e8', '#136aa3', '#0a3556', '#04182a'],g:['#fff6c2','#ffd54a','#c98d0a']},wine:{b:['#8c1d40', '#541029', '#2a0815', '#12040a'],g:['#fff6c2','#ffd54a','#c98d0a']},yellow:{b:['#f2c21b', '#b88a00', '#5c4300', '#2b1f00'],g:['#fff6c2','#ffd54a','#c98d0a']},silver:{b:['#9aa3ad', '#5f6872', '#2f353d', '#14171b'],g:['#fff6c2','#ffd54a','#c98d0a']},lime:{b:['#8cc82a', '#52861a', '#2a4a0b', '#122305'],g:['#fff6c2','#ffd54a','#c98d0a']},indigo:{b:['#5b4be0', '#3425a8', '#180f5e', '#090535'],g:['#fff6c2','#ffd54a','#c98d0a']},magenta:{b:['#d63bd0', '#962090', '#4c0b49', '#230322'],g:['#fff6c2','#ffd54a','#c98d0a']},coral:{b:['#ff7a5c', '#c24427', '#64200e', '#2e0d05'],g:['#fff6c2','#ffd54a','#c98d0a']},olive:{b:['#9a9a2e', '#686815', '#35350a', '#181804'],g:['#fff6c2','#ffd54a','#c98d0a']},mint:{b:['#4fd8a8', '#1f9a74', '#0e4f3b', '#06261c'],g:['#fff6c2','#ffd54a','#c98d0a']},slate:{b:['#5f7a99', '#3b536e', '#1c2b3b', '#0b121a'],g:['#fff6c2','#ffd54a','#c98d0a']}};
 var LB=['เร็ว','เลี้ยง','ยิง','รับ','จ่าย','แกร่ง'],KEY='fc_roster_v1',T=TH.red,roster=[],ci=0,imgs={};
 function rs(){return [0,0,0,0,0,0].map(function(){return 60+Math.floor(Math.random()*36)})}
-function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos:'CM',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',pat:'flame',auto:true,photo:'',zoom:100,ox:0,oy:0}}
+function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos:'',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',pat:'flame',auto:true,photo:'',zoom:100,ox:0,oy:0}}
 try{localStorage.removeItem(KEY)}catch(e){}roster=[];/* เริ่มว่างทุกครั้ง: ล้างข้อมูลที่เคยค้างในเครื่อง ไม่โหลดกลับมา */
 if(!roster.length)roster=[mk()];
 function cur(){return roster[ci]}
@@ -527,6 +527,9 @@ ln(40,320,428);
 for(var i=0;i<6;i++){var cx=64+46.4*i;ctx.save();ctx.textAlign='center';ctx.textBaseline='alphabetic';if('letterSpacing' in ctx)ctx.letterSpacing='0px';ctx.font='500 14px Kanit';ctx.fillStyle='rgba(255,233,160,.9)';ctx.fillText(LB[i],cx,454);ctx.font='700 32px "Barlow Condensed",Kanit';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=4*S;ctx.shadowOffsetY=2*S;ctx.fillText(SV(p,i),cx,490);ctx.restore()}
 dl2(165,508,30);
 }
+function posLabel(c){var r=POS.filter(function(p){return p[0]===c})[0];return r?r[1]+' ('+c+')':''}
+function showPos(){var p=cur(),e=$('#pos');if(!e)return;e.textContent=p.pos?posLabel(String(p.pos).toUpperCase())||p.pos:'🎲 ยังไม่ได้สุ่ม · ระบบจะสุ่มให้ตอนกดบันทึก';e.style.color=p.pos?'var(--tx)':'var(--mu)'}
+function randPos(){var w=[['GK',1],['CB',2],['LB',1],['RB',1],['CM',2],['LW',1],['RW',1],['ST',2]],r=Math.random()*11;for(var i=0;i<w.length;i++){r-=w[i][1];if(r<0)return w[i][0]}return 'CM'}
 function recalc(p){if(!p.rev)return;p.auto=true;p.ovr=Math.max(1,Math.round(p.st.reduce(function(a,b){return a+b},0)/6))}
 var POS=[['GK','ผู้รักษาประตู'],['CB','เซนเตอร์แบ็ค'],['LB','ฟูลแบ็คซ้าย'],['RB','ฟูลแบ็คขวา'],['CM','กองกลาง'],['LW','ปีกซ้าย'],['RW','ปีกขวา'],['ST','กองหน้า']],TN=[['red','แดง–ทอง','#e0253b,#4d0614'],['navy','น้ำเงิน–ทอง','#2f55d8,#0b1647'],['black','ดำ–ทอง','#4a4a4a,#121212'],['green','เขียว–ทอง','#2fb36a,#094022'],['purple','ม่วง–ทอง','#8a4fe0,#2c1060'],['orange','ส้ม–ทอง','#f08a1c,#5c2605'],['pink','ชมพู–ทอง','#f0568f,#5a0c30'],['teal','เขียวอมฟ้า–ทอง','#1fb5ad,#07403f'],['brown','น้ำตาล–ทอง','#a8693a,#3a1d0b'],['sky','ฟ้า–ทอง','#2fa8e8,#0a3556'],['wine','ไวน์–ทอง','#8c1d40,#2a0815'],['yellow','เหลือง–ทอง','#f2c21b,#5c4300'],['silver','เงิน–ทอง','#9aa3ad,#2f353d'],['lime','เขียวมะนาว–ทอง','#8cc82a,#2a4a0b'],['indigo','คราม–ทอง','#5b4be0,#180f5e'],['magenta','บานเย็น–ทอง','#d63bd0,#4c0b49'],['coral','ส้มปะการัง–ทอง','#ff7a5c,#64200e'],['olive','เขียวขี้ม้า–ทอง','#9a9a2e,#35350a'],['mint','มิ้นต์–ทอง','#4fd8a8,#0e4f3b'],['slate','เทาน้ำเงิน–ทอง','#5f7a99,#1c2b3b']];
 function upd(){recalc(cur());save();render();fillList();syncOvr()}
@@ -534,11 +537,10 @@ function syncOvr(){}
 function fillList(){var L=$('#list');L.innerHTML='';roster.forEach(function(q,i){var b=document.createElement('button');b.className='chip'+(i==ci?' on':'');b.textContent=(q.rev?q.ovr+' · ':'')+((q.name||'').trim()||'ไม่มีชื่อ');b.onclick=function(){ci=i;fillForm();render()};L.appendChild(b)})}
 function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;syncOvr();
 
-document.querySelectorAll('#pos .pt').forEach(function(b){b.className='pt'+(b.dataset.c==(p.pos||'').toUpperCase()?' on':'')});
+showPos();
 document.querySelectorAll('#th .tb').forEach(function(b){b.className='tb'+(b.dataset.t==p.theme?' on':'')});
 document.querySelectorAll('#pt .pb').forEach(function(b){b.className='pb'+(b.dataset.p==(p.pat||'flame')?' on':'')});
 var h=!!p.photo;$('#adj').style.display=h?'block':'none';$('#phc').style.display=h?'':'none';var nn=0;Array.prototype.forEach.call(document.querySelectorAll('.card .ch .n'),function(e){if(e.closest('.card').style.display!=='none')e.textContent=++nn});var t=$('#thm');t.style.display=h?'block':'none';if(h)t.src=p.photo;$('#dt').textContent=h?'เปลี่ยนรูป':'เลือกรูป หรือลากรูปมาวาง';bgUi(p);if(h){$('#pherr').style.display='none';$('#cw').style.outline=''}fillList();drawTeams()}
-POS.forEach(function(v){var b=document.createElement('button');b.className='pt';b.dataset.c=v[0];b.innerHTML='<b>'+v[1]+'</b><small>'+v[0]+'</small>';b.onclick=function(){cur().pos=v[0];document.querySelectorAll('#pos .pt').forEach(function(x){x.className='pt'+(x==b?' on':'')});upd()};$('#pos').appendChild(b)});
 var TNP=['red','orange','yellow','lime','green','teal','sky','navy','purple','pink','wine','brown','black','silver'].map(function(id){return TN.filter(function(x){return x[0]===id})[0]});
 TNP.forEach(function(t){var b=document.createElement('button');b.className='tb';b.dataset.t=t[0];b.title=t[1];b.setAttribute('aria-label',t[1]);b.innerHTML='<i style="background:linear-gradient(135deg,'+t[2]+')"></i>'+t[1];b.onclick=function(){cur().theme=t[0];document.querySelectorAll('#th .tb').forEach(function(x){x.className='tb'+(x==b?' on':'')});upd()};$('#th').appendChild(b)});
 PATS.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='pb';b.dataset.p=t[0];b.title=t[1];b.setAttribute('aria-label','ลวดลาย'+t[1]);b.innerHTML='<canvas width="120" height="132"></canvas><span>'+t[1]+'</span>';b.onclick=function(){cur().pat=t[0];document.querySelectorAll('#pt .pb').forEach(function(x){x.className='pb'+(x==b?' on':'')});upd()};$('#pt').appendChild(b)});patThumbs();
@@ -950,14 +952,14 @@ if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='bl
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
 saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
 var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re},first=!p.rev,gas=inGAS(),stp=0;
-svOpen([first?'สุ่มค่าพลังและทีม':'บันทึกข้อมูลผู้เล่น','สร้างรูปการ์ด'].concat(gas?['เก็บรูปการ์ดลงระบบกลาง']:[]));
+svOpen([first?'สุ่มตำแหน่ง ค่าพลัง และทีม':'บันทึกข้อมูลผู้เล่น','สร้างรูปการ์ด'].concat(gas?['เก็บรูปการ์ดลงระบบกลาง']:[]));
 if(first)startSpin();
 try{
 svStep(0,'act');
 var r;
 if(gas){var a=await tmo(Promise.all([run('saveCard',[rec]),first?wait(1400):0]),60000,'หมดเวลา เซิร์ฟเวอร์ไม่ตอบสนอง');r=a[0]}
-else{var st=p.rev?p.st:rs();await wait(first?1400:0);r={team:p.team==null?pick():p.team,st:st,ovr:Math.max(1,Math.round(st.reduce(function(x,y){return x+y},0)/6)),t:Date.now()}}
-p.st=r.st;p.ovr=r.ovr;p.rev=true;p.team=r.team;LG=-1;TF=-1;p.saved=r.t||Date.now();
+else{var st=p.rev?p.st:rs();await wait(first?1400:0);r={pos:p.pos||randPos(),team:p.team==null?pick():p.team,st:st,ovr:Math.max(1,Math.round(st.reduce(function(x,y){return x+y},0)/6)),t:Date.now()}}
+p.st=r.st;p.ovr=r.ovr;p.rev=true;p.team=r.team;if(r.pos)p.pos=r.pos;showPos();LG=-1;TF=-1;p.saved=r.t||Date.now();
 stopSpin();save();render();fillList();svStep(0,'ok');
 stp=1;svStep(1,'act');await Promise.race([autoDl(),wait(8000)]);svStep(1,'ok');
 var tn=tName(r.team),warn='';
