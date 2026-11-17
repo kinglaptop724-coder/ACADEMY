@@ -332,30 +332,30 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #ucm .uct{position:sticky;top:-12px;z-index:3;display:flex;gap:6px;margin:-12px -14px 10px;padding:10px 14px 8px;background:var(--pn);border-bottom:1px solid var(--bd)}
 #ucm .uct button{flex:1;padding:9px 6px;border:1.5px solid var(--bd);border-radius:999px;background:var(--in);color:var(--tx);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 #ucm .uct button.on{background:#16399a;border-color:#16399a;color:#ffe27a}
-.brw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;background:radial-gradient(ellipse at 50% 0,#1b3f9a,#0a1a52 70%);padding:12px 10px 14px}
-.brc{display:flex;gap:16px;min-width:max-content;align-items:stretch}
-.brcol{width:156px;display:flex;flex-direction:column}
-.brh{text-align:center;font-size:12.5px;font-weight:700;color:#ffe27a;margin-bottom:10px;white-space:nowrap;letter-spacing:.02em}
+.brw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;background:radial-gradient(ellipse at 50% -10%,#24509f,#0b1d5a 65%,#081447);padding:14px 12px 16px}
+.brc{display:flex;gap:14px;min-width:max-content;align-items:stretch}
+.brcol{width:158px;display:flex;flex-direction:column}
+.brh{align-self:center;display:flex;align-items:center;gap:6px;padding:5px 12px;margin-bottom:12px;border-radius:999px;background:rgba(255,226,122,.12);border:1px solid rgba(255,226,122,.45);color:#ffe27a;font-size:12.5px;font-weight:700;white-space:nowrap}
+.brh small{font-size:11px;font-weight:500;color:#c9d6ff}
 .brl{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:10px}
-.brm{position:relative;background:#fff;color:#14213d;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.35);border-left:3px solid #ffd54a}
-.brm::after{content:"";position:absolute;right:-17px;top:50%;width:16px;border-top:2px solid rgba(255,226,122,.45)}
-.brcol:nth-last-child(-n+2) .brm::after{display:none}
-.brm.me{outline:2.5px solid #ffd54a;outline-offset:1px}
-.brm.ph{opacity:.55;border-left-color:#8fa3d9}
-.brt{display:flex;align-items:center;gap:6px;padding:7px 8px;font-size:13px;line-height:1.2}
+.brm{background:#fff;color:#14213d;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.brm.mine{box-shadow:0 0 0 2.5px #ffd54a,0 3px 10px rgba(0,0,0,.35)}
+.brm.ph{background:rgba(255,255,255,.05);box-shadow:none;border:1.5px dashed rgba(255,255,255,.28)}
+.brt{display:flex;align-items:center;gap:6px;padding:8px 10px;font-size:13px;line-height:1.2}
 .brt+.brt{border-top:1px solid #e4e9f6}
-.brt .n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brt .n small{color:#7a86a8;font-size:10.5px;margin-left:4px}
-.brt b{font-family:"Barlow Condensed",Kanit,sans-serif;font-size:18px;line-height:1}
+.brm.ph .brt+.brt{border-top:1px dashed rgba(255,255,255,.2)}
+.brt .bn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brt .bn small{color:#7a86a8;font-size:10.5px;margin-left:4px}
+.brt b{font-family:"Barlow Condensed",Kanit,sans-serif;font-size:19px;line-height:1;min-width:14px;text-align:right}
 .brt.w{font-weight:700;background:#fff4c2}
 .brt.l{color:#8a93ad}
-.brt.e{color:#8a93ad;font-size:12px}
-.brp{font-size:11px;text-align:center;color:#6b7592;background:#f1f4fc;padding:2px 0}
-.brm.by .brt.e{font-size:11px;color:#6b7592}
-.brf .brl{align-items:center;justify-content:center;gap:8px}
-.brtr{font-size:64px;line-height:1;filter:drop-shadow(0 4px 10px rgba(255,213,74,.45))}
-.brch{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);color:#c9d6ff;font-size:13px;white-space:nowrap}
-.brch.on{background:#ffd54a;color:#3a2a00;font-weight:700}
+.brt.em{justify-content:center;color:#6b7592;font-size:11.5px}
+.brm.ph .brt.em{color:#9db1e6;padding:9px 10px}
+.brp{font-size:11px;text-align:center;color:#6b7592;background:#f1f4fc;padding:3px 0}
+.brf .brl{align-items:center;justify-content:center;gap:10px}
+.brtr{font-size:60px;line-height:1;filter:drop-shadow(0 4px 12px rgba(255,213,74,.5))}
+.brch{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.3);color:#c9d6ff;font-size:13px;white-space:nowrap}
+.brch.on{background:#ffd54a;border:0;color:#3a2a00;font-weight:700}
 .ugx{margin:6px 0 4px}.ugx summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ac);padding:6px 2px;list-style:none}.ugx summary::-webkit-details-marker{display:none}.ugx summary::after{content:" ▾"}.ugx[open] summary::after{content:" ▴"}
 .ugg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
 .ugc{border:1px solid var(--bd);border-radius:14px;background:var(--in);padding:8px 8px 4px;overflow:hidden}
@@ -748,15 +748,15 @@ var cols=[],p2=function(n){var p=1;while(p*2<=n)p*=2;return p};
 ko.forEach(function(s){cols.push({name:s.name,ms:s.matches,done:true})});
 if(u.status!=='done'){var n=grp?(u.groups||[]).reduce(function(a,g){return a+g.q},0):u.alive.length,g=0;
 while(n>1&&g++<8){var p=p2(n);if(n===p){cols.push({name:ucStageName(n),k:n/2,done:false});n=n/2}else{cols.push({name:'รอบคัดเลือก',k:n-p,done:false});n=p}}}
-function slot(n,w,l,sc){return '<div class="brt'+(w?' w':'')+(l?' l':'')+'"><span class="n">'+dt(n)+nm(n)+lg(n)+'</span>'+(sc==null?'':'<b>'+sc+'</b>')+'</div>'}
-function emp(t){return '<div class="brt e"><span class="n">'+t+'</span></div>'}
+function slot(n,w,l,sc){return '<div class="brt'+(w?' w':'')+(l?' l':'')+'"><span class="bn">'+dt(n)+nm(n)+lg(n)+'</span>'+(sc==null?'':'<b>'+sc+'</b>')+'</div>'}
+function emp(t){return '<div class="brt em"><span class="bn">'+t+'</span></div>'}
 var BR='';
 cols.forEach(function(c,ci){var m='';
 if(c.done){c.ms.forEach(function(x){
-if(x.a<0){m+='<div class="brm by'+(x.h===mt?' me':'')+'">'+slot(x.h,0,0,null)+'<div class="brt e"><span class="n">ผ่านเข้ารอบโดยตรง</span></div></div>';return}
-m+='<div class="brm'+((x.h===mt||x.a===mt)?' me':'')+'">'+slot(x.h,x.w===x.h,x.w===x.a,x.hs==null?'–':x.hs)+slot(x.a,x.w===x.a,x.w===x.h,x.as==null?'–':x.as)+(x.ph!=null?'<div class="brp">จุดโทษ '+x.ph+' - '+x.pa+'</div>':'')+'</div>'})}
-else{for(var i=0;i<c.k;i++)m+='<div class="brm ph">'+emp(ci===0&&grp?'ผู้ผ่านเข้ารอบ':'รอผล')+emp(ci===0&&grp?'รอจับสลาก':'รอผล')+'</div>'}
-BR+='<div class="brcol"><div class="brh">'+esc(c.name)+'</div><div class="brl">'+m+'</div></div>'});
+if(x.a<0){m+='<div class="brm by'+(x.h===mt?' mine':'')+'">'+slot(x.h,0,0,null)+'<div class="brt em"><span class="bn">ผ่านเข้ารอบโดยตรง</span></div></div>';return}
+m+='<div class="brm'+((x.h===mt||x.a===mt)?' mine':'')+'">'+slot(x.h,x.w===x.h,x.w===x.a,x.hs==null?'–':x.hs)+slot(x.a,x.w===x.a,x.w===x.h,x.as==null?'–':x.as)+(x.ph!=null?'<div class="brp">จุดโทษ '+x.ph+' - '+x.pa+'</div>':'')+'</div>'})}
+else{for(var i=0;i<c.k;i++)m+='<div class="brm ph">'+emp(ci===0&&grp?'ทีมผ่านเข้ารอบ':'ผู้ชนะ')+emp(ci===0&&grp?'รอจับสลาก':'ผู้ชนะ')+'</div>'}
+BR+='<div class="brcol"><div class="brh">'+esc(c.name)+'<small>'+(c.done?c.ms.filter(function(x){return x.a>=0}).length:c.k)+' คู่</small></div><div class="brl">'+m+'</div></div>'});
 BR+='<div class="brcol brf"><div class="brh">แชมป์</div><div class="brl"><div class="brtr">🏆</div><div class="brch'+(u.status==='done'&&u.champion>=0?' on':'')+'">'+(u.status==='done'&&u.champion>=0?dt(u.champion)+nm(u.champion)+lg(u.champion):'รอผล')+'</div></div></div>';
 h+='<div class="brw"><div class="brc">'+BR+'</div></div><div class="ucnx" style="margin:6px 2px 0">👉 เลื่อนซ้าย-ขวาเพื่อดูทุกรอบ · แถบทอง = ทีมของคุณ · ทีมที่ชนะแสดงตัวหนา · การจับสลากทำใหม่ทุกรอบ เส้นสายจึงไม่ตายตัว</div>';
 if(grp&&hasG)h+='<div class="ucst">ทีมที่อยู่ในโซนเข้ารอบตอนนี้ (ตามคะแนนปัจจุบัน)</div><div class="ucch">'+u.groups.map(function(g,gi){return g.teams.slice(0,g.q).map(function(t){return '<span class="ucp">'+dt(t.t)+nm(t.t)+'<small>'+GL(gi)+'</small></span>'}).join('')}).join('')+'</div>';
