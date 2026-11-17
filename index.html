@@ -315,6 +315,17 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #ucm .ucc{text-align:center;padding:14px 12px;margin-bottom:6px;border-radius:16px;background:linear-gradient(135deg,#ffe27a,#d9a520);color:#3a2a00}
 #ucm .ucc .ucct{font-size:34px;line-height:1.1}#ucm .ucc small{display:block;font-size:12px;opacity:.8}#ucm .ucc b{display:block;font-size:22px;margin:2px 0}#ucm .ucc span{font-size:13px}
 #ucm .ucst{font-size:13px;font-weight:700;color:var(--mu);margin:14px 2px 4px}
+.ugg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.ugc{border:1px solid var(--bd);border-radius:14px;background:var(--in);padding:8px 8px 4px;overflow:hidden}
+.ugh{font-weight:700;font-size:13.5px;margin:0 2px 4px}
+.ugt{width:100%;border-collapse:collapse;font-size:12.5px}
+.ugt th{color:var(--mu);font-weight:600;text-align:center;padding:3px 2px}
+.ugt td{padding:6px 2px;text-align:center;border-top:1px solid var(--bd)}
+.ugt th:nth-child(2),.ugt td.ugn{text-align:left}
+.ugt td.ugn{max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ugt tr.q td:first-child{box-shadow:inset 3px 0 #1f9d55}
+.ugt tr.me td{background:rgba(217,165,32,.16)}
+.ugg-l{font-size:11px;color:var(--mu);margin-right:4px}
 #ucm .ucch{display:flex;flex-wrap:wrap;gap:6px}
 #ucm .ucp{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--bd);border-radius:999px;background:var(--in);font-size:13px}
 #ucm .ucd{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
@@ -668,19 +679,22 @@ var cp={},mt=okT(cur().team)?cur().team:-2;rows().forEach(function(x){if(!okT(x.
 function nm(n){return cp[n]?esc(cp[n].name):'ทีม '+LET.charAt(n%LEAGUE_TEAMS)}
 function dt(n){return '<i class="ucd" style="background:'+lgc(tLg(n))[0]+'"></i>'}
 function lg(n){return '<small>'+(tLg(n)+1)+'·'+LET.charAt(n%LEAGUE_TEAMS)+'</small>'}
-$('#ucs').textContent='ฤดูกาลที่ '+u.season+' · ลีกละ '+u.perLeague+' ทีม · '+u.qualified.length+' ทีมเข้าร่วม · แพ้คัดออก';
+$('#ucs').textContent='ฤดูกาลที่ '+u.season+' · ลีกละ '+u.perLeague+' ทีม · '+u.qualified.length+' ทีมเข้าร่วม · '+(u.groups?u.groups.length+' กลุ่ม แล้วแพ้คัดออก':'แพ้คัดออก');
 var h='';
 if(u.status==='done'&&u.champion>=0)h+='<div class="ucc"><div class="ucct">🏆</div><small>แชมป์ UCL ฤดูกาลที่ '+u.season+'</small><b>'+nm(u.champion)+'</b><span>'+tName(u.champion)+'</span></div>';
-if(u.status==='active'){h+='<div class="ucst" style="margin-top:2px">'+(u.stages.length?'ทีมที่ยังอยู่ในการแข่งขัน':'ทีมที่ผ่านเข้ารอบ')+' ('+u.alive.length+')</div><div class="ucch">'+u.alive.map(function(n){return '<span class="ucp">'+dt(n)+nm(n)+lg(n)+'</span>'}).join('')+'</div>';
-h+='<div class="ucnx">'+(u.next>Date.now()?'นัดต่อไป '+new Date(u.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'นัดต่อไป เร็ว ๆ นี้')+' · แข่งทุก '+evr(u.every)+' · จับสลากใหม่ทุกรอบ</div>'}
+var GL=function(i){return String.fromCharCode(65+i%26)},grp=u.phase==='group';
+if(u.status==='active'){if(!grp)h+='<div class="ucst" style="margin-top:2px">'+(u.stages.length?'ทีมที่ยังอยู่ในการแข่งขัน':'ทีมที่ผ่านเข้ารอบ')+' ('+u.alive.length+')</div><div class="ucch">'+u.alive.map(function(n){return '<span class="ucp">'+dt(n)+nm(n)+lg(n)+'</span>'}).join('')+'</div>';
+h+='<div class="ucnx">'+(u.next>Date.now()?'นัดต่อไป '+new Date(u.next).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'นัดต่อไป เร็ว ๆ นี้')+' · แข่งทุก '+evr(u.every)+(grp?' · รอบแบ่งกลุ่ม นัดที่ '+(u.gday+1)+'/'+u.total:' · จับสลากใหม่ทุกรอบ')+'</div>';
+if(grp&&u.nextFix&&u.nextFix.length){h+='<div class="ucst">โปรแกรมนัดต่อไป (นัดที่ '+(u.gday+1)+')</div>'+u.nextFix.map(function(f){var a=f[1],b=f[2];return '<div class="mt'+((a===mt||b===mt)?' me':'')+'"><span class="tm r"><span class="ugg-l">'+GL(f[0])+'</span>'+nm(a)+lg(a)+dt(a)+'</span><span class="sc">vs</span><span class="tm">'+dt(b)+nm(b)+lg(b)+'</span></div>'}).join('')}}
+if(u.groups&&u.groups.length){h+='<div class="ucst">ตารางรอบแบ่งกลุ่ม · ที่ 1–2 (แถบเขียว) เข้ารอบแพ้คัดออก</div><div class="ugg">'+u.groups.map(function(g,gi){return '<div class="ugc"><div class="ugh">กลุ่ม '+GL(gi)+'</div><table class="ugt"><tr><th></th><th>ทีม</th><th>แข่ง</th><th>+/-</th><th>แต้ม</th></tr>'+g.teams.map(function(t,i){var gd=t.gf-t.ga;return '<tr class="'+(i<g.q?'q':'')+(t.t===mt?' me':'')+'"><td>'+(i+1)+'</td><td class="ugn">'+dt(t.t)+' '+nm(t.t)+lg(t.t)+'</td><td>'+t.p+'</td><td>'+(gd>0?'+':'')+gd+'</td><td><b>'+t.pts+'</b></td></tr>'}).join('')+'</table></div>'}).join('')+'</div>'}
 u.stages.slice().reverse().forEach(function(s){h+='<div class="ucst">'+esc(s.name)+'</div>';
 s.matches.forEach(function(x){
 if(x.a<0){h+='<div class="mt by'+(x.h===mt?' me':'')+'"><span class="tm">'+dt(x.h)+' '+nm(x.h)+lg(x.h)+' ผ่านเข้ารอบถัดไปโดยตรง</span></div>';return}
-var hw=x.w===x.h,aw=x.w===x.a;
-h+='<div class="mt'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+(hw?'<span class="up">+1</span>':'')+nm(x.h)+lg(x.h)+dt(x.h)+'</span><span class="sc">'+(x.hs==null?'–':x.hs+' - '+x.as)+'</span><span class="tm'+(aw?' w':'')+'">'+dt(x.a)+nm(x.a)+lg(x.a)+(aw?'<span class="up">+1</span>':'')+'</span></div>';
+var hw=x.w===x.h,aw=x.w===x.a,gl=x.g!=null?'<span class="ugg-l">'+GL(x.g)+'</span>':'';
+h+='<div class="mt'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+gl+(hw?'<span class="up">+1</span>':'')+nm(x.h)+lg(x.h)+dt(x.h)+'</span><span class="sc">'+(x.hs==null?'–':x.hs+' - '+x.as)+'</span><span class="tm'+(aw?' w':'')+'">'+dt(x.a)+nm(x.a)+lg(x.a)+(aw?'<span class="up">+1</span>':'')+'</span></div>';
 if(x.ph!=null)h+='<div class="ucpn">ดวลจุดโทษ '+x.ph+' - '+x.pa+'</div>'})});
 if(!u.stages.length&&u.status==='active')h+='<div class="ucnx">ยังไม่มีผลการแข่ง นัดแรกจะแข่งที่รอบลีกถัดไป</div>';
-h+='<div class="ucnx" style="margin-bottom:6px">ทีมที่ชนะแต่ละนัดได้ค่าพลังทุกด้าน +1 · แชมป์ได้โบนัสเพิ่ม · เสมอตัดสินด้วยดวลจุดโทษ · ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ตัวเลขเล็ก = ลีก·ทีม</div>';
+h+='<div class="ucnx" style="margin-bottom:6px">ทีมที่ชนะแต่ละนัดได้ค่าพลังทุกด้าน +1 · แชมป์ได้โบนัสเพิ่ม · รอบแบ่งกลุ่มชนะ 3 แต้ม เสมอ 1 แต้ม (เสมอไม่เพิ่มพลัง) · รอบแพ้คัดออกเสมอตัดสินด้วยดวลจุดโทษ · ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ตัวเลขเล็ก = ลีก·ทีม</div>';
 $('#ucbd').innerHTML=h}
 $('#ucb').onclick=ucOpen;$('#ucx').onclick=ucClose;$('#ucc').onclick=ucClose;$('#ucm').onclick=function(e){if(e.target.id=='ucm')ucClose()};
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('#ucm').style.display==='flex')ucClose()});
