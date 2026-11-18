@@ -3,7 +3,7 @@
  * - ไฟล์ไอคอน/manifest: ใช้ของที่เก็บไว้ก่อน แล้วอัปเดตเบื้องหลัง
  * - ไม่แตะ API (Apps Script) และคำขอข้ามโดเมนทั้งหมด ข้อมูลจึงสดใหม่เสมอ
  * เปลี่ยนเลข VERSION เมื่อต้องการล้างแคชเก่า */
-var VERSION = 'v1';
+var VERSION = 'v2';
 var CACHE = 'fbcards-' + VERSION;
 var SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
