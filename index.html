@@ -450,7 +450,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
 <div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
 <label class="f"><span>ชื่อ <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
-<div class="f"><div class="lb">ตำแหน่ง <small>(ระบบสุ่มให้ตอนบันทึกการ์ดครั้งแรก)</small></div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
+<div class="f"><div class="lb">ตำแหน่ง</div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
 <label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>ระบบจะลบพื้นหลังให้อัตโนมัติ จากนั้นลากครอปส่วนที่ต้องการ<br><b style="color:#d33">⚠ ต้องเป็นรูปของตนเองเท่านั้น ไม่เช่นนั้นระบบจะลบการ์ดออก</b></small></span></label>
@@ -577,7 +577,7 @@ for(var i=0;i<6;i++){var cx=64+46.4*i;ctx.save();ctx.textAlign='center';ctx.text
 dl2(165,508,30);
 }
 function posLabel(c){var r=POS.filter(function(p){return p[0]===c})[0];return r?r[1]+' ('+c+')':''}
-function showPos(){var p=cur(),e=$('#pos');if(!e)return;e.textContent=p.pos?posLabel(String(p.pos).toUpperCase())||p.pos:'🎲 ยังไม่ได้สุ่ม · ระบบจะสุ่มให้ตอนกดบันทึก';e.style.color=p.pos?'var(--tx)':'var(--mu)'}
+function showPos(){var p=cur(),e=$('#pos');if(!e)return;e.textContent=p.pos?posLabel(String(p.pos).toUpperCase())||p.pos:'';e.style.color='var(--tx)';if(e.parentNode)e.parentNode.style.display=p.pos?'':'none'}
 function randPos(){var w=[['GK',1],['CB',2],['LB',1],['RB',1],['CM',2],['LW',1],['RW',1],['ST',2]],r=Math.random()*11;for(var i=0;i<w.length;i++){r-=w[i][1];if(r<0)return w[i][0]}return 'CM'}
 function recalc(p){if(!p.rev)return;p.auto=true;p.ovr=Math.max(1,Math.round(p.st.reduce(function(a,b){return a+b},0)/6))}
 var POS=[['GK','ผู้รักษาประตู'],['CB','เซนเตอร์แบ็ค'],['LB','ฟูลแบ็คซ้าย'],['RB','ฟูลแบ็คขวา'],['CM','กองกลาง'],['LW','ปีกซ้าย'],['RW','ปีกขวา'],['ST','กองหน้า']],TN=[['red','แดง–ทอง','#e0253b,#4d0614'],['navy','น้ำเงิน–ทอง','#2f55d8,#0b1647'],['black','ดำ–ทอง','#4a4a4a,#121212'],['green','เขียว–ทอง','#2fb36a,#094022'],['purple','ม่วง–ทอง','#8a4fe0,#2c1060'],['orange','ส้ม–ทอง','#f08a1c,#5c2605'],['pink','ชมพู–ทอง','#f0568f,#5a0c30'],['teal','เขียวอมฟ้า–ทอง','#1fb5ad,#07403f'],['brown','น้ำตาล–ทอง','#a8693a,#3a1d0b'],['sky','ฟ้า–ทอง','#2fa8e8,#0a3556'],['wine','ไวน์–ทอง','#8c1d40,#2a0815'],['yellow','เหลือง–ทอง','#f2c21b,#5c4300'],['silver','เงิน–ทอง','#9aa3ad,#2f353d'],['lime','เขียวมะนาว–ทอง','#8cc82a,#2a4a0b'],['indigo','คราม–ทอง','#5b4be0,#180f5e'],['magenta','บานเย็น–ทอง','#d63bd0,#4c0b49'],['coral','ส้มปะการัง–ทอง','#ff7a5c,#64200e'],['olive','เขียวขี้ม้า–ทอง','#9a9a2e,#35350a'],['mint','มิ้นต์–ทอง','#4fd8a8,#0e4f3b'],['slate','เทาน้ำเงิน–ทอง','#5f7a99,#1c2b3b']];
