@@ -945,11 +945,25 @@ function bkGo(p){bkSet(BK.wide?Math.ceil(p/2):p,true)}
 function bkLayout(force){if(!BK.open)return;var st=$('#bks'),aw=st.clientWidth-16,ah=st.clientHeight-16;if(!force&&aw===BK.lw&&Math.abs(ah-BK.lh)<2)return;BK.lw=aw;BK.lh=ah;var wide=aw>=620,pw=Math.floor(Math.max(120,Math.min(wide?aw/2:aw,ah*.72,440))),b=$('#bkb'),p=BK.lv.length?bkCur():0,rb=force||wide!==BK.wide;
 BK.pw=pw;b.style.setProperty('--pw',pw+'px');b.style.setProperty('--ph',Math.round(pw/.72)+'px');
 if(rb){BK.wide=wide;bkMake();bkSet(wide?Math.ceil(p/2):p,false)}else bkSet(BK.s,false)}
+/* ---- เรียลไทม์: ตอนสมุดเปิดอยู่ ดึงข้อมูลใหม่ทุก 5 วินาที แล้วอัปเดตหน้าสมุดโดยไม่เด้งกลับหน้าแรก ---- */
+function bkMap(){var m={};rows().filter(function(x){return x.name}).forEach(function(x){m[x.id]=[x.name,x.pos,x.ovr,x.theme,x.team,x.t].join('~')});return m}
+function bkSync(){if(!BK.open)return;var n=bkMap(),o=BK.sig||{},k,ch=false,ids=[];
+for(k in n)if(n[k]!==o[k]){ch=true;ids.push(k)}for(k in o)if(!(k in n))ch=true;
+if(!ch)return;if(BK.hold)return;/* กำลังพลิกหน้า → รอรอบถัดไป */
+ids.forEach(function(id){delete BKT[id];delete vcCache[id];delete BK.bad[id]});
+BK.sig=n;bkPages();
+$('#bkj').innerHTML='<button type="button" data-go="1">สารบัญ</button>'+BK.secs.map(function(sc){return '<button type="button" data-go="'+sc.at+'">'+esc(sc.code)+' <small>'+sc.list.length+'</small></button>'}).join('');
+bkLayout(true)}
+function bkTick(){if(!BK.open||document.hidden||BK.busy)return;BK.busy=true;
+var done=function(){BK.busy=false};
+try{refresh().then(function(){try{bkSync()}catch(e){}done()},done)}catch(e){done()}}
+function bkLiveStart(){BK.sig=bkMap();clearInterval(BK.lt);BK.lt=setInterval(bkTick,5000);bkTick()}
+function bkLiveStop(){clearInterval(BK.lt);BK.lt=0;BK.busy=false}
 function bkOpen(){bkPages();var m=$('#bkm'),b=$('#bkb');
 b.style.setProperty('--clip','polygon('+P.map(function(q){return (q[0]/W*100).toFixed(2)+'% '+(q[1]/H*100).toFixed(2)+'%'}).join(',')+')');
 $('#bkj').innerHTML='<button type="button" data-go="1">สารบัญ</button>'+BK.secs.map(function(sc){return '<button type="button" data-go="'+sc.at+'">'+esc(sc.code)+' <small>'+sc.list.length+'</small></button>'}).join('');
-BK.bad={};m.style.display='flex';BK.open=true;BK.hold=false;BK.wide=null;BK.lv=[];BK.s=0;bkLayout(true);setTimeout(function(){$('#bkn').focus()},30)}
-function bkClose(){clearTimeout(BK.zt);BK.q=[];var ld=$('#bkld');if(ld)ld.classList.remove('on');$('#bkm').style.display='none';BK.open=false;$('#bkb').innerHTML='';BK.lv=[];try{$('#bko').focus()}catch(e){}}
+BK.bad={};m.style.display='flex';BK.open=true;BK.hold=false;BK.wide=null;BK.lv=[];BK.s=0;bkLayout(true);setTimeout(function(){$('#bkn').focus()},30);bkLiveStart()}
+function bkClose(){bkLiveStop();clearTimeout(BK.zt);BK.q=[];var ld=$('#bkld');if(ld)ld.classList.remove('on');$('#bkm').style.display='none';BK.open=false;$('#bkb').innerHTML='';BK.lv=[];try{$('#bko').focus()}catch(e){}}
 $('#bko').onclick=bkOpen;$('#bkx').onclick=bkClose;
 $('#bkp').onclick=function(){bkSet(BK.s-1,true)};$('#bkn').onclick=function(){bkSet(BK.s+1,true)};
 $('#bkj').onclick=function(e){var t=e.target.closest&&e.target.closest('button');if(t)bkGo(+t.dataset.go)};
