@@ -1087,7 +1087,8 @@ $('#svl').innerHTML=steps.map(function(t){return '<li><i></i><span>'+t+'</span><
 function svStep(i,c){var li=$('#svl').children[i];if(li)li.className=c}
 function svEnd(st,title,desc,html,yes,no){$('#svm').dataset.st=st;$('#svi').textContent=st=='done'?'🎉':'⚠️';$('#svt').textContent=title;$('#svd').textContent=desc;$('#svr').innerHTML=html||'';$('#svy').textContent=yes;$('#svn').textContent=no||'';$('#svn').style.display=no?'':'none';$('#svsh').style.display=st=='done'?'':'none';window.onbeforeunload=null;setTimeout(function(){$('#svy').focus()},30)}
 function svClose(){$('#svm').style.display='none';bgLock(false)}
-$('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')saveCard(svRe);else if(window.fxBurst)fxBurst()};
+function newBlankCard(){var p=cur();if(!p||!p.rev)return;roster.push(mk());ci=roster.length-1;save();fillForm();render();fillList();try{$('#pherr').style.display='none';$('#cw').style.outline=''}catch(_){}try{window.scrollTo({top:0,behavior:'smooth'})}catch(_){}toast('พร้อมสร้างการ์ดใบใหม่')}
+$('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')saveCard(svRe);else{if(window.fxBurst)fxBurst();if(st=='done')newBlankCard()}};
 $('#svn').onclick=svClose;
 async function saveCard(re){
 if(saving)return;var p=cur();
