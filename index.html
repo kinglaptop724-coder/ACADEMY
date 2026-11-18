@@ -455,15 +455,15 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <main class="app"><section class="ctl">
 <div class="card" style="display:none"><div class="ch"><span class="n">1</span>เลือกผู้เล่น</div><div id="list" class="chips"></div>
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
-<div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
+<div class="card" style="display:none"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
 <label class="f"><span>ชื่อ <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
 <div class="f"><div class="lb">ตำแหน่ง</div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
-<div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
+<div class="card" id="phc"><div class="ch"><span class="n">1</span>รูปผู้เล่น</div>
 <label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>ระบบจะลบพื้นหลังให้อัตโนมัติ จากนั้นลากครอปส่วนที่ต้องการ<br><b style="color:#d33">⚠ ต้องเป็นรูปของตนเองเท่านั้น ไม่เช่นนั้นระบบจะลบการ์ดออก</b></small></span></label>
 <div id="adj"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><button class="ghost" id="crb">⬚ ครอปรูป</button><button class="ghost" id="bgb" style="display:none">✂ ลบพื้นหลัง</button><button class="ghost" id="bgr" style="display:none">↺ ใช้รูปต้นฉบับ</button><button class="ghost danger" id="rm" style="margin:0 0 0 auto">ลบรูปนี้</button></div></div></div>
-<div class="card"><div class="ch"><span class="n">3</span>สีและลวดลายการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div><div class="lb" style="margin:16px 0 8px;font-size:14px;font-weight:600">ลวดลายพื้นหลังการ์ด</div><div class="th" id="pt"></div></div>
-<div class="card"><div class="ch"><span class="n">4</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
+<div class="card"><div class="ch"><span class="n">2</span>สีและลวดลายการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div><div class="lb" style="margin:16px 0 8px;font-size:14px;font-weight:600">ลวดลายพื้นหลังการ์ด</div><div class="th" id="pt"></div></div>
+<div class="card"><div class="ch"><span class="n">3</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
 <div class="bkrow"><button class="bkbtn" id="tbo" type="button" style="background:linear-gradient(120deg,#0e5a32,#1f8f4e 60%,#0e5a32);border-color:#d9a520"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 12h17"/><circle cx="12" cy="12" r="2.6"/><path d="M9 4v2.5h6V4M9 20v-2.5h6V20"/></svg><span>จัดทีมฟุตบอล</span><small>เลือกการ์ดลงสนาม</small></button><button class="bkbtn" id="bko" type="button"><svg viewBox="0 0 24 24" width="1.5em" height="1.5em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg><span>สมุดสะสมการ์ด</span><small>พลิกหน้าได้</small></button></div>
 <input type="text" id="q" placeholder="พิมพ์ชื่อผู้เล่น หรือชื่อทีม เช่น ทีม A" autocomplete="off">
 <button class="ghost" id="mcb" type="button" style="display:none;margin:12px 0 0">🏆 ดูผลการแข่งขันรอบล่าสุด</button><button id="ucb" type="button" style="display:none"></button>
@@ -1091,7 +1091,7 @@ $('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')
 $('#svn').onclick=svClose;
 async function saveCard(re){
 if(saving)return;var p=cur();
-if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='block';ni.classList.add('bad');ni.focus();try{ni.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
+if(!(p.name||'').trim()){nmOpen();toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
 saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
 var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,hasPhoto:true},first=!p.rev,gas=inGAS(),stp=0;
