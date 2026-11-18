@@ -1050,7 +1050,7 @@ if(saving)return;var p=cur();
 if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='block';ni.classList.add('bad');ni.focus();try{ni.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
 saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
-var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re},first=!p.rev,gas=inGAS(),stp=0;
+var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,hasPhoto:true},first=!p.rev,gas=inGAS(),stp=0;
 svOpen([first?'สุ่มตำแหน่ง ค่าพลัง และทีม':'บันทึกข้อมูลผู้เล่น','สร้างรูปการ์ด'].concat(gas?['เก็บรูปการ์ดลงระบบกลาง']:[]));
 if(first)startSpin();
 try{
@@ -1063,7 +1063,7 @@ stopSpin();save();render();fillList();svStep(0,'ok');
 stp=1;svStep(1,'act');await Promise.race([autoDl(),wait(8000)]);svStep(1,'ok');
 var tn=tName(r.team),warn='';
 if(gas){stp=2;svStep(2,'act');try{if(document.fonts&&document.fonts.load)await Promise.all([document.fonts.load('500 14px Kanit','เร็วเลี้ยงยิงรับจ่ายแกร่ง'),document.fonts.load('700 44px Kanit',p.name||'ก'),document.fonts.load('700 32px "Barlow Condensed"','0123456789')])}catch(_){}render(true);var png=cv.toDataURL('image/png');render(false);
-try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];delete BKT[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');warn='บันทึกข้อมูลแล้ว แต่เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ'}
+try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];delete BKT[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');throw new Error('เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ ('+((e2&&e2.message)||'ไม่ทราบสาเหตุ')+')')}
 refresh()}else drawTeams();
 toast(gas?'บันทึกแล้ว · '+tn:'บันทึกในเครื่องแล้ว · '+tn);
 svEnd('done','บันทึกเรียบร้อย',warn||(first?'ระบบสุ่มค่าพลังและทีมให้แล้ว':'อัปเดตข้อมูลการ์ดแล้ว'),'<b style="color:'+tCol(r.team)+'">● '+tn+'</b><span>ค่าพลังรวม <b>'+p.ovr+'</b></span>','ตกลง')
