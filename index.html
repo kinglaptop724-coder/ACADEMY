@@ -932,6 +932,7 @@ function bkSet(s,anim){var N=BK.lv.length,b=$('#bkb'),max=BK.wide?N:N-1,d=0,o=BK
 if(!anim)b.classList.add('nt');
 bkFill(s);
 BK.lv.forEach(function(l,i){if(i>=s-2&&i<=s+1&&(BK.wide||i>=s))l.style.visibility='visible'});
+void b.offsetWidth;/* บังคับคำนวณเลย์เอาต์ก่อนสั่งพลิก: กันเบราว์เซอร์มือถือ (Safari) ข้ามแอนิเมชันตอนพลิกกลับ */
 BK.lv.forEach(function(l,i){var f=i<s;if(f!==l.classList.contains('fl')){
 if(anim&&!(s>o?i>=s-3:i<=s+2)){l.style.transition='none';l.style.visibility='hidden';fast.push(l);l.classList.toggle('fl',f);return}
 l.style.zIndex=N+10;l.style.visibility='visible';l.style.transitionDelay=anim?Math.min(d++,6)*80+'ms':'0ms';l.classList.toggle('fl',f)}});
