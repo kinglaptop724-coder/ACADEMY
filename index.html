@@ -301,19 +301,6 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #adm .em{padding:28px 10px;text-align:center;color:var(--mu);font-size:14px}
 #qcf{position:fixed;inset:0;z-index:10002;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(20,8,10,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 #qcf.on{display:flex}
-#nmf{position:fixed;inset:0;z-index:10003;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(20,8,10,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-#nmf.on{display:flex}
-#nmf .cb{width:100%;max-width:340px;background:var(--pn);color:var(--tx);border-radius:18px;padding:22px 18px 16px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:cfp .16s ease-out}
-#nmf h5{margin:0 0 4px;font-size:17px;font-weight:600}
-#nmf p{margin:0 0 12px;font-size:13px;color:var(--mu);line-height:1.5}
-#nmf input{width:100%;box-sizing:border-box;height:48px;padding:0 14px;border:1.5px solid var(--bd);border-radius:12px;background:var(--in);color:var(--tx);font:inherit;font-size:18px;text-align:center;text-transform:uppercase;letter-spacing:1px}
-#nmf .nc{font-size:12px;color:var(--mu);margin:6px 2px 14px;text-align:right}
-#nmf .nr{font-size:13px;color:#d33;margin:-6px 0 12px;display:none}
-#nmf .fr{display:flex;gap:8px}
-#nmf .ab{flex:1;height:42px;border:0;border-radius:11px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer}
-#nmf .ab.alt{background:none;border:1.5px solid var(--bd);color:var(--tx)}
-#nmedit{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;background:none;color:var(--tx);font:inherit;font-size:15px;cursor:pointer;text-align:left}
-#nmedit span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#nmedit span.ph{color:var(--mu)}
 #qcf .cb{width:100%;max-width:320px;background:var(--pn);color:var(--tx);border-radius:18px;padding:22px 18px 16px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:cfp .16s ease-out}
 #qcf h5{margin:0 0 6px;font-size:17px;font-weight:600}
 #qcf p{margin:0 0 16px;font-size:14px;color:var(--mu);line-height:1.55}
@@ -385,7 +372,13 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .uqt.mine{background:rgba(217,165,32,.2)}
 .ucnote{margin:14px 0 6px;padding:10px 12px;border-radius:12px;background:var(--in);border:1px solid var(--bd);font-size:12px;line-height:1.7;color:var(--mu)}
 .ucnote b{display:block;color:var(--tx);font-size:12.5px;margin-bottom:2px}
-.ugx{margin:6px 0 4px}.ugx summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ac);padding:6px 2px;list-style:none}.ugx summary::-webkit-details-marker{display:none}.ugx summary::after{content:" ▾"}.ugx[open] summary::after{content:" ▴"}
+.ugx{margin:8px 0 6px}.ugx summary{cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ac);padding:8px 10px;border:1px solid var(--bd);border-radius:10px;background:var(--pn);list-style:none;-webkit-tap-highlight-color:transparent}.ugx summary::-webkit-details-marker{display:none}.ugx summary::after{content:"▾";font-size:11px}.ugx[open] summary::after{content:"▴"}.ugx[open] summary{margin-bottom:8px}.ugr{padding-bottom:4px}
+#nmm{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.6)}#nmm.on{display:flex}
+#nmm .nmb{width:100%;max-width:360px;background:var(--pn);color:var(--tx);border-radius:18px;padding:20px 18px 16px;box-shadow:0 20px 50px rgba(0,0,0,.45);border:1.5px solid #d9a520;animation:cfp .16s ease-out}
+#nmm h3{margin:0 0 2px;font-size:18px}#nmm p{margin:0 0 12px;font-size:13px;color:var(--mu)}
+#nmm .nmw{position:relative}#nmm #nmi{width:100%;height:48px;padding:0 56px 0 14px;border:1.5px solid var(--bd);border-radius:12px;background:var(--in);color:var(--tx);font:inherit;font-size:17px;outline:none}#nmm #nmi:focus{border-color:var(--ac)}
+#nmm #nmc{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11.5px;color:var(--mu);pointer-events:none}
+#nmm .nmr{display:flex;gap:10px;margin-top:14px}#nmm .nmr button{flex:1;padding:12px;border-radius:12px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;border:1.5px solid var(--bd);background:none;color:var(--tx)}#nmm .nmr #nmo{border-color:var(--ac);background:var(--ac);color:#fff}
 .ugg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
 .ugc{border:1px solid var(--bd);border-radius:14px;background:var(--in);padding:8px 8px 4px;overflow:hidden}
 .ugh{font-weight:700;font-size:13.5px;margin:0 2px 4px}
@@ -397,9 +390,10 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 .ugt tr.q td:first-child{box-shadow:inset 3px 0 #1f9d55}
 .ugt tr.me td{background:rgba(217,165,32,.16)}
 .ugr{margin-top:6px}
-.ugd{font-size:11.5px;font-weight:700;color:var(--mu);margin:8px 2px 2px}
-.ugm{display:flex;align-items:center;gap:6px;padding:5px 4px;border-top:1px solid var(--bd);font-size:12.5px}
-.ugm.me{background:rgba(217,165,32,.16);border-radius:8px}
+.ugd{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--mu);margin:10px 2px 6px}.ugd:first-child{margin-top:2px}.ugd i{flex:1;height:1px;background:var(--bd)}.ugd em{font-style:normal;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:999px;background:rgba(217,165,32,.2);color:#9a6b00}.ugd em.dn{background:rgba(31,157,85,.15);color:#1f9d55}
+.ugm{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;padding:8px 9px;margin-bottom:5px;border:1px solid var(--bd);border-radius:11px;background:var(--pn);font-size:12.5px}.ugm.me{background:rgba(217,165,32,.16);border-color:rgba(217,165,32,.6)}
+.ugm .tm{display:flex;align-items:center;gap:4px;min-width:0}.ugm .tm.r{justify-content:flex-end;text-align:right}.ugm .tn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ugm .tm small{flex:none;font-size:10px;color:var(--mu)}.ugm .tm.w{font-weight:700}.ugm .tm.l{opacity:.62}
+.ugm .sc{min-width:50px;text-align:center;font-family:'Barlow Condensed',Kanit,sans-serif;font-weight:700;font-size:17px;line-height:1;padding:4px 8px;border-radius:8px;background:rgba(127,127,127,.15);letter-spacing:.5px}.ugm .sc.vs{font-family:inherit;font-size:10.5px;font-weight:600;color:var(--mu);background:none;border:1px dashed var(--bd);letter-spacing:1px}
 .ugg-l{font-size:11px;color:var(--mu);margin-right:4px}
 #ucm .ucch{display:flex;flex-wrap:wrap;gap:6px}
 #ucm .ucp{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--bd);border-radius:999px;background:var(--in);font-size:13px}
@@ -462,7 +456,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="card" style="display:none"><div class="ch"><span class="n">1</span>เลือกผู้เล่น</div><div id="list" class="chips"></div>
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
 <div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
-<div class="f"><div class="lb">ชื่อ <small style="color:var(--mu)">(แตะที่ชื่อบนการ์ด หรือกดปุ่มนี้เพื่อพิมพ์)</small></div><button type="button" id="nmedit" aria-label="พิมพ์ชื่อบนการ์ด"><span class="ph" id="nmtx">แตะเพื่อพิมพ์ชื่อ</span>✎</button><input type="text" id="name" maxlength="22" autocomplete="off" hidden style="display:none"></div><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
+<label class="f"><span>ชื่อ <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
 <div class="f"><div class="lb">ตำแหน่ง</div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
@@ -487,11 +481,12 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div id="tbp"><div class="tbk"><h3 id="tbpt"></h3><input type="text" id="tbq" placeholder="ค้นหาชื่อผู้เล่น" autocomplete="off"><div class="chips sm" id="tbch" style="margin-top:10px"></div><div id="tbl2"></div><div class="tbac"><button id="tbpr" type="button" class="alt">นำผู้เล่นออก</button><button id="tbpc" type="button">ปิด</button></div></div></div>
 <div id="clm" role="dialog" aria-modal="true"><div class="clh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><rect x="4" y="7" width="11" height="14" rx="2"/><path d="M9 4h8a2 2 0 0 1 2 2v11"/></svg>คอลเลกชันการ์ด</h3><button id="clx" type="button">ปิด</button></div><div id="clb"></div></div>
 <div id="bkm" role="dialog" aria-modal="true" aria-label="สมุดสะสมการ์ดนักเตะ"><div class="bkh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>สมุดสะสมการ์ดนักเตะ</h3><button id="bkx" type="button">ปิด</button></div><div id="bkj"></div><div id="bks"><div class="bk" id="bkb"></div><div id="bkld" role="status" aria-live="polite"><i></i><span></span></div></div><div id="bkc"><button id="bkp" type="button" aria-label="หน้าก่อนหน้า">‹ ก่อนหน้า</button><span id="bki"></span><button id="bkn" type="button" aria-label="หน้าถัดไป">ถัดไป ›</button></div></div>
-<div id="qcf"></div><div id="nmf"></div>
+<div id="qcf"></div>
 <div id="adm" role="dialog" aria-modal="true"><div class="bgb"><button class="ax" id="adx" type="button" aria-label="ปิด"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div id="adc"></div><div id="adcf"></div></div></div>
 <div id="ixm" role="dialog" aria-modal="true"><div class="ixb" id="ixb"></div></div>
 <div id="ixt" role="status"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg><span>ติดตั้งแอปไว้เปิดได้ทันทีจากหน้าจอหลัก</span><button class="ixy" id="ixy" type="button">ติดตั้ง</button><button class="ixn" id="ixn" type="button" aria-label="ปิด"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
 <div id="ucm" role="dialog" aria-modal="true"><div class="ucb"><div class="uch"><div><h3>🏆 UCL · ศึกชิงแชมป์ข้ามลีก</h3><p id="ucs"></p></div><button id="ucx" type="button" aria-label="ปิด">✕</button></div><div class="ucbd" id="ucbd"></div><div class="ucf"><button id="ucc" type="button">ปิด</button></div></div></div>
+<div id="nmm" role="dialog" aria-modal="true" aria-labelledby="nmt"><div class="nmb"><h3 id="nmt">✏️ ชื่อบนการ์ด</h3><p>พิมพ์ชื่อของคุณ แล้วกดตกลง</p><div class="nmw"><input id="nmi" type="text" maxlength="22" autocomplete="off" placeholder="ชื่อของท่าน" enterkeyhint="done"><span id="nmc">0/22</span></div><div class="nmr"><button type="button" id="nmx">ยกเลิก</button><button type="button" id="nmo">ตกลง</button></div></div></div>
 <div id="mcm" role="dialog" aria-modal="true"><div class="bgb"><button id="mcx" type="button" aria-label="ปิด">✕</button><h3>⚽ ผลการแข่งขัน · รอบที่ <span id="mrn"></span></h3><p id="mnx" style="font-size:13px;margin:0 0 8px"></p><div id="ml"></div><button id="mcc" type="button" style="width:100%;margin-top:12px;padding:12px;border:0;border-radius:12px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer">ปิด</button></div></div>
 <div id="vcm" role="dialog" aria-modal="true"><div class="bgb"><h3 id="vct"></h3><p id="vcs" style="margin-bottom:10px"></p><div id="vcl"><i></i><span>กำลังโหลดภาพการ์ด…<br><small>อาจใช้เวลาสักครู่</small></span></div><img id="vci" alt="การ์ดผู้เล่น" style="display:none"><div id="vcv" class="bkv" style="display:none"></div><div class="bga"><button id="vcsh" type="button" class="alt" style="display:none">📤 แชร์ภาพ</button><button id="vcc" type="button" style="display:none">เปลี่ยนผู้เล่นคนนี้</button><button id="vcr" type="button" class="alt" style="display:none">นำออกจากทีม</button><button id="vcx" type="button" aria-label="ปิด">✕</button></div></div></div>
 <div id="svm" role="dialog" aria-modal="true" aria-live="polite" data-st="save"><div class="bgb"><div id="svi">⚽</div><h3 id="svt"></h3><p id="svd"></p><ul class="svs" id="svl"></ul><div id="svr"></div><div class="bga"><button id="svy" type="button"></button><button id="svsh" type="button" class="alt" style="display:none">📤 แชร์การ์ดพร้อมลิงก์</button><button id="svn" type="button" class="alt"></button></div></div></div>
@@ -509,9 +504,6 @@ function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos
 try{localStorage.removeItem(KEY)}catch(e){}roster=[];/* เริ่มว่างทุกครั้ง: ล้างข้อมูลที่เคยค้างในเครื่อง ไม่โหลดกลับมา */
 if(!roster.length)roster=[mk()];
 function cur(){return roster[ci]}
-function nmSync(){var p=cur(),t=$('#nmtx');if(!t)return;var v=(p.name||'').trim();t.textContent=v||'แตะเพื่อพิมพ์ชื่อ';t.className=v?'':'ph'}
-function nameDlg(){var p=cur(),c=$('#nmf');if(!c||c.classList.contains('on'))return;c.innerHTML='<div class="cb" role="dialog" aria-modal="true" aria-label="พิมพ์ชื่อบนการ์ด"><h5>พิมพ์ชื่อบนการ์ด</h5><p>ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ</p><input type="text" id="nmi" maxlength="22" autocomplete="off" placeholder="ชื่อของท่าน"><div class="nc" id="nmc"></div><div class="nr" id="nmr">กรุณาพิมพ์ชื่อ</div><div class="fr"><button class="ab alt" id="nmn" type="button">ยกเลิก</button><button class="ab" id="nmy" type="button">ตกลง</button></div></div>';c.classList.add('on');var i=$('#nmi');i.value=p.name||'';var cnt=function(){$('#nmc').textContent=i.value.length+'/22';$('#nmr').style.display='none'};cnt();var off=function(){c.classList.remove('on');c.innerHTML=''};var ok=function(){var v=i.value.replace(/\s+/g,' ').trim();if(!v){$('#nmr').style.display='block';i.focus();return}off();var q=cur();q.name=v;$('#name').value=v;$('#name').classList.remove('bad');$('#nameerr').style.display='none';upd();nmSync()};i.oninput=cnt;i.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();ok()}else if(e.key==='Escape'){off()}};$('#nmn').onclick=off;$('#nmy').onclick=ok;c.onclick=function(e){if(e.target===c)off()};setTimeout(function(){i.focus();i.select()},40)}
-function onNameArea(e){var r=cv.getBoundingClientRect();if(!r.width)return false;var x=(e.clientX-r.left)/r.width*(W+2*MX)-MX,y=(e.clientY-r.top)/r.height*(H+2*MY)-MY;return x>=24&&x<=336&&y>=362&&y<=434}
 function save(){}/* ไม่เก็บข้อมูลผู้เล่นไว้ในเครื่องแล้ว */
 function toast(t){$('#toast').textContent=t}
 function qAsk(t,msg,ok,fn){var c=$('#qcf');c.innerHTML='<div class="cb" role="alertdialog" aria-modal="true"><h5>'+t+'</h5><p>'+msg+'</p><div class="fr"><button class="ab alt" id="qn" type="button">ยกเลิก</button><button class="ab dg" id="qy" type="button">'+ok+'</button></div></div>';c.classList.add('on');var off=function(){c.classList.remove('on');c.innerHTML=''};$('#qn').onclick=off;$('#qy').onclick=function(){off();fn()};c.onclick=function(e){if(e.target===c)off()};setTimeout(function(){var b=$('#qn');if(b)b.focus()},30)}
@@ -600,7 +592,7 @@ var POS=[['GK','ผู้รักษาประตู'],['CB','เซนเต
 function upd(){recalc(cur());save();render();fillList();syncOvr()}
 function syncOvr(){}
 function fillList(){var L=$('#list');L.innerHTML='';roster.forEach(function(q,i){var b=document.createElement('button');b.className='chip'+(i==ci?' on':'');b.textContent=(q.rev?q.ovr+' · ':'')+((q.name||'').trim()||'ไม่มีชื่อ');b.onclick=function(){ci=i;fillForm();render()};L.appendChild(b)})}
-function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;nmSync();syncOvr();
+function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;syncOvr();
 
 showPos();
 document.querySelectorAll('#th .tb').forEach(function(b){b.className='tb'+(b.dataset.t==p.theme?' on':'')});
@@ -676,7 +668,13 @@ crs.onpointerup=crs.onpointercancel=function(){if(cr)cr.mode=null};
 $('#cry').onclick=function(){if(cr)crApply(cr.box)};
 $('#crn').onclick=function(){if(!cr)return;if(cr.fresh)crApply(crDef());else crClose()};
 $('#crb').onclick=function(){var p=cur();if(!p.photo)return;crOpen(p,base[p.id]||p.photo,false)};
-var cwE=$('#cw');cwE.style.cursor='pointer';cwE.title='กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น';cwE.onclick=function(e){if(onNameArea(e)){nameDlg();return}$('#file').click()};cwE.onmousemove=function(e){var n=onNameArea(e);cwE.style.cursor='pointer';cwE.title=n?'กดเพื่อพิมพ์ชื่อ':'กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น'};$('#nmedit').onclick=nameDlg;
+var cwE=$('#cw');cwE.style.cursor='pointer';cwE.title='กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น';cwE.onclick=function(ev){var r=cv.getBoundingClientRect(),fx=(ev.clientX-r.left)/r.width,fy=(ev.clientY-r.top)/r.height;if(r.width>0&&fy>=.64&&fy<=.745&&fx>=.1&&fx<=.9){nmOpen();return}$('#file').click()};
+var nmOld='';function nmOpen(){var p=cur();nmOld=p.name||'';var i=$('#nmi');i.value=nmOld;$('#nmc').textContent=i.value.length+'/22';$('#nmm').classList.add('on');setTimeout(function(){i.focus();i.select()},30)}
+function nmClose(ok){var p=cur();if(!ok){p.name=nmOld;$('#name').value=nmOld;upd()}else{var v=$('#nmi').value.replace(/\s+/g,' ').trim();p.name=v;$('#name').value=v;if(v){$('#name').classList.remove('bad');$('#nameerr').style.display='none'}upd();save()}$('#nmm').classList.remove('on')}
+$('#nmi').oninput=function(){var p=cur();p.name=this.value;$('#name').value=this.value;$('#nmc').textContent=this.value.length+'/22';upd()};
+$('#nmo').onclick=function(){nmClose(true)};$('#nmx').onclick=function(){nmClose(false)};
+$('#nmi').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();nmClose(true)}else if(e.key==='Escape'){nmClose(false)}};
+$('#nmm').onclick=function(e){if(e.target===this)nmClose(false)};
 $('#file').onchange=function(e){loadPhoto(e.target.files[0]);this.value='';$('#pherr').style.display='none';$('#cw').style.outline=''};
 var dz=$('#cw');dz.ondragover=function(e){e.preventDefault();dz.classList.add('ov')};dz.ondragleave=function(){dz.classList.remove('ov')};dz.ondrop=function(e){e.preventDefault();dz.classList.remove('ov');loadPhoto(e.dataTransfer.files[0])};
 $('#oc').onclick=function(){$('#ov').style.display='none'};
@@ -821,7 +819,11 @@ h+='<div class="brw"><div class="brc">'+BR+'</div></div><div class="ucnx" style=
 if(grp&&hasG)h+='<div class="ucst">ทีมที่อยู่ในโซนเข้ารอบตอนนี้ <small style="font-weight:400">(ตามคะแนนปัจจุบัน)</small></div><div class="uqg">'+u.groups.map(function(g,gi){return '<div class="uqc"><b>กลุ่ม '+GL(gi)+'</b>'+g.teams.slice(0,g.q).map(function(t,k){return '<div class="uqt'+(t.t===mt?' mine':'')+'"><i>'+(k+1)+'</i><span>'+dt(t.t)+nm(t.t)+'</span></div>'}).join('')+'</div>'}).join('')+'</div>';
 }
 if(T==='gr'&&hasG){
-var GR=function(gi){var o='';(u.nextFix||[]).filter(function(f){return f[0]===gi}).forEach(function(f,i){if(!i)o+='<div class="ugd">นัดที่ '+(u.gday+1)+' · ยังไม่แข่ง</div>';o+='<div class="ugm'+((f[1]===mt||f[2]===mt)?' me':'')+'"><span class="tm r">'+nm(f[1])+lg(f[1])+dt(f[1])+'</span><span class="sc">vs</span><span class="tm">'+dt(f[2])+nm(f[2])+lg(f[2])+'</span></div>'});u.stages.slice().reverse().forEach(function(s){var ms=s.matches.filter(function(x){return x.g===gi});if(!ms.length)return;o+='<div class="ugd">'+esc(s.name.replace(/^รอบแบ่งกลุ่ม · /,''))+'</div>'+ms.map(function(x){var hw=x.hs>x.as,aw=x.as>x.hs;return '<div class="ugm'+((x.h===mt||x.a===mt)?' me':'')+'"><span class="tm r'+(hw?' w':'')+'">'+nm(x.h)+lg(x.h)+dt(x.h)+'</span><span class="sc">'+x.hs+' - '+x.as+'</span><span class="tm'+(aw?' w':'')+'">'+dt(x.a)+nm(x.a)+lg(x.a)+'</span></div>'}).join('')});return o?'<details class="ugx"><summary>ดูโปรแกรมและผลรายนัด</summary><div class="ugr">'+o+'</div></details>':''};
+var GR=function(gi){var o='';
+var side=function(n,home,w,l){return '<span class="tm'+(home?' r':'')+(w?' w':'')+(l?' l':'')+'">'+(home?'':dt(n))+'<span class="tn">'+nm(n)+'</span>'+lg(n)+(home?dt(n):'')+'</span>'};
+(u.nextFix||[]).filter(function(f){return f[0]===gi}).forEach(function(f,i){if(!i)o+='<div class="ugd"><span>นัดที่ '+(u.gday+1)+'</span><i></i><em>ยังไม่แข่ง</em></div>';o+='<div class="ugm'+((f[1]===mt||f[2]===mt)?' me':'')+'">'+side(f[1],1,0,0)+'<span class="sc vs">VS</span>'+side(f[2],0,0,0)+'</div>'});
+u.stages.slice().reverse().forEach(function(s){var ms=s.matches.filter(function(x){return x.g===gi});if(!ms.length)return;o+='<div class="ugd"><span>'+esc(s.name.replace(/^รอบแบ่งกลุ่ม · /,''))+'</span><i></i><em class="dn">จบแล้ว</em></div>'+ms.map(function(x){var hw=x.hs>x.as,aw=x.as>x.hs;return '<div class="ugm'+((x.h===mt||x.a===mt)?' me':'')+'">'+side(x.h,1,hw,aw)+'<span class="sc">'+x.hs+' - '+x.as+'</span>'+side(x.a,0,aw,hw)+'</div>'}).join('')});
+return o?'<details class="ugx"><summary>ดูโปรแกรมและผลรายนัด</summary><div class="ugr">'+o+'</div></details>':''};
 h+='<div class="ucnx" style="margin:0 2px 8px">ที่ 1–2 ของแต่ละกลุ่ม (แถบเขียว) เข้ารอบแพ้คัดออก · ชนะ 3 แต้ม เสมอ 1 แต้ม</div><div class="ugg">'+u.groups.map(function(g,gi){return '<div class="ugc"><div class="ugh">กลุ่ม '+GL(gi)+'</div><table class="ugt"><tr><th></th><th>ทีม</th><th>แข่ง</th><th>+/-</th><th>แต้ม</th></tr>'+g.teams.map(function(t,i){var gd=t.gf-t.ga;return '<tr class="'+(i<g.q?'q':'')+(t.t===mt?' me':'')+'"><td>'+(i+1)+'</td><td class="ugn">'+dt(t.t)+' '+nm(t.t)+lg(t.t)+'</td><td>'+t.p+'</td><td>'+(gd>0?'+':'')+gd+'</td><td><b>'+t.pts+'</b></td></tr>'}).join('')+'</table>'+GR(gi)+'</div>'}).join('')+'</div>'}
 if(T==='rs'){
 var any=0;
@@ -1089,7 +1091,7 @@ $('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')
 $('#svn').onclick=svClose;
 async function saveCard(re){
 if(saving)return;var p=cur();
-if(!(p.name||'').trim()){toast('กรุณาพิมพ์ชื่อก่อนบันทึก');nameDlg();return}
+if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='block';ni.classList.add('bad');ni.focus();try{ni.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
 saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
 var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,hasPhoto:true},first=!p.rev,gas=inGAS(),stp=0;
