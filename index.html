@@ -301,6 +301,19 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #adm .em{padding:28px 10px;text-align:center;color:var(--mu);font-size:14px}
 #qcf{position:fixed;inset:0;z-index:10002;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(20,8,10,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 #qcf.on{display:flex}
+#nmf{position:fixed;inset:0;z-index:10003;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(20,8,10,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+#nmf.on{display:flex}
+#nmf .cb{width:100%;max-width:340px;background:var(--pn);color:var(--tx);border-radius:18px;padding:22px 18px 16px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:cfp .16s ease-out}
+#nmf h5{margin:0 0 4px;font-size:17px;font-weight:600}
+#nmf p{margin:0 0 12px;font-size:13px;color:var(--mu);line-height:1.5}
+#nmf input{width:100%;box-sizing:border-box;height:48px;padding:0 14px;border:1.5px solid var(--bd);border-radius:12px;background:var(--in);color:var(--tx);font:inherit;font-size:18px;text-align:center;text-transform:uppercase;letter-spacing:1px}
+#nmf .nc{font-size:12px;color:var(--mu);margin:6px 2px 14px;text-align:right}
+#nmf .nr{font-size:13px;color:#d33;margin:-6px 0 12px;display:none}
+#nmf .fr{display:flex;gap:8px}
+#nmf .ab{flex:1;height:42px;border:0;border-radius:11px;background:var(--ac);color:#fff;font:inherit;font-size:15px;cursor:pointer}
+#nmf .ab.alt{background:none;border:1.5px solid var(--bd);color:var(--tx)}
+#nmedit{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;background:none;color:var(--tx);font:inherit;font-size:15px;cursor:pointer;text-align:left}
+#nmedit span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#nmedit span.ph{color:var(--mu)}
 #qcf .cb{width:100%;max-width:320px;background:var(--pn);color:var(--tx);border-radius:18px;padding:22px 18px 16px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:cfp .16s ease-out}
 #qcf h5{margin:0 0 6px;font-size:17px;font-weight:600}
 #qcf p{margin:0 0 16px;font-size:14px;color:var(--mu);line-height:1.55}
@@ -449,7 +462,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="card" style="display:none"><div class="ch"><span class="n">1</span>เลือกผู้เล่น</div><div id="list" class="chips"></div>
 <div class="acts"><button class="ghost" id="add">＋ เพิ่มผู้เล่น</button><button class="ghost" id="dup">ทำสำเนา</button><button class="ghost danger" id="del">ลบคนนี้</button></div></div>
 <div class="card"><div class="ch"><span class="n">1</span>ข้อมูลบนการ์ด</div>
-<label class="f"><span>ชื่อ <small>(พิมพ์ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ)</small></span><input type="text" id="name" maxlength="22" autocomplete="off" required></label><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
+<div class="f"><div class="lb">ชื่อ <small style="color:var(--mu)">(แตะที่ชื่อบนการ์ด หรือกดปุ่มนี้เพื่อพิมพ์)</small></div><button type="button" id="nmedit" aria-label="พิมพ์ชื่อบนการ์ด"><span class="ph" id="nmtx">แตะเพื่อพิมพ์ชื่อ</span>✎</button><input type="text" id="name" maxlength="22" autocomplete="off" hidden style="display:none"></div><div id="nameerr" style="display:none;color:#d33;font-size:13px;margin:-4px 0 10px">⚠ กรุณาพิมพ์ชื่อก่อนบันทึกการ์ด</div>
 <div class="f"><div class="lb">ตำแหน่ง</div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">2</span>รูปผู้เล่น</div>
@@ -474,7 +487,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div id="tbp"><div class="tbk"><h3 id="tbpt"></h3><input type="text" id="tbq" placeholder="ค้นหาชื่อผู้เล่น" autocomplete="off"><div class="chips sm" id="tbch" style="margin-top:10px"></div><div id="tbl2"></div><div class="tbac"><button id="tbpr" type="button" class="alt">นำผู้เล่นออก</button><button id="tbpc" type="button">ปิด</button></div></div></div>
 <div id="clm" role="dialog" aria-modal="true"><div class="clh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><rect x="4" y="7" width="11" height="14" rx="2"/><path d="M9 4h8a2 2 0 0 1 2 2v11"/></svg>คอลเลกชันการ์ด</h3><button id="clx" type="button">ปิด</button></div><div id="clb"></div></div>
 <div id="bkm" role="dialog" aria-modal="true" aria-label="สมุดสะสมการ์ดนักเตะ"><div class="bkh"><h3><svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.22em;margin-right:.45em" aria-hidden="true"><path d="M12 6.5C10.3 5.2 8 4.7 4 4.7v13c4 0 6.3.5 8 1.8 1.7-1.3 4-1.8 8-1.8v-13c-4 0-6.3.5-8 1.8z"/><path d="M12 6.5v13"/></svg>สมุดสะสมการ์ดนักเตะ</h3><button id="bkx" type="button">ปิด</button></div><div id="bkj"></div><div id="bks"><div class="bk" id="bkb"></div><div id="bkld" role="status" aria-live="polite"><i></i><span></span></div></div><div id="bkc"><button id="bkp" type="button" aria-label="หน้าก่อนหน้า">‹ ก่อนหน้า</button><span id="bki"></span><button id="bkn" type="button" aria-label="หน้าถัดไป">ถัดไป ›</button></div></div>
-<div id="qcf"></div>
+<div id="qcf"></div><div id="nmf"></div>
 <div id="adm" role="dialog" aria-modal="true"><div class="bgb"><button class="ax" id="adx" type="button" aria-label="ปิด"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div id="adc"></div><div id="adcf"></div></div></div>
 <div id="ixm" role="dialog" aria-modal="true"><div class="ixb" id="ixb"></div></div>
 <div id="ixt" role="status"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg><span>ติดตั้งแอปไว้เปิดได้ทันทีจากหน้าจอหลัก</span><button class="ixy" id="ixy" type="button">ติดตั้ง</button><button class="ixn" id="ixn" type="button" aria-label="ปิด"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
@@ -496,6 +509,9 @@ function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos
 try{localStorage.removeItem(KEY)}catch(e){}roster=[];/* เริ่มว่างทุกครั้ง: ล้างข้อมูลที่เคยค้างในเครื่อง ไม่โหลดกลับมา */
 if(!roster.length)roster=[mk()];
 function cur(){return roster[ci]}
+function nmSync(){var p=cur(),t=$('#nmtx');if(!t)return;var v=(p.name||'').trim();t.textContent=v||'แตะเพื่อพิมพ์ชื่อ';t.className=v?'':'ph'}
+function nameDlg(){var p=cur(),c=$('#nmf');if(!c||c.classList.contains('on'))return;c.innerHTML='<div class="cb" role="dialog" aria-modal="true" aria-label="พิมพ์ชื่อบนการ์ด"><h5>พิมพ์ชื่อบนการ์ด</h5><p>ชื่อยาวได้ ตัวอักษรจะลดขนาดให้พอดีอัตโนมัติ</p><input type="text" id="nmi" maxlength="22" autocomplete="off" placeholder="ชื่อของท่าน"><div class="nc" id="nmc"></div><div class="nr" id="nmr">กรุณาพิมพ์ชื่อ</div><div class="fr"><button class="ab alt" id="nmn" type="button">ยกเลิก</button><button class="ab" id="nmy" type="button">ตกลง</button></div></div>';c.classList.add('on');var i=$('#nmi');i.value=p.name||'';var cnt=function(){$('#nmc').textContent=i.value.length+'/22';$('#nmr').style.display='none'};cnt();var off=function(){c.classList.remove('on');c.innerHTML=''};var ok=function(){var v=i.value.replace(/\s+/g,' ').trim();if(!v){$('#nmr').style.display='block';i.focus();return}off();var q=cur();q.name=v;$('#name').value=v;$('#name').classList.remove('bad');$('#nameerr').style.display='none';upd();nmSync()};i.oninput=cnt;i.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();ok()}else if(e.key==='Escape'){off()}};$('#nmn').onclick=off;$('#nmy').onclick=ok;c.onclick=function(e){if(e.target===c)off()};setTimeout(function(){i.focus();i.select()},40)}
+function onNameArea(e){var r=cv.getBoundingClientRect();if(!r.width)return false;var x=(e.clientX-r.left)/r.width*(W+2*MX)-MX,y=(e.clientY-r.top)/r.height*(H+2*MY)-MY;return x>=24&&x<=336&&y>=362&&y<=434}
 function save(){}/* ไม่เก็บข้อมูลผู้เล่นไว้ในเครื่องแล้ว */
 function toast(t){$('#toast').textContent=t}
 function qAsk(t,msg,ok,fn){var c=$('#qcf');c.innerHTML='<div class="cb" role="alertdialog" aria-modal="true"><h5>'+t+'</h5><p>'+msg+'</p><div class="fr"><button class="ab alt" id="qn" type="button">ยกเลิก</button><button class="ab dg" id="qy" type="button">'+ok+'</button></div></div>';c.classList.add('on');var off=function(){c.classList.remove('on');c.innerHTML=''};$('#qn').onclick=off;$('#qy').onclick=function(){off();fn()};c.onclick=function(e){if(e.target===c)off()};setTimeout(function(){var b=$('#qn');if(b)b.focus()},30)}
@@ -584,7 +600,7 @@ var POS=[['GK','ผู้รักษาประตู'],['CB','เซนเต
 function upd(){recalc(cur());save();render();fillList();syncOvr()}
 function syncOvr(){}
 function fillList(){var L=$('#list');L.innerHTML='';roster.forEach(function(q,i){var b=document.createElement('button');b.className='chip'+(i==ci?' on':'');b.textContent=(q.rev?q.ovr+' · ':'')+((q.name||'').trim()||'ไม่มีชื่อ');b.onclick=function(){ci=i;fillForm();render()};L.appendChild(b)})}
-function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;syncOvr();
+function fillForm(){var p=cur();recalc(p);$('#name').value=p.name;nmSync();syncOvr();
 
 showPos();
 document.querySelectorAll('#th .tb').forEach(function(b){b.className='tb'+(b.dataset.t==p.theme?' on':'')});
@@ -660,7 +676,7 @@ crs.onpointerup=crs.onpointercancel=function(){if(cr)cr.mode=null};
 $('#cry').onclick=function(){if(cr)crApply(cr.box)};
 $('#crn').onclick=function(){if(!cr)return;if(cr.fresh)crApply(crDef());else crClose()};
 $('#crb').onclick=function(){var p=cur();if(!p.photo)return;crOpen(p,base[p.id]||p.photo,false)};
-var cwE=$('#cw');cwE.style.cursor='pointer';cwE.title='กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น';cwE.onclick=function(){$('#file').click()};
+var cwE=$('#cw');cwE.style.cursor='pointer';cwE.title='กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น';cwE.onclick=function(e){if(onNameArea(e)){nameDlg();return}$('#file').click()};cwE.onmousemove=function(e){var n=onNameArea(e);cwE.style.cursor='pointer';cwE.title=n?'กดเพื่อพิมพ์ชื่อ':'กดเพื่อเพิ่ม/เปลี่ยนรูปผู้เล่น'};$('#nmedit').onclick=nameDlg;
 $('#file').onchange=function(e){loadPhoto(e.target.files[0]);this.value='';$('#pherr').style.display='none';$('#cw').style.outline=''};
 var dz=$('#cw');dz.ondragover=function(e){e.preventDefault();dz.classList.add('ov')};dz.ondragleave=function(){dz.classList.remove('ov')};dz.ondrop=function(e){e.preventDefault();dz.classList.remove('ov');loadPhoto(e.dataTransfer.files[0])};
 $('#oc').onclick=function(){$('#ov').style.display='none'};
@@ -1073,7 +1089,7 @@ $('#svy').onclick=function(){var st=$('#svm').dataset.st;svClose();if(st=='err')
 $('#svn').onclick=svClose;
 async function saveCard(re){
 if(saving)return;var p=cur();
-if(!(p.name||'').trim()){var ni=$('#name'),ne=$('#nameerr');ne.style.display='block';ni.classList.add('bad');ni.focus();try{ni.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
+if(!(p.name||'').trim()){toast('กรุณาพิมพ์ชื่อก่อนบันทึก');nameDlg();return}
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
 saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
 var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,hasPhoto:true},first=!p.rev,gas=inGAS(),stp=0;
