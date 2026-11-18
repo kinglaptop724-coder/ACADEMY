@@ -500,7 +500,8 @@ var P=[[0,46],[38,22],[132,22],[152,8],[164,0],[196,0],[208,8],[228,22],[322,22]
 var TH={red:{b:['#e0253b', '#9c0f23', '#4d0614', '#26030a'],g:['#fff6c2','#ffd54a','#c98d0a']},navy:{b:['#2f55d8', '#17308a', '#0b1647', '#050a22'],g:['#fff6c2','#ffd54a','#c98d0a']},black:{b:['#4a4a4a', '#262626', '#121212', '#050505'],g:['#fff6c2','#ffd54a','#c98d0a']},green:{b:['#2fb36a', '#14793f', '#094022', '#03200f'],g:['#fff6c2','#ffd54a','#c98d0a']},purple:{b:['#8a4fe0', '#5a25a8', '#2c1060', '#14062e'],g:['#fff6c2','#ffd54a','#c98d0a']},orange:{b:['#f08a1c', '#b8530a', '#5c2605', '#2a1002'],g:['#fff6c2','#ffd54a','#c98d0a']},pink:{b:['#f0568f', '#b01e5c', '#5a0c30', '#2a0415'],g:['#fff6c2','#ffd54a','#c98d0a']},teal:{b:['#1fb5ad', '#0f7a78', '#07403f', '#031f20'],g:['#fff6c2','#ffd54a','#c98d0a']},brown:{b:['#a8693a', '#6e3d1c', '#3a1d0b', '#1c0d04'],g:['#fff6c2','#ffd54a','#c98d0a']},sky:{b:['#2fa8e8', '#136aa3', '#0a3556', '#04182a'],g:['#fff6c2','#ffd54a','#c98d0a']},wine:{b:['#8c1d40', '#541029', '#2a0815', '#12040a'],g:['#fff6c2','#ffd54a','#c98d0a']},yellow:{b:['#f2c21b', '#b88a00', '#5c4300', '#2b1f00'],g:['#fff6c2','#ffd54a','#c98d0a']},silver:{b:['#9aa3ad', '#5f6872', '#2f353d', '#14171b'],g:['#fff6c2','#ffd54a','#c98d0a']},lime:{b:['#8cc82a', '#52861a', '#2a4a0b', '#122305'],g:['#fff6c2','#ffd54a','#c98d0a']},indigo:{b:['#5b4be0', '#3425a8', '#180f5e', '#090535'],g:['#fff6c2','#ffd54a','#c98d0a']},magenta:{b:['#d63bd0', '#962090', '#4c0b49', '#230322'],g:['#fff6c2','#ffd54a','#c98d0a']},coral:{b:['#ff7a5c', '#c24427', '#64200e', '#2e0d05'],g:['#fff6c2','#ffd54a','#c98d0a']},olive:{b:['#9a9a2e', '#686815', '#35350a', '#181804'],g:['#fff6c2','#ffd54a','#c98d0a']},mint:{b:['#4fd8a8', '#1f9a74', '#0e4f3b', '#06261c'],g:['#fff6c2','#ffd54a','#c98d0a']},slate:{b:['#5f7a99', '#3b536e', '#1c2b3b', '#0b121a'],g:['#fff6c2','#ffd54a','#c98d0a']}};
 var LB=['เร็ว','เลี้ยง','ยิง','รับ','จ่าย','แกร่ง'],KEY='fc_roster_v1',T=TH.red,roster=[],ci=0,imgs={};
 function rs(){return [0,0,0,0,0,0].map(function(){return 60+Math.floor(Math.random()*36)})}
-function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),name:'',pos:'',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',pat:['flame','plain','stripes','hex','diamond','stars','bolt','waves','rings','pitch'][Math.floor(Math.random()*10)],auto:true,photo:'',zoom:100,ox:0,oy:0}}
+function rk(){var s='';try{var a=new Uint8Array(20);crypto.getRandomValues(a);for(var i=0;i<a.length;i++)s+=('0'+a[i].toString(16)).slice(-2)}catch(e){}while(s.length<32)s+=Math.random().toString(36).slice(2);return s.slice(0,40)}/* รหัสเจ้าของการ์ด: สร้างในเครื่อง ส่งให้เซิร์ฟเวอร์เก็บเป็นแฮช */
+function mk(){return{id:'p'+Date.now()+Math.floor(Math.random()*999),key:rk(),name:'',pos:'',ovr:0,st:[0,0,0,0,0,0],rev:false,theme:'red',pat:['flame','plain','stripes','hex','diamond','stars','bolt','waves','rings','pitch'][Math.floor(Math.random()*10)],auto:true,photo:'',zoom:100,ox:0,oy:0}}
 try{localStorage.removeItem(KEY)}catch(e){}roster=[];/* เริ่มว่างทุกครั้ง: ล้างข้อมูลที่เคยค้างในเครื่อง ไม่โหลดกลับมา */
 if(!roster.length)roster=[mk()];
 function cur(){return roster[ci]}
@@ -984,7 +985,7 @@ function chk(r){return r.json().then(function(j){if(!j.ok)throw new Error(j.erro
 if(name==='getCards')return fetch(API+'?action=getCards').then(chk);
 if(name==='getBoard')return fetch(API+'?action=getBoard').then(chk);
 if(name==='getImage')return fetch(API+'?action=getImage&id='+encodeURIComponent(args[0])+(args[1]?'&t=1':'')).then(chk);
-var body=name==='saveCard'?{action:'saveCard',rec:args[0]}:{action:'saveCardImage',id:args[0],png:args[1]};
+var body=name==='saveCard'?{action:'saveCard',rec:args[0]}:{action:'saveCardImage',id:args[0],png:args[1],key:args[2]};
 return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(chk)}
 var MATCH=null,UCL=null;
 function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=((b&&b.cards)||[]).map(function(c){c.st=(c.st||[]).map(function(n){return Math.round(n)});return c});MATCH=(b&&b.match)||null;UCL=(b&&b.ucl)||null;DB=true;drawTeams();drawUcl()},function(){DB=false;drawTeams()})}
@@ -1109,8 +1110,8 @@ async function saveCard(re){
 if(saving)return;var p=cur();
 if(!(p.name||'').trim()){nmOpen();toast('กรุณาพิมพ์ชื่อก่อนบันทึก');return}
 if(!p.photo){var pe=$('#pherr');pe.style.display='block';$('#cw').style.outline='3px solid #d33';$('#cw').style.outlineOffset='-4px';try{$('#cw').scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}toast('กรุณาเพิ่มรูปผู้เล่นก่อนบันทึก');$('#file').click();return}
-saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
-var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,hasPhoto:true},first=!p.rev,gas=inGAS(),stp=0;
+if(!p.key)p.key=rk();saving=true;svRe=!!re;var btn=$('#sv');btn.disabled=true;
+var rec={id:p.id,name:fn(p.name),pos:p.pos,theme:p.theme,reroll:!!re,key:p.key},first=!p.rev,gas=inGAS(),stp=0;
 svOpen([first?'สุ่มตำแหน่ง ค่าพลัง และทีม':'บันทึกข้อมูลผู้เล่น','สร้างรูปการ์ด'].concat(gas?['เก็บรูปการ์ดลงระบบกลาง']:[]));
 if(first)startSpin();
 try{
@@ -1123,7 +1124,7 @@ stopSpin();save();render();fillList();svStep(0,'ok');
 stp=1;svStep(1,'act');await Promise.race([autoDl(),wait(8000)]);svStep(1,'ok');
 var tn=tName(r.team),warn='';
 if(gas){stp=2;svStep(2,'act');try{if(document.fonts&&document.fonts.load)await Promise.all([document.fonts.load('500 14px Kanit','เร็วเลี้ยงยิงรับจ่ายแกร่ง'),document.fonts.load('700 44px Kanit',p.name||'ก'),document.fonts.load('700 32px "Barlow Condensed"','0123456789')])}catch(_){}render(true);var png=cv.toDataURL('image/png');render(false);
-try{await tmo(run('saveCardImage',[p.id,png]),90000,'หมดเวลา');delete vcCache[p.id];delete BKT[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');throw new Error('เก็บรูปการ์ดลงระบบกลางไม่สำเร็จ ('+((e2&&e2.message)||'ไม่ทราบสาเหตุ')+')')}
+try{await tmo(run('saveCardImage',[p.id,png,p.key]),90000,'หมดเวลา');delete vcCache[p.id];delete BKT[p.id];svStep(2,'ok')}catch(e2){svStep(2,'bad');throw new Error('ยังไม่ได้บันทึกการ์ด เพราะเก็บรูปการ์ดลงระบบกลางไม่สำเร็จ ('+((e2&&e2.message)||'ไม่ทราบสาเหตุ')+')')}
 refresh()}else drawTeams();
 toast(gas?'บันทึกแล้ว · '+tn:'บันทึกในเครื่องแล้ว · '+tn);
 svEnd('done','บันทึกเรียบร้อย',warn||(first?'ระบบสุ่มค่าพลังและทีมให้แล้ว':'อัปเดตข้อมูลการ์ดแล้ว'),'<b style="color:'+tCol(r.team)+'">● '+tn+'</b><span>ค่าพลังรวม <b>'+p.ovr+'</b></span>','ตกลง')
