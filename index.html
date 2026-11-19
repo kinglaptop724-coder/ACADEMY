@@ -460,7 +460,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <div class="f"><div class="lb">ตำแหน่ง</div><div id="pos" style="padding:11px 14px;border:1.5px dashed var(--bd);border-radius:12px;font-size:15px"></div></div>
 </div>
 <div class="card" id="phc"><div class="ch"><span class="n">1</span>รูปผู้เล่น</div>
-<label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>ระบบจะลบพื้นหลังให้อัตโนมัติ จากนั้นลากครอปส่วนที่ต้องการ<br><b style="color:#d33">⚠ ต้องเป็นรูปของตนเองเท่านั้น ไม่เช่นนั้นระบบจะลบการ์ดออก</b></small></span></label>
+<label class="drop" id="drop" style="display:none"><input type="file" id="file" accept="image/*" hidden><img id="thm" alt=""><span><b id="dt">เลือกรูป หรือลากรูปมาวาง</b><small>ระบบจะลบพื้นหลังให้อัตโนมัติ จากนั้นลากครอปส่วนที่ต้องการ</small></span></label>
 <div id="adj"><div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><button class="ghost" id="crb">⬚ ครอปรูป</button><button class="ghost" id="bgb" style="display:none">✂ ลบพื้นหลัง</button><button class="ghost" id="bgr" style="display:none">↺ ใช้รูปต้นฉบับ</button><button class="ghost danger" id="rm" style="margin:0 0 0 auto">ลบรูปนี้</button></div></div></div>
 <div class="card"><div class="ch"><span class="n">2</span>สีและลวดลายการ์ด</div><div class="th" id="th"></div><div id="thn" style="font-size:13px;color:var(--mu);margin-top:10px"></div><div style="display:none"><div class="lb">ลวดลายพื้นหลังการ์ด</div><div class="th" id="pt"></div></div></div>
 <div class="card"><div class="ch"><span class="n">3</span>ค้นหาผู้เล่น · ดูทีมของเพื่อน</div>
@@ -619,7 +619,7 @@ function trimAlpha(c){var w=c.width,h=c.height,d=c.getContext('2d').getImageData
 function bgLock(on){Array.prototype.forEach.call(document.body.children,function(el){if(el.id!=='bgm'&&el.id!=='vcm'&&el.id!=='clm'&&el.id!=='svm'&&el.id!=='crm'&&el.tagName!=='SCRIPT')el.inert=on});window.onbeforeunload=on?function(e){e.preventDefault();e.returnValue='';return ''}:null}
 function setBar(v){var bar=document.querySelector('#bgm .bgbar');if(v==null){bar.classList.add('ind');$('#bgf').style.width=''}else{bar.classList.remove('ind');$('#bgf').style.width=Math.max(2,Math.round(v*100))+'%'}}
 function bgSet(st,src,msg){var m=$('#bgm');m.style.display='flex';m.dataset.st=st;if(src)$('#bgi').src=src;
-var T={ask:['ต้องลบพื้นหลังรูปก่อนใช้งาน','ระบบจะตัดเฉพาะตัวผู้เล่นไว้ให้ (ทำในเครื่องนี้ ไม่ส่งรูปออกไปที่ไหน)\n\n⚠ ต้องเป็นรูปของตนเองเท่านั้น หากไม่ใช่รูปตนเอง ระบบจะลบการ์ดของท่านออก'],work:['กำลังลบพื้นหลัง…','กรุณารอสักครู่ ห้ามปิดหน้านี้หรือกดปุ่มอื่นจนกว่าจะเสร็จ'],err:['ลบพื้นหลังไม่สำเร็จ',msg||'ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ (ต้องลบพื้นหลังสำเร็จจึงจะใช้รูปได้)']}[st];
+var T={ask:['ต้องลบพื้นหลังรูปก่อนใช้งาน','ระบบจะตัดเฉพาะตัวผู้เล่นไว้ให้ (ทำในเครื่องนี้ ไม่ส่งรูปออกไปที่ไหน)'],work:['กำลังลบพื้นหลัง…','กรุณารอสักครู่ ห้ามปิดหน้านี้หรือกดปุ่มอื่นจนกว่าจะเสร็จ'],err:['ลบพื้นหลังไม่สำเร็จ',msg||'ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ (ต้องลบพื้นหลังสำเร็จจึงจะใช้รูปได้)']}[st];
 $('#bgt').textContent=T[0];$('#bgd').textContent=T[1];$('#bgy').textContent=st=='err'?'↻ ลองใหม่':'✂ รับทราบ · ลบพื้นหลัง';$('#bgn').style.display='none';$('#bgd').style.whiteSpace='pre-line';
 $('#bgs').textContent=st=='work'?'กำลังเตรียม…':'';setBar(null);
 if(st!='work')setTimeout(function(){$('#bgy').focus()},30)}
@@ -631,7 +631,7 @@ var blob=await rb(q.src,{model:'isnet_quint8',output:{format:'image/png'},progre
 var bm=await createImageBitmap(blob),c=document.createElement('canvas');c.width=bm.width;c.height=bm.height;c.getContext('2d').drawImage(bm,0,0);
 var t=trimAlpha(c);if(!t)throw new Error('noperson');
 var p=q.p;if(q.isNew)orig[p.id]=q.src;base[p.id]=t.toDataURL('image/png');bgBusy=false;bgClose();crOpen(p,base[p.id],true);toast('ลบพื้นหลังเรียบร้อย')
-}catch(e){console.error(e);bgBusy=false;bgSet('err',null,(e&&e.message=='noperson')?'ไม่พบตัวคนในรูป กรุณาใช้รูปของตนเองที่เห็นตัวชัดเจน':null)}}
+}catch(e){console.error(e);bgBusy=false;var p2=q.p,s2=q.src;bgClose();crOpen(p2,s2,true);toast('ลบพื้นหลังไม่สำเร็จ ใช้รูปต้นฉบับแทน')}}
 $('#bgy').onclick=bgRun;
 $('#bgn').onclick=function(){};
 $('#bgc').onclick=bgClose;
