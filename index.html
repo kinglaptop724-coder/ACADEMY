@@ -768,11 +768,12 @@ var q=(($('#q')||{}).value||'').trim().toLowerCase();
 var R=all.filter(function(x){if(TF>=0){if(x.team!==TF)return false}else if(!q&&!(okT(x.team)&&tLg(x.team)==LG))return false;if(!q)return true;var tn=okT(x.team)?tName(x.team).toLowerCase():'';return x.name.toLowerCase().indexOf(q)>=0||tn.indexOf(q)>=0});
 var pm={};R.slice().sort(function(a,b){return ((b.pv==null?b.ovr:b.pv)-(a.pv==null?a.ovr:a.pv))||((a.t||0)-(b.t||0))}).forEach(function(x,i){pm[x.id]=i+1});
 if(!q&&TF<0)R=R.slice(0,20);R.forEach(function(x,i){x.rk=i+1;x.mv=pm[x.id]-x.rk});
+function pmv(id){if(!PRO||!PRO.m||!PRO.at||Date.now()-PRO.at>36*36e5)return '';for(var i=0;i<PRO.m.length;i++){var q=PRO.m[i];if(q[0]==id&&q[1]!==q[2])return q[2]<q[1]?'<span class="mv up" title="เลื่อนชั้นจากลีก '+(q[1]+1)+'">⬆ ลีก '+(q[1]+1)+'→'+(q[2]+1)+'</span>':'<span class="mv dn" title="ตกชั้นจากลีก '+(q[1]+1)+'">⬇ ลีก '+(q[1]+1)+'→'+(q[2]+1)+'</span>'}return ''}
 function mvh(d){return d>0?'<span class="mv up">▲'+d+'</span>':d<0?'<span class="mv dn">▼'+(-d)+'</span>':'<span class="mv eq">–</span>'}
 function lgFade(){var g=$('#lgs');if(!g)return;g.classList.toggle('fl',g.scrollLeft>2);g.classList.toggle('fr',g.scrollLeft+g.clientWidth<g.scrollWidth-2)}
 function tm(x){return okT(x.team)?'<span style="color:'+tCol(x.team)+';font-weight:600">● '+tName(x.team)+'</span>':'-'}
 var sl=$('#shl');if(sl)sl.textContent=q?'ผลการค้นหา':(TF>=0?'ผู้เล่น · '+tName(TF)+' (แตะแถวทีมซ้ำเพื่อดูทั้งลีก)':'ผู้เล่นทั้งลีก');
-el.innerHTML=R.length?'<table><tr><th>อันดับ</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>รวม</th>'+LB.map(function(l){return '<th>'+l+'</th>'}).join('')+'</tr>'+R.map(function(x){return '<tr class="vw'+(x.id==id?' me':'')+'" data-id="'+esc(x.id)+'"><td style="white-space:nowrap">'+(M[x.rk-1]||x.rk)+mvh(x.mv)+'</td><td>'+esc(x.name)+'</td><td>'+esc(x.pos)+'</td><td>'+x.ovr+'</td>'+x.st.map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>':'<div style="padding:14px;font-size:13px;color:var(--mu);text-align:center">'+(all.length?'ไม่พบผู้เล่นที่ค้นหา':'ยังไม่มีข้อมูล กด “บันทึก” เพื่อเข้าสู่ตารางอันดับ')+'</div>';Array.prototype.forEach.call(el.querySelectorAll('tr.vw'),function(r){r.onclick=function(){viewCard(r.dataset.id)}});drawMatches()}
+el.innerHTML=R.length?'<table><tr><th>อันดับ</th><th>ชื่อ</th><th>ตำแหน่ง</th><th>รวม</th>'+LB.map(function(l){return '<th>'+l+'</th>'}).join('')+'</tr>'+R.map(function(x){return '<tr class="vw'+(x.id==id?' me':'')+'" data-id="'+esc(x.id)+'"><td style="white-space:nowrap">'+(M[x.rk-1]||x.rk)+mvh(x.mv)+'</td><td>'+esc(x.name)+pmv(x.id)+'</td><td>'+esc(x.pos)+'</td><td>'+x.ovr+'</td>'+x.st.map(function(v){return '<td>'+v+'</td>'}).join('')+'</tr>'}).join('')+'</table>':'<div style="padding:14px;font-size:13px;color:var(--mu);text-align:center">'+(all.length?'ไม่พบผู้เล่นที่ค้นหา':'ยังไม่มีข้อมูล กด “บันทึก” เพื่อเข้าสู่ตารางอันดับ')+'</div>';Array.prototype.forEach.call(el.querySelectorAll('tr.vw'),function(r){r.onclick=function(){viewCard(r.dataset.id)}});drawMatches()}
 
 var MCS=false;
 function mcOpen(){$('#mcm').style.display='flex'}
@@ -792,7 +793,7 @@ if(x.r==='พักรอบ'){h+='<div class=\"mt by'+(x.h===mt?' me':'')+'\"><
 var hw=x.hs>x.as,aw=x.as>x.hs;
 h+='<div class=\"mt'+((x.h===mt||x.a===mt)?' me':'')+'\"><span class=\"tm r'+(hw?' w':'')+'\">'+(hw?'<span class=\"up\">+1</span>':'')+nm(x.h)+' '+dot(x.h)+'</span><span class=\"sc\">'+x.hs+' - '+x.as+'</span><span class=\"tm'+(aw?' w':'')+'\">'+dot(x.a)+nm(x.a)+(aw?'<span class=\"up\">+1</span>':'')+'</span></div>'})});
 $('#ml').innerHTML=h;$('#mrn').textContent=m.round;
-var nx=new Date(m.next);$('#mnx').textContent='ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ทีมที่ชนะได้ค่าพลังทุกด้าน +1 (เสมอไม่เพิ่ม) แล้วจัดอันดับใหม่ · '+(m.next>Date.now()?'แข่งรอบต่อไป '+nx.toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'แข่งรอบใหม่เร็ว ๆ นี้');
+var nx=new Date(m.next);$('#mnx').textContent='ชื่อทีม = ผู้เล่นที่พลังสูงสุดในทีม · ทีมที่ชนะได้ค่าพลังทุกด้าน +1 (เสมอไม่เพิ่ม) แล้วจัดอันดับใหม่ · '+(m.next>Date.now()?'แข่งรอบต่อไป '+nx.toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.':'แข่งรอบใหม่เร็ว ๆ นี้')+(PRO&&PRO.every?' · เรียงลีกตามค่าพลัง เลื่อน/ตกชั้นทุก '+PRO.every+' รอบ'+(UCL&&UCL.status==='active'?' (พักระหว่าง UCL)':(m.round&&PRO.next>m.round?' (อีก '+(PRO.next-m.round)+' รอบ)':' (รอบหน้า)')):'');
 if(b)b.style.display='';mcAuto()}
 /* ===== UCL (แข่งข้ามลีก) ===== */
 function evr(x){x=+x||24;return x%24===0?(x/24)+' วัน':x+' ชั่วโมง'}
@@ -1026,8 +1027,8 @@ google.accounts.id.renderButton(el,{theme:'outline',size:'large',shape:'pill',te
 function onCred(r){var m=$('#acm');if(m)m.textContent='กำลังเข้าสู่ระบบ…';
 run('userLogin',[r.credential]).then(function(d){SES={t:d.token,e:d.email,x:d.exp};sessSave();accDraw();toast('ล็อกอินแล้ว · '+d.email)},function(e){var m2=$('#acm');if(m2)m2.textContent='ล็อกอินไม่สำเร็จ: '+((e&&e.message)||'ลองอีกครั้ง')})}
 function needLogin(){var a=$('#acc');toast('กรุณาเข้าสู่ระบบด้วย Gmail ก่อนบันทึกการ์ด');if(!a)return;a.classList.add('fl');try{a.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}setTimeout(function(){a.classList.remove('fl')},2500)}
-var MATCH=null,UCL=null;
-function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=((b&&b.cards)||[]).map(function(c){c.st=(c.st||[]).map(function(n){return Math.round(n)});return c});MATCH=(b&&b.match)||null;UCL=(b&&b.ucl)||null;DB=true;drawTeams();drawUcl()},function(){DB=false;drawTeams()})}
+var MATCH=null,UCL=null,PRO=null;
+function refresh(){return run('getBoard').catch(function(){return run('getCards').then(function(a){return{cards:a}})}).then(function(b){ALL=((b&&b.cards)||[]).map(function(c){c.st=(c.st||[]).map(function(n){return Math.round(n)});return c});MATCH=(b&&b.match)||null;UCL=(b&&b.ucl)||null;PRO=(b&&b.promo)||null;DB=true;drawTeams();drawUcl()},function(){DB=false;drawTeams()})}
 /* ===== ระบบแอดมิน (รหัสอยู่ในชีตแท็บ "แอดมิน") ===== */
 var ADM={tok:'',list:[],q:'',lg:'',ed:null,cap:11,max:99,busy:false};
 function ai(p,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||18)+'" height="'+(sz||18)+'" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
