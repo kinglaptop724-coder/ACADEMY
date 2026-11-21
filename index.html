@@ -277,7 +277,7 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 <meta name="apple-mobile-web-app-title" content="การ์ดนักเตะ"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 #adm{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(20,8,10,.78)}
-#adm .bgb{position:relative;display:flex;flex-direction:column;padding:0;width:100%;max-width:560px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:hidden;text-align:left;border-radius:20px;border:1.5px solid #d9a520}
+#adm .bgb{position:relative;display:flex;flex-direction:column;padding:0;width:100%;max-width:640px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:hidden;text-align:left;border-radius:20px;border:1.5px solid #d9a520}
 #adc{display:flex;flex-direction:column;min-height:0;flex:1}
 #adm svg{display:block;flex:none}
 #adm .ax{position:absolute;top:11px;right:12px;z-index:2;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
@@ -419,10 +419,11 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #ucm .ucnx{font-size:12.5px;color:var(--mu);margin:8px 2px 0}
 #adcf .aspin{width:26px;height:26px;border:3.5px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:vcsp .8s linear infinite}
 #adcf .ci.ok{background:var(--ac2);color:var(--ac)}
-#adm .ahd,#adm .ar{display:grid;grid-template-columns:22px minmax(0,1fr) 42px 54px 34px 30px;align-items:center;gap:8px;padding:0 14px}
+#adm .ahd,#adm .ar{display:grid;grid-template-columns:22px minmax(0,1fr) minmax(0,1.3fr) 42px 54px 34px 30px;align-items:center;gap:8px;padding:0 14px}
 #adm .ahd{position:sticky;top:0;z-index:1;height:30px;font-size:11px;color:var(--mu);background:var(--in);border-bottom:1px solid var(--bd)}
-#adm .ahd span:nth-child(n+3){text-align:center}
+#adm .ahd span:nth-child(n+4){text-align:center}
 #adm .ar{height:44px;border-bottom:1px solid var(--bd);background:var(--pn)}#adm .ar:hover{background:var(--in)}
+#adm .aem{font-size:12px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#adm .aem.no{opacity:.55}
 #adm .ark{text-align:center;font-size:12px;font-weight:600;color:var(--mu)}
 #adm .anm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}#adm .anm:hover{text-decoration:underline}
 #adm .apc{text-align:center}#adm .app{display:inline-block;background:var(--ac2);color:var(--ac);font-weight:600;border-radius:6px;padding:1px 6px;font-size:11px;letter-spacing:.3px}
@@ -430,7 +431,8 @@ input.bad{border-color:#d33!important;box-shadow:0 0 0 3px rgba(221,51,51,.15)}i
 #adm .aov{text-align:center;font-size:15px;font-weight:700;color:var(--ac)}
 #adm .ib{width:30px;height:30px;border-radius:8px;border:0;background:none;color:var(--mu);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
 #adm .ib:hover{color:#d62839;background:rgba(214,40,57,.1)}#adm .ib:active{transform:scale(.92)}
-@media(max-width:400px){#adm .nn{display:none}#adm .ark,#adm .ahd span:first-child{display:none}#adm .ahd,#adm .ar{grid-template-columns:minmax(0,1fr) 42px 54px 34px 30px;gap:6px;padding:0 10px}#adm .tl{grid-template-columns:1fr 112px}}
+@media(max-width:520px){#adm .ahd,#adm .ar{grid-template-columns:22px minmax(0,1fr) 42px 54px 34px 30px}#adm .ahd .aem{display:none}#adm .ar{height:auto;min-height:50px;padding-top:5px;padding-bottom:5px}#adm .ar>*{grid-row:1}#adm .ar>.aem{grid-row:2;grid-column:2/-1;margin-top:-4px;font-size:11.5px}}
+@media(max-width:400px){#adm .ar>.aem{grid-column:1/-1}#adm .nn{display:none}#adm .ark,#adm .ahd span:first-child{display:none}#adm .ahd,#adm .ar{grid-template-columns:minmax(0,1fr) 42px 54px 34px 30px;gap:6px;padding:0 10px}#adm .tl{grid-template-columns:1fr 112px}}
 #admb,#insb{margin-left:auto;flex:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,216,77,.55);border-radius:50%;background:rgba(255,255,255,.12);color:#ffd84d;cursor:pointer;padding:0;position:relative;z-index:1}#admb:hover,#insb:hover{background:rgba(255,255,255,.22)}#admb:active,#insb:active{transform:scale(.94)}#insb[hidden]{display:none}#insb+#admb{margin-left:8px}
 #lgs{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 2px 6px}
 #lgs::-webkit-scrollbar{display:none}
@@ -1056,7 +1058,7 @@ function admRows(){var q=ADM.q.trim().toLowerCase();
 var L=ADM.list.filter(function(m){if(ADM.lg!==''&&!(okT(m.team)&&tLg(m.team)==ADM.lg))return false;if(!q)return true;return m.name.toLowerCase().indexOf(q)>=0||(m.email||'').toLowerCase().indexOf(q)>=0||(okT(m.team)&&tName(m.team).toLowerCase().indexOf(q)>=0)||m.pos.toLowerCase()===q});
 L.sort(function(a,b){return (b.ovr-a.ovr)||(a.created-b.created)});
 var box=$('#adlst');
-box.innerHTML=L.length?'<div class="ahd"><span>#</span><span>ชื่อ</span><span>ตำแหน่ง</span><span>ลีก·ทีม</span><span>พลัง</span><span></span></div>'+L.slice(0,150).map(function(m,i){var ok=okT(m.team);return '<div class="ar"><span class="ark">'+(i+1)+'</span><span class="anm" data-v="'+esc(m.id)+'" role="button" tabindex="0" title="กดเพื่อดูการ์ด: '+esc(m.name)+(m.email?' · '+esc(m.email):'')+'">'+esc(m.name)+'</span><span class="apc"><span class="app">'+esc(m.pos)+'</span></span><span class="atc"'+(ok?' title="'+tName(m.team)+'"':'')+'>'+(ok?'<i style="background:'+tCol(m.team)+'"></i>'+(tLg(m.team)+1)+'·'+LET.charAt(m.team%LEAGUE_TEAMS):'-')+'</span><span class="aov">'+m.ovr+'</span><button type="button" class="ib" data-d="'+esc(m.id)+'" aria-label="ลบ '+esc(m.name)+'" title="ลบ">'+ai(AI.del,17)+'</button></div>'}).join(''):'<div class="em">ไม่พบสมาชิก</div>';
+box.innerHTML=L.length?'<div class="ahd"><span>#</span><span>ชื่อ</span><span class="aem">อีเมล</span><span>ตำแหน่ง</span><span>ลีก·ทีม</span><span>พลัง</span><span></span></div>'+L.slice(0,150).map(function(m,i){var ok=okT(m.team);return '<div class="ar"><span class="ark">'+(i+1)+'</span><span class="anm" data-v="'+esc(m.id)+'" role="button" tabindex="0" title="กดเพื่อดูการ์ด: '+esc(m.name)+(m.email?' · '+esc(m.email):'')+'">'+esc(m.name)+'</span><span class="aem'+(m.email?'':' no')+'"'+(m.email?' title="'+esc(m.email)+'"':'')+'>'+(m.email?esc(m.email):'-')+'</span><span class="apc"><span class="app">'+esc(m.pos)+'</span></span><span class="atc"'+(ok?' title="'+tName(m.team)+'"':'')+'>'+(ok?'<i style="background:'+tCol(m.team)+'"></i>'+(tLg(m.team)+1)+'·'+LET.charAt(m.team%LEAGUE_TEAMS):'-')+'</span><span class="aov">'+m.ovr+'</span><button type="button" class="ib" data-d="'+esc(m.id)+'" aria-label="ลบ '+esc(m.name)+'" title="ลบ">'+ai(AI.del,17)+'</button></div>'}).join(''):'<div class="em">ไม่พบสมาชิก</div>';
 var n=$('#adn');if(n)n.textContent='แสดง '+Math.min(L.length,150)+' จาก '+ADM.list.length+' คน';
 Array.prototype.forEach.call(box.querySelectorAll('[data-d]'),function(b){b.onclick=function(){admDel(b.dataset.d)}});Array.prototype.forEach.call(box.querySelectorAll('[data-v]'),function(b){b.onclick=function(){viewCard(b.dataset.v)};b.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();viewCard(b.dataset.v)}}})}
 function admAsk(t,msg,ok,fn,icon,danger){var c=$('#adcf'),dg=danger!==false;
