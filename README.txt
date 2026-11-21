@@ -45,3 +45,13 @@ UCL รอบแบ่งกลุ่ม
 - การ์ดเก่าที่สร้างก่อนอัปเดตไม่มีรหัสเจ้าของ → นักเรียนแก้ผ่านเว็บไม่ได้ ให้แอดมินแก้ในหน้าแอดมิน
 - ครั้งแรกหลังอัปเดต: รัน setup 1 ครั้ง แล้วรัน listImagelessCards เพื่อดูแถวเก่าที่ไม่มีรูป และ purgeImagelessCards เพื่อลบ (หรือใช้เมนู ⚽ ระบบการ์ด ในชีต) · จากนั้น Deploy > Manage deployments > Edit > New version
 - CARD_PNG_MIN_BYTES (ค่าเริ่มต้น 15000) ปรับได้ถ้ารูปการ์ดจริงของคุณเล็ก/ใหญ่กว่านี้มาก
+
+ล็อกอินด้วย Gmail (บังคับก่อนบันทึกการ์ด · 1 บัญชีสร้างได้ไม่จำกัดใบ)
+- สร้าง OAuth Client ID: Google Cloud Console > APIs & Services > Credentials > Create credentials > OAuth client ID > Web application
+  · Authorized JavaScript origins ใส่ https://ชื่อคุณ.github.io (ไม่ต้องใส่ path) · ต้องตั้งหน้า OAuth consent screen ก่อน (ถ้ายังไม่เคย)
+- วาง Client ID เดียวกันใน 2 ที่: GOOGLE_CLIENT_ID ใน Code.gs (CONFIG) และ GOOGLE_CLIENT_ID ใน index.html
+- จำกัดเฉพาะอีเมลโรงเรียนได้ที่ CONFIG.GOOGLE_ALLOWED_DOMAIN (เว้นว่าง = Gmail ใดก็ได้)
+- Code.gs ใช้ UrlFetchApp ตรวจโทเค็นกับ Google → ต้องรันฟังก์ชัน setup 1 ครั้งเพื่ออนุญาตสิทธิ์ใหม่ แล้ว Deploy > Manage deployments > Edit > New version
+- ระบบเก็บเฉพาะแฮชของรหัสบัญชี Google ไว้เป็นเจ้าของการ์ด (คอลัมน์ รหัสเจ้าของ(แฮช)) ไม่เก็บอีเมลลงชีต · ล็อกอินค้างได้ไม่เกิน 6 ชั่วโมง
+- การ์ดเก่าที่สร้างก่อนเพิ่มระบบนี้ เจ้าของแก้ผ่านเว็บไม่ได้ ให้แอดมินแก้ในหน้าแอดมิน
+- เปิดจากแอป LINE/Facebook ล็อกอิน Google ไม่ได้ ใช้ลิงก์ที่มี ?openExternalBrowser=1
