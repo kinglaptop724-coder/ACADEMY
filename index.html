@@ -737,7 +737,7 @@ function okT(t){return typeof t=='number'&&t>=0}
 function tLg(n){return Math.floor(n/LEAGUE_TEAMS)}
 var LGN=['Premier League','Championship','League One','League Two','National League'];
 function lgS(i){return LGN[i]||'Division '+(i+1)}
-function lgName(i){return 'Academy '+lgS(i)}
+function lgName(i){return 'ACB '+lgS(i)}
 function tName(n){return lgName(tLg(n))+' · ทีม '+LET.charAt(n%LEAGUE_TEAMS)}
 function tSrch(n){return (tName(n)+' ลีก '+(tLg(n)+1)).toLowerCase()}
 function tCol(n){return TPAL[(n%LEAGUE_TEAMS)%TPAL.length]}
