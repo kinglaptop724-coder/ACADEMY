@@ -82,7 +82,7 @@ UCL รอบแบ่งกลุ่ม
 
 
 ชื่อลีก (อัปเดตล่าสุด)
-- หน้าเว็บแสดงชื่อลีกแบบพีระมิดอังกฤษ: ลีก 1 = Academy Premier League · ลีก 2 = Academy Championship · ลีก 3 = Academy League One · ลีก 4 = Academy League Two · ลีก 5 = Academy National League · ลีก 6 ขึ้นไป = Academy Division 6, 7, ...
+- หน้าเว็บแสดงชื่อลีกแบบพีระมิดอังกฤษ: ลีก 1 = ACB Premier League · ลีก 2 = ACB Championship · ลีก 3 = ACB League One · ลีก 4 = ACB League Two · ลีก 5 = ACB National League · ลีก 6 ขึ้นไป = ACB Division 6, 7, ...
 - แก้ชื่อได้ที่ตัวแปร LGN ใน index.html (ลำดับตามลีก 1, 2, 3, ...) · ข้อมูลในชีตยังเก็บเป็น "ลีก 1 · ทีม A" เหมือนเดิม จึงไม่ต้องแก้ Code.gs หรือชีต
 - ช่องค้นหายังพิมพ์ "ลีก 1" หรือ "premier" ได้ทั้งคู่
 - อัปโหลด index.html ใหม่ขึ้น GitHub เท่านั้น
