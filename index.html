@@ -996,7 +996,7 @@ if(name==='getImage')return fetch(API+'?action=getImage&id='+encodeURIComponent(
 var body=name==='saveCard'?{action:'saveCard',rec:args[0],token:args[1]}:name==='userLogin'?{action:'userLogin',idToken:args[0]}:{action:'saveCardImage',id:args[0],png:args[1],token:args[2]};
 return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(chk)}
 /* ===== ล็อกอินด้วย Gmail (Google Identity Services) ===== */
-var GOOGLE_CLIENT_ID='';/* วาง OAuth Client ID ที่นี่ (xxxx.apps.googleusercontent.com) · ต้องตรงกับ GOOGLE_CLIENT_ID ใน Code.gs */
+var GOOGLE_CLIENT_ID='231226130723-pqp59i45tgf1rhtd89l4mqln7sq7jqdi.apps.googleusercontent.com';/* วาง OAuth Client ID ที่นี่ ... */
 var SES={t:'',e:'',x:0},gTry=0;
 try{var _s=JSON.parse(localStorage.getItem('fc_sess')||'null');if(_s&&_s.t&&_s.x>Date.now())SES=_s}catch(e){}
 function sessSave(){try{localStorage.setItem('fc_sess',JSON.stringify(SES))}catch(e){}}
